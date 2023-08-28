@@ -55,6 +55,16 @@ that is the terminal and prompt, do note that the red block is there to cover my
 
 and finally, the neovim config (that's the source code of my other project, [github.com/4rtemis-4rrow/Ash](Ash))
 
+## Neat Features
+
+1. weather module: waybar has a neat little weather module, it will change colors depending on weather condition, and hovering on it will display extra info
+
+2. wifi menu: clicking on the wifi module will display a simple wifi menu that uses wofi, no need to mess with the terminal for wifi now
+
+3. power menu: a simple power menu that also uses wofi, it's there for whoever needs it
+
+4. workspace groups: workspace groups is a simple method that allows you to have a lot more workspaces than usually possible, pressing Super + Alt + N will move you to WSG N, let's say you press Super + Alt + 5, that will set the current WSG to 5, which can have workspaces between 41-50, pressing Super + N would then move you to the Nth workspace in that range, I'm working on a small module for waybar to display the current WSG, but for some reason it's not updating
+
 ## GTK and QT themes + icons
 since this is all based around tokyo night, you'd want something similar too for GTK or QT, or both
 
