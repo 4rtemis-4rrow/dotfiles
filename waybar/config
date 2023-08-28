@@ -1,0 +1,117 @@
+{
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "clock", "custom/weather", "custom/notifications", "tray", "custom/power"],
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+
+    "custom/notifications": {
+	    "format": "󰂚",
+	    "on-click": "swaync-client -t -sw"
+    },
+
+    "custom/weather": {
+        "exec": "python ~/.scripts/weather.py",
+        "restart-interval": 300,
+        "return-type": "json",
+        "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
+        // "format-alt": "{alt}",
+    },
+
+    "clock": {
+        "timezone": "Asia/Amman",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+
+    "memory": {
+        "format": "{}% "
+    },
+
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "~/.scripts/power.sh"
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{signalStrength}% ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "on-click": "sh $HOME/.scripts/wifi.sh"
+    },
+
+    "pulseaudio": {
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+}
+
