@@ -114,8 +114,16 @@ Super + Shift + L  : Move Focused Window Left
 Super + Shift + H  : Move Focused Window Right
 
 -- Workspace Management --
-Super + N          : Switch to Workspace N
+Super + N          : Switch to the Nth workspace
 Super + Shift + N  : Move Current Window to Workspace N
+Super + Alt + N    : switch to workspace group N
+workspace groups (WSG) is a way to have more workspaces than what a keyboard allows
+WSG 1 will have workspaces from 1 to 10
+WSG 2 will have workspaces from 11 to 20, and so on
+switch to a workspace group, then use the Super + N to switch to the Nth workspace in the current WSG
+for example, pressing Super + Alt + 5, and then pressing Super + 3 will set you on workspace 43
+this method allows for up to 100 workspaces to be used, rather than the usual 10
+do note that currently the WSG indicator in waybar is not updating correctly due to an unknown issue, although everything else is working perfectly
 
 -- Window Layout --
 Super + B          : Split Next Window Horizontally

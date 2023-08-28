@@ -31,6 +31,11 @@
         // "format-alt": "{alt}",
     },
 
+    "custom/WSG": {
+            "exec": "cat $HOME/.config/sway/WSGN.txt",
+            "signal": 40,
+        },
+
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
