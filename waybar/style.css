@@ -79,7 +79,6 @@ button:hover {
 #custom-power,
 #custom-notifications,
 #custom-weather,
-#custom-WSG,
 #window,
 #workspaces {
     margin: 0 4px;
@@ -169,12 +168,6 @@ button:hover {
     color: #000000;
     background-color: #bb9af7;
     min-width: 20px;
-}
-
-#custom-WSG {
-    background-color: #bb9af7;
-    color: #000000;
-    padding: 0 5px
 }
 
 #battery.charging, #battery.plugged {

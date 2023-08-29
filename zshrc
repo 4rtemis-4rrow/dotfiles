@@ -6,19 +6,12 @@ export LC_ALL=en_US.UTF-8
 export LESS='-R --use-color -Dd+r$Du+b$'
 export EDITOR='nvim'
 
-
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 zstyle ':omz:update' mode auto
-
 
 plugins=(git
 	zsh-autosuggestions

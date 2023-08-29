@@ -1,5 +1,5 @@
 {
-    "modules-left": ["custom/WSG", "sway/workspaces"],
+    "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
     "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "clock", "custom/weather", "custom/notifications", "tray", "custom/power"],
 
@@ -30,11 +30,6 @@
         "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
         // "format-alt": "{alt}",
     },
-
-    "custom/WSG": {
-            "exec": "cat $HOME/.config/sway/WSGN.txt",
-            "signal": 40,
-        },
 
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
