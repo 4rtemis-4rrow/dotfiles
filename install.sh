@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "swappy" "autotiling" "brightnessctl" "swaybg" "workstyle" "clipman" "python-pyquery" "lsd" "bat" "ranger" "satty-bin" "ripdrag-git")
+packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "swappy" "autotiling" "brightnessctl" "swaybg" "workstyle" "clipman" "python-pyquery" "lsd" "bat" "ranger" "satty-bin" "ripdrag-git" "ripgrep)
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file

@@ -10,6 +10,8 @@ just run this command
 
 it will install the following, clone these dotfiles, and link them to their proper directory (I chose symlinks because it makes it easier to update from this repo)
 
+note: it's designed to work on arch based distros only, I haven't added support for package managers besides yay and paru, if you use any other distro, you'll have to manually install the dependancies as well as manually move the dotfiles
+
 1. swayfx
 2. swaync
 3. waybar
@@ -34,6 +36,7 @@ it will install the following, clone these dotfiles, and link them to their prop
 22. ranger
 23. ripdrag
 24. satty
+24. ripgrep
 
 there might be missing dependancies that I forgot to add here, if you find any, feel free to update the install.sh file, or submit an issue for me to update it
 
@@ -46,10 +49,6 @@ this is the base desktop you get
 ![](../main/Screenshots/Wofi.png)
 
 and that is the application launcher, wofi
-
-![](../main/Screenshots/PowerMenu.png)
-
-a custom power menu made using wofi
 
 ![](../main/Screenshots/SwayNC.png)
 
@@ -64,7 +63,7 @@ that is the terminal and prompt, do note that the red block is there to cover my
 and finally, the neovim config (that's the source code of my other project, [github.com/4rtemis-4rrow/Ash](Ash))
 
 ## GTK and QT themes + icons
-since this is all based around tokyo night, you'd want something similar too for GTK or QT, or both
+since this is all based around tokyo night, you'd want something similar too for GTK or QT, or both, these are just suggestions, choose what you like most
 
 QT:
 
@@ -91,3 +90,4 @@ waybar weather module: https://gist.github.com/Surendrajat/ff3876fd2166dd86fb711
 wofi: https://github.com/Jguer/dotfiles
 
 thanks to these people for the configs/code
+
