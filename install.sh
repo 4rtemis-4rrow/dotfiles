@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "swappy" "autotiling" "brightnessctl" "swaybg" "workstyle" "clipman" "python-pyquery" "lsd" "bat" "ranger")
+packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "swappy" "autotiling" "brightnessctl" "swaybg" "workstyle" "clipman" "python-pyquery" "lsd" "bat" "ranger" "satty-bin" "ripdrag-git")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
@@ -30,6 +30,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/cust
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
+git clone github.com/4rtemis-4rrow/dotfiles
+cd dotfiles
 ln -s kitty/ nvim/ sway/ swaync/ wofi/ waybar/ ~/.config/
 ln -s p10k.zsh ~/.p10k.zsh
 ln -s zshrc ~/.zshrc
