@@ -28,6 +28,9 @@ there is an install.sh script in the dotfiles directory, which will move all the
 20. bat
 21. cless
 22. ranger
+23. ripdrag
+24. satty
+    there might be missing dependancies that I forgot to add here, if you find any, feel free to update the install.sh file, or submit an issue for me to update it
 
 ## Screenshots
 
@@ -55,16 +58,6 @@ that is the terminal and prompt, do note that the red block is there to cover my
 
 and finally, the neovim config (that's the source code of my other project, [github.com/4rtemis-4rrow/Ash](Ash))
 
-## Neat Features
-
-1. weather module: waybar has a neat little weather module, it will change colors depending on weather condition, and hovering on it will display extra info
-
-2. wifi menu: clicking on the wifi module will display a simple wifi menu that uses wofi, no need to mess with the terminal for wifi now
-
-3. power menu: a simple power menu that also uses wofi, it's there for whoever needs it
-
-4. a lot of workspaces: it supports up to 99 workspaces
-
 ## GTK and QT themes + icons
 since this is all based around tokyo night, you'd want something similar too for GTK or QT, or both
 
@@ -91,7 +84,5 @@ swayNC: https://github.com/lvntcnylmz/dotfiles
 waybar weather module: https://gist.github.com/Surendrajat/ff3876fd2166dd86fb71180f4e9342d7
 
 wofi: https://github.com/Jguer/dotfiles
-
-workspace keybindings: https://github.com/EllaTheCat/dopamine-2020
 
 thanks to these people for the configs/code
