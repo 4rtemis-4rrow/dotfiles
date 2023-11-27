@@ -1,6 +1,4 @@
--------------------------------------
-| kitty Keybindings Cheatsheet      |
--------------------------------------
+kitty
 
 -- General --
 Ctrl + Shift + C   : Copy Highlighted Text
@@ -18,10 +16,10 @@ Ctrl + Shift + R   : Start Resizing Windows
 Ctrl + Shift + T   : Create New Tab
 Ctrl + Shift + (Right/Left)  : Change Focused Tab
 Ctrl + Shift + /   : Cycle Through Layouts
+Alt + S            : Enter Neovim With The Current Buffer
 
--------------------------------------
-| Neovim Keymaps Cheatsheet         |
--------------------------------------
+
+Neovim
 
 -- General --
 <Space>         : Leader Key
@@ -60,13 +58,38 @@ J               : Move selected lines down
 <               : Indent selected lines left
 >               : Indent selected lines right
 <leader>s       : search and replace the word under the cursor
+0               : Move cursor to beginning of line
+^               : Move cursor to first non-whitespace character of line
+$               : Move cursor to end of line
+gg              : Move cursor to beginning of the file
+G               : Move cursor to end of the file
+nG              : Move cursor to line number n
+i               : Enter Insert mode before the cursor
+a               : Enter Insert mode after the cursor
+I               : Enter Insert mode at beginning of the line
+A               : Enter Insert mode at the end of the line
+o               : Insert a new line below the current line and enter Insert mode
+O               : Insert a new line above the current line and enter Insert mode
+dd              : Delete the current line
+D               : Delete from the cursor to the end of the line
+C               : Change from the cursor to the end of the line and enter Insert mode
+u               : Undo the last change
+cw              : Change from cursor to end of word and enter Insert mode
+cb              : Change from cursor to beginning of word and enter Insert mode
+v               : Enter Visual mode and select text character by character
+V               : Enter Visual mode and select text line by line
+y               : Yank (copy) the selected line
+d               : Delete the selected text
+c               : Change the selected text and enter Insert mode
+/               : Search forward for a pattern
+?               : Search backward for a pattern
+n               : Repeat the last search in the same direction
+N               : Repeat the last search in the opposite direction
+:%s/pattern/replacement/g      : Replace all occurrences of 'pattern' with 'replacement' in the entire file
 
--------------------------------------
-| Sway Keybindings Cheatsheet       |
--------------------------------------
 
--- General --
-Super (Mod Key) : Windows Key
+
+Sway
 
 -- Launch Applications --
 Super + T          : Start Terminal (kitty)
@@ -100,8 +123,8 @@ Super + Shift + L  : Move Focused Window Left
 Super + Shift + H  : Move Focused Window Right
 
 -- Workspace Management --
-(Super + N) + M          : Switch to the workspace where the tens digit is N and the ones digit is M
-(Super + Shift + N) + M  : Move Current Window to Workspace where the tens digit is N and the ones digit is M
+Super + N          : Switch to workspace N
+Super + Shift + N  : Move Current Window to Workspace N
 
 -- Window Layout --
 Super + B          : Split Next Window Horizontally
@@ -111,9 +134,8 @@ Super + Shift + Space  : Make Current Window Floating
 Super + R          : Enter Resize Mode (use hjkl keys)
 Enter / Escape     : Exit Resize Mode
 
--------------------------------------
-| Ranger Keybindings Cheatsheet      |
--------------------------------------
+
+Ranger
 
 -- Basic Navigation --
 h, ←            : Move left
@@ -213,9 +235,8 @@ K              : Move task down
 <C-k>          : Delete from cursor to the end of the line
 <C-y>          : Paste from clipboard
 
--------------------------------------
-| Vimium Keybindings Cheatsheet     |
--------------------------------------
+
+Vimium
 
 -- Navigating The Current Page --
 ?              : show the help dialog for a list of all available keys

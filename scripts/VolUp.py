@@ -5,9 +5,9 @@ import os
 def get_current_volume():
     try:
         pactl_output = subprocess.check_output(["pactl", "list", "sinks"]).decode("utf-8")
-        volume_match = re.search(r"Volume:.*?(\d+)%", pactl_output, re.DOTALL)
+        volume_match = re.findall(r"Volume:.*?(\d+)%", pactl_output)[2]
         if volume_match:
-            return str(volume_match.group(1))
+            return str(volume_match)
     except subprocess.CalledProcessError:
         pass
     return None

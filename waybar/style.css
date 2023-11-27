@@ -79,6 +79,7 @@ button:hover {
 #custom-power,
 #custom-notifications,
 #custom-weather,
+#custom-network_traffic
 #window,
 #workspaces {
     margin: 0 4px;
@@ -215,10 +216,10 @@ label:focus {
     padding: 0 5px;
 }
 
-#network {
+#custom-network_traffic {
     background-color: #bb9af7;
     color: #000000;
-    padding: 0 8px;
+    padding: 0 2px;
 }
 
 #network.disconnected {

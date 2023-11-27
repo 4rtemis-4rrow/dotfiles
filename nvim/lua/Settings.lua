@@ -9,10 +9,11 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.mouse = 'a'
+--vim.opt.mouse = 'a'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.wrap = true
+vim.opt.linebreak=true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -35,7 +36,5 @@ vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 50
 vim.opt.laststatus=2
-
---vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
