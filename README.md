@@ -30,7 +30,8 @@ there is an install.sh script in the dotfiles directory, which will move all the
 22. ranger
 23. ripdrag
 24. satty
-    there might be missing dependancies that I forgot to add here, if you find any, feel free to update the install.sh file, or submit an issue for me to update it
+
+there might be missing dependancies that I forgot to add here, if you find any, feel free to update the install.sh file, or submit an issue for me to update it
 
 ## Screenshots
 
