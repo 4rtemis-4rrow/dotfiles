@@ -6,7 +6,7 @@ I made this config as my first proper rice after switching from KDE, as a power 
 
 just run this command
 
-`rl -sSL https://raw.githubusercontent.com/4rtemis-4rrow/dotfiles/main/install.sh | sh`
+`curl -sSL https://raw.githubusercontent.com/4rtemis-4rrow/dotfiles/main/install.sh | sh`
 
 it will install the following, clone these dotfiles, and link them to their proper directory (I chose symlinks because it makes it easier to update from this repo)
 
