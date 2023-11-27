@@ -4,7 +4,11 @@ I made this config as my first proper rice after switching from KDE, as a power 
 
 ## Installation
 
-there is an install.sh script in the dotfiles directory, which will move all the dotfiles to their correct places, on arch based distos, dependancies will be installed by the setup script, if you aren't on an arch based distro, install the following then run the setup script
+just run this command
+
+`rl -sSL https://raw.githubusercontent.com/4rtemis-4rrow/dotfiles/main/install.sh | sh`
+
+it will install the following, clone these dotfiles, and link them to their proper directory (I chose symlinks because it makes it easier to update from this repo)
 
 1. swayfx
 2. swaync
