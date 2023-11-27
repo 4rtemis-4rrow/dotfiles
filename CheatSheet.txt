@@ -1,0 +1,301 @@
+kitty
+
+-- General --
+Ctrl + Shift + C   : Copy Highlighted Text
+Ctrl + Shift + V   : Paste Clipboard Content
+
+-- Scrolling --
+Ctrl + J           : Scroll Line Down
+Ctrl + K           : Scroll Line Up
+
+-- Window Management --
+Ctrl + Shift + N   : Create New Window (Split Screen)
+Ctrl + Shift + J   : Focus Next Window
+Ctrl + Shift + K   : Focus Previous Window
+Ctrl + Shift + R   : Start Resizing Windows
+Ctrl + Shift + T   : Create New Tab
+Ctrl + Shift + (Right/Left)  : Change Focused Tab
+Ctrl + Shift + /   : Cycle Through Layouts
+Alt + S            : Enter Neovim With The Current Buffer
+
+
+Neovim
+
+-- General --
+<Space>         : Leader Key
+
+-- Plugins --
+Ctrl+u          : Toggle Undotree
+Ctrl+g          : Toggle Tagbar
+Ctrl+t          : Toggle NERDTree
+Ctrl+f          : Activate Telescope
+Tab             : Next Buffer
+
+-- UI --
+<Leader>sv      : Split Vertically
+<Leader>sh      : Split Horizontally
+Ctrl+↑          : Resize -2 lines
+Ctrl+↓          : Resize +2 lines
+Ctrl+←          : Resize -2 columns (vertical)
+Ctrl+→          : Resize +2 columns (vertical)
+
+-- LSP --
+<Leader>ld      : Go to Definition
+<Leader>lc      : Code Action (fix)
+<Leader>lk      : Hover (show info about the symbol under the cursor)
+<Leader>ls      : Signature Help
+<Leader>lr      : Rename all references to the symbol under the cursor
+<Leader>lf      : Format
+<Leader>xx      : Open Trouble (diagnostics window)
+
+-- Navigation --
+<Leader>h       : Navigate Left
+<Leader>j       : Navigate Down
+<Leader>k       : Navigate Up
+<Leader>l       : Navigate Right
+K               : Move selected lines up
+J               : Move selected lines down
+<               : Indent selected lines left
+>               : Indent selected lines right
+<leader>s       : search and replace the word under the cursor
+0               : Move cursor to beginning of line
+^               : Move cursor to first non-whitespace character of line
+$               : Move cursor to end of line
+gg              : Move cursor to beginning of the file
+G               : Move cursor to end of the file
+nG              : Move cursor to line number n
+i               : Enter Insert mode before the cursor
+a               : Enter Insert mode after the cursor
+I               : Enter Insert mode at beginning of the line
+A               : Enter Insert mode at the end of the line
+o               : Insert a new line below the current line and enter Insert mode
+O               : Insert a new line above the current line and enter Insert mode
+dd              : Delete the current line
+D               : Delete from the cursor to the end of the line
+C               : Change from the cursor to the end of the line and enter Insert mode
+u               : Undo the last change
+cw              : Change from cursor to end of word and enter Insert mode
+cb              : Change from cursor to beginning of word and enter Insert mode
+v               : Enter Visual mode and select text character by character
+V               : Enter Visual mode and select text line by line
+y               : Yank (copy) the selected line
+d               : Delete the selected text
+c               : Change the selected text and enter Insert mode
+/               : Search forward for a pattern
+?               : Search backward for a pattern
+n               : Repeat the last search in the same direction
+N               : Repeat the last search in the opposite direction
+:%s/pattern/replacement/g      : Replace all occurrences of 'pattern' with 'replacement' in the entire file
+
+
+
+Sway
+
+-- Launch Applications --
+Super + T          : Start Terminal (kitty)
+Super + E          : Start File Explorer (ranger)
+Super + W          : Start Web Browser (librewolf)
+Super + Q  : Kill Focused Window
+Super + D          : Run wofi
+Super + Shift + C  : Reload Sway
+Super + Shift + E  : Kill Sway
+
+-- Volume and Audio --
+XF86AudioRaiseVolume    : Increase Volume by 5%
+XF86AudioLowerVolume    : Decrease Volume by 5%
+Super + Shift + M       : Mute Audio
+Brightness Buttons      : Adjust Brightness
+Super + Shift + Equal   : Increase Mic Volume
+Super + Shift + Minus   : Decrease Mic Volume
+
+-- Utility --
+Super + Alt + C    : Execute Basic Calculator Script (wofi)
+Super + Z          : Show Clipman Clipboard (wofi)
+
+-- Navigation and Focus --
+Super + J          : Focus Down
+Super + K          : Focus Up
+Super + L          : Focus Left
+Super + H          : Focus Right
+Super + Shift + J  : Move Focused Window Down
+Super + Shift + K  : Move Focused Window Up
+Super + Shift + L  : Move Focused Window Left
+Super + Shift + H  : Move Focused Window Right
+
+-- Workspace Management --
+Super + N          : Switch to workspace N
+Super + Shift + N  : Move Current Window to Workspace N
+
+-- Window Layout --
+Super + B          : Split Next Window Horizontally
+Super + V          : Split Next Window Vertically
+Super + F          : Set Focused Window to Fullscreen
+Super + Shift + Space  : Make Current Window Floating
+Super + R          : Enter Resize Mode (use hjkl keys)
+Enter / Escape     : Exit Resize Mode
+
+
+Ranger
+
+-- Basic Navigation --
+h, ←            : Move left
+l, →            : Move right
+j, ↓            : Move down
+k, ↑            : Move up
+gg             : Jump to the top
+G              : Jump to the bottom
+n, Space       : Scroll down
+p, b, <C-B>    : Scroll up
+d              : Half-scroll down
+u              : Half-scroll up
+q, <F10>       : Quit Ranger
+
+-- File Operations --
+yy             : Yank (copy) file/directory path
+dd             : Cut (delete) file/directory
+pp             : Paste (copy/move) files from clipboard
+phl            : Paste hardlink from clipboard
+pht            : Paste hardlinked subtree from clipboard
+pl             : Paste symlink (absolute path) from clipboard
+pL             : Paste symlink (relative path) from clipboard
+pd             : Paste into current directory
+.              : Filter stack options (e.g., .d for directories)
+:              : Enter console mode
+
+-- Search and Marking --
+/              : Enter search mode
+n              : Find next
+N              : Find previous
+t              : Toggle tag on the current file
+ut             : Untag the current file
+v              : Toggle visual mode for marking files
+m<bg>          : Set a bookmark (replace <bg> with a key)
+um<bg>         : Unset a bookmark
+`<bg>          : Go to a bookmark
+'<bg>          : Go to a bookmark and focus the right split
+.              : Filter stack operations
+
+-- Tabs --
+<C-n>          : Open a new tab
+<C-w>          : Close the current tab
+<C-a>          : Jump to the first tab
+<C-e>          : Jump to the last tab
+gt             : Move to the next tab
+gT             : Move to the previous tab
+
+-- Other --
+zh             : Toggle showing hidden files
+zi             : Toggle preview images
+zm             : Toggle mouse support
+zp             : Toggle preview files
+zp             : Toggle preview directories
+zc             : Toggle collapsing previews
+zd             : Toggle sorting directories first
+zf             : Filter files based on input
+gR             : Go to the Ranger configuration directory
+gd             : Go to /dev directory
+gr             : Go to root directory
+<C-d>          : drag and drop
+
+-- Pager (Viewing Files) --
+←↑↓→           : Navigation
+gg             : Jump to the top
+G              : Jump to the bottom
+n              : Scroll down
+p, b, <C-B>    : Scroll up
+<C-d>          : Half-scroll down
+<C-u>          : Half-scroll up
+<C-l>          : Redraw the pager
+<ESC>          : Close the pager
+
+-- Taskview --
+←↑↓→           : Navigation
+gg             : Jump to the top
+G              : Jump to the bottom
+n              : Scroll down
+p, b, <C-B>    : Scroll up
+<C-d>          : Half-scroll down
+<C-u>          : Half-scroll up
+J              : Move task up
+K              : Move task down
+
+-- Console Mode --
+<ESC>          : Close the console
+<CR>           : Execute the command
+<C-l>          : Redraw the console
+<C-p>          : Access previous command in history
+<C-n>          : Access next command in history
+<C-b>          : Move cursor left
+<C-f>          : Move cursor right
+<C-a>          : Move cursor to the beginning of the line
+<C-e>          : Move cursor to the end of the line
+<C-w>          : Delete word before the cursor
+<C-d>          : Delete character at the cursor
+<C-u>          : Delete from cursor to the beginning of the line
+<C-k>          : Delete from cursor to the end of the line
+<C-y>          : Paste from clipboard
+
+
+Vimium
+
+-- Navigating The Current Page --
+?              : show the help dialog for a list of all available keys
+h              : scroll left
+j              : scroll down
+k              : scroll up
+l              : scroll right
+gg             : scroll to top of the page
+G              : scroll to bottom of the page
+d              : scroll down half a page
+u              : scroll up half a page
+f              : open a link in the current tab
+F              : open a link in a new tab
+r              : reload
+gs             : view source
+i              : enter insert mode -- all commands will be ignored until you hit Esc to exit
+yy             : copy the current url to the clipboard
+yf             : copy a link url to the clipboard
+gf             : cycle forward to the next frame
+gF             : focus the main/top frame
+
+-- Navigating To New Pages --
+o              : Open URL, bookmark, or history entry
+O              : Open URL, bookmark, history entry in a new tab
+b              : Open bookmark
+B              : Open bookmark in a new tab
+
+-- Navigating History --
+H              : go back in history
+L              : go forward in history
+
+-- Manipulating Tabs --
+J, gT          : go one tab left
+K, gt          : go one tab right
+g0             : go to the first tab. Use ng0 to go to n-th tab
+g$             : go to the last tab
+^              : visit the previously-visited tab
+t              : create tab
+yt             : duplicate current tab
+x              : close current tab
+X              : restore closed tab (i.e. unwind the 'x' command)
+T              : search through your open tabs
+W              : move current tab to new window
+<a-p>          : pin/unpin current tab
+
+-- Using Marks --
+ma, mA         : set local mark "a" (global mark "A")
+`a, `A         : jump to local mark "a" (global mark "A")
+``             : jump back to the position before the previous jump
+
+-- Additional advanced browsing commands --
+]], [[         : Follow the link labeled 'next' or '>' ('previous' or '<')
+<a-f>          : open multiple links in a new tab
+gi             : focus the first (or n-th) text input box on the page. Use <tab> to cycle through options.
+gu             : go up one level in the URL hierarchy
+gU             : go up to root of the URL hierarchy
+ge             : edit the current URL
+gE             : edit the current URL and open in a new tab
+zH             : scroll all the way left
+zL             : scroll all the way right
+v              : enter visual mode; use p/P to paste-and-go, use y to yank
+V              : enter visual line mode
