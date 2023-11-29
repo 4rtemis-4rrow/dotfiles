@@ -19,7 +19,7 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 --LSP--
 
 vim.keymap.set('n', "<leader>ld", function() vim.lsp.buf.definition() end, opts)
-vim.keymap.set('n', "<leader>lc", function() vim.lsp.buf.code_action() end, opts)
+vim.keymap.set('n', "<leader>lc", vim.cmd.CodeActionMenu)
 vim.keymap.set('n', '<leader>lk', function() vim.lsp.buf.hover() end, opts)
 vim.keymap.set('n', '<leader>lr', function() vim.lsp.buf.rename() end, opts)
 vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.formatting() end, opts)
@@ -39,3 +39,13 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 -- Sniprun --
 vim.keymap.set("v", "<leader>x", "<Cmd>'<,'>SnipRun<CR>")
+
+-- Debugger --
+vim.keymap.set('n', '<leader>db',function() require("dapui").toggle() end, opts)
+vim.keymap.set('n', '<leader>dc', vim.cmd.DapContinue)
+vim.keymap.set('n', '<leader>dr', vim.cmd.DapRestartFrame)
+vim.keymap.set('n', '<leader>di', vim.cmd.DapStepInto)
+vim.keymap.set('n', '<leader>do', vim.cmd.DapStepOut)
+vim.keymap.set('n', '<leader>dv', vim.cmd.DapStepOver)
+vim.keymap.set('n', '<leader>dk', vim.cmd.DapTerminate)
+vim.keymap.set('n', '<leader>dp', vim.cmd.DapToggleBreakpoint)

@@ -1,13 +1,222 @@
 -- treesitter --
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "latex" },
-  sync_install = false,
-  auto_install = true,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "latex", "bash"},
+    sync_install = false,
+    auto_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
 }
+
+-- Dap-UI --
+require("dapui").setup()
+
+-- ale --
+vim.g.ale_echo_cursor = 0
+
+
+-- Noice --
+local noice = require("noice")
+noice.setup({
+    cmdline = {
+        enabled = true, -- enables the Noice cmdline UI
+        view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+        opts = {}, -- global options for the cmdline. See section on views
+        ---@type table<string, CmdlineFormat>
+        format = {
+            -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
+            -- view: (default is cmdline view)
+            -- opts: any options passed to the view
+            -- icon_hl_group: optional hl_group for the icon
+            -- title: set to anything or empty string to hide
+            cmdline = { pattern = "^:", icon = "", lang = "vim" },
+            search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+            search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+            filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
+            lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
+            help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
+            input = {}, -- Used by input()
+            -- lua = false, -- to disable a format, set to `false`
+        },
+    },
+    messages = {
+        -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+        -- This is a current Neovim limitation.
+        enabled = true, -- enables the Noice messages UI
+        view = "notify", -- default view for messages
+        view_error = "notify", -- view for errors
+        view_warn = "notify", -- view for warnings
+        view_history = "messages", -- view for :messages
+        view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+    },
+    popupmenu = {
+        enabled = true, -- enables the Noice popupmenu UI
+        ---@type 'nui'|'cmp'
+        backend = "nui", -- backend to use to show regular cmdline completions
+        ---@type NoicePopupmenuItemKind|false
+        -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
+        kind_icons = {}, -- set to `false` to disable icons
+    },
+    -- default options for require('noice').redirect
+    -- see the section on Command Redirection
+    ---@type NoiceRouteConfig
+    redirect = {
+        view = "popup",
+        filter = { event = "msg_show" },
+    },
+    -- You can add any custom commands below that will be available with `:Noice command`
+    ---@type table<string, NoiceCommand>
+    commands = {
+        history = {
+            -- options for the message history that you get with `:Noice`
+            view = "split",
+            opts = { enter = true, format = "details" },
+            filter = {
+                any = {
+                    { event = "notify" },
+                    { error = true },
+                    { warning = true },
+                    { event = "msg_show", kind = { "" } },
+                    { event = "lsp", kind = "message" },
+                },
+            },
+        },
+        -- :Noice last
+        last = {
+            view = "popup",
+            opts = { enter = true, format = "details" },
+            filter = {
+                any = {
+                    { event = "notify" },
+                    { error = true },
+                    { warning = true },
+                    { event = "msg_show", kind = { "" } },
+                    { event = "lsp", kind = "message" },
+                },
+            },
+            filter_opts = { count = 1 },
+        },
+        -- :Noice errors
+        errors = {
+            -- options for the message history that you get with `:Noice`
+            view = "popup",
+            opts = { enter = true, format = "details" },
+            filter = { error = true },
+            filter_opts = { reverse = true },
+        },
+    },
+    notify = {
+        -- Noice can be used as `vim.notify` so you can route any notification like other messages
+        -- Notification messages have their level and other properties set.
+        -- event is always "notify" and kind can be any log level as a string
+        -- The default routes will forward notifications to nvim-notify
+        -- Benefit of using Noice for this is the routing and consistent history view
+        enabled = true,
+        view = "notify",
+    },
+    lsp = {
+        progress = {
+            enabled = true,
+            -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
+            -- See the section on formatting for more details on how to customize.
+            --- @type NoiceFormat|string
+            format = "lsp_progress",
+            --- @type NoiceFormat|string
+            format_done = "lsp_progress_done",
+            throttle = 1000 / 30, -- frequency to update lsp progress message
+            view = "mini",
+        },
+        override = {
+            -- override the default lsp markdown formatter with Noice
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+            -- override the lsp markdown formatter with Noice
+            ["vim.lsp.util.stylize_markdown"] = false,
+            -- override cmp documentation with Noice (needs the other options to work)
+            ["cmp.entry.get_documentation"] = false,
+        },
+        hover = {
+            enabled = true,
+            silent = false, -- set to true to not show a message if hover is not available
+            view = nil, -- when nil, use defaults from documentation
+            ---@type NoiceViewOptions
+            opts = {}, -- merged with defaults from documentation
+        },
+        signature = {
+            enabled = true,
+            auto_open = {
+                enabled = true,
+                trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+                luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+                throttle = 50, -- Debounce lsp signature help request by 50ms
+            },
+            view = nil, -- when nil, use defaults from documentation
+            ---@type NoiceViewOptions
+            opts = {}, -- merged with defaults from documentation
+        },
+        message = {
+            -- Messages shown by lsp servers
+            enabled = false,
+            view = "notify",
+            opts = {},
+        },
+        -- defaults for hover and signature help
+        documentation = {
+            view = "hover",
+            ---@type NoiceViewOptions
+            opts = {
+                lang = "markdown",
+                replace = true,
+                render = "plain",
+                format = { "{message}" },
+                win_options = { concealcursor = "n", conceallevel = 3 },
+            },
+        },
+    },
+    markdown = {
+        hover = {
+            ["|(%S-)|"] = vim.cmd.help, -- vim help links
+            ["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+        },
+        highlights = {
+            ["|%S-|"] = "@text.reference",
+            ["@%S+"] = "@parameter",
+            ["^%s*(Parameters:)"] = "@text.title",
+            ["^%s*(Return:)"] = "@text.title",
+            ["^%s*(See also:)"] = "@text.title",
+            ["{%S-}"] = "@parameter",
+        },
+    },
+    health = {
+        checker = true, -- Disable if you don't want health checks to run
+    },
+    smart_move = {
+        -- noice tries to move out of the way of existing floating windows.
+        enabled = true, -- you can disable this behaviour here
+        -- add any filetypes here, that shouldn't trigger smart move.
+        excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
+    },
+    ---@type NoicePresets
+    presets = {
+        -- you can enable a preset by setting it to true, or a table that will override the preset config
+        -- you can also add custom presets that you can enable/disable with enabled=true
+        bottom_search = false, -- use a classic bottom cmdline for search
+        command_palette = false, -- position the cmdline and popupmenu together
+        long_message_to_split = false, -- long messages will be sent to a split
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false, -- add a border to hover docs and signature help
+    },
+    throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
+    ---@type NoiceConfigViews
+    views = {}, ---@see section on views
+    ---@type NoiceRouteConfig[]
+    routes = {}, --- @see section on routes
+    ---@type table<string, NoiceFilter>
+    status = {}, --- @see section on statusline components
+    ---@type NoiceFormatOptions
+    format = {}, --- @see section on formatting
+})
+
 
 -- SnipRun --
 require'sniprun'.setup({
@@ -19,37 +228,37 @@ require'sniprun'.setup({
         use_on_filetypes = {"markdown.pandoc"}    --# the 'use_on_filetypes' configuration key is
     },
     Python3_original = {
-            error_truncate = "auto"         --# Truncate runtime errors 'long', 'short' or 'auto'
-        }
-    },      
-    display = {
-        "VirtualText",                    --# display results in the command-line  area
-        "VirtualTextOk",              --# display ok results as virtual text (multiline is shortened)
-    },
-    live_display = { "VirtualTextOk" }, --# display mode used in live_mode
-    display_options = {
-        terminal_scrollback = vim.o.scrollback, --# change terminal display scrollback lines
-        terminal_line_number = false, --# whether show line number in terminal window
-        terminal_signcolumn = false,  --# whether show signcolumn in terminal window
-        terminal_persistence = true,  --# always keep the terminal open (true) or close it at every occasion (false)
-        terminal_position = "vertical", --# or "horizontal", to open as horizontal split instead of vertical split
-        terminal_width = 45,          --# change the terminal display option width (if vertical)
-        terminal_height = 20,         --# change the terminal display option height (if horizontal)
-        notification_timeout = 5      --# timeout for nvim_notify output
-    },
-    show_no_output = {
-        "Classic",
-        "TempFloatingWindow",      --# implies LongTempFloatingWindow, which has no effect on its own
-    },
-    snipruncolors = {
-        SniprunVirtualTextOk   =  {bg="#66eeff",fg="#000000",ctermbg="Cyan",cterfg="Black"},
-        SniprunFloatingWinOk   =  {fg="#66eeff",ctermfg="Cyan"},
-        SniprunVirtualTextErr  =  {bg="#881515",fg="#000000",ctermbg="DarkRed",cterfg="Black"},
-        SniprunFloatingWinErr  =  {fg="#881515",ctermfg="DarkRed"},
-    },
-    live_mode_toggle='off',      --# live mode toggle, see Usage - Running for more info   
-    inline_messages = false,    --# boolean toggle for a one-line way to display messages
-    borders = 'single',         --# display borders around floating windows
+        error_truncate = "auto"         --# Truncate runtime errors 'long', 'short' or 'auto'
+    }
+},      
+display = {
+    "VirtualText",                    --# display results in the command-line  area
+    "VirtualTextOk",              --# display ok results as virtual text (multiline is shortened)
+},
+live_display = { "VirtualTextOk" }, --# display mode used in live_mode
+display_options = {
+    terminal_scrollback = vim.o.scrollback, --# change terminal display scrollback lines
+    terminal_line_number = false, --# whether show line number in terminal window
+    terminal_signcolumn = false,  --# whether show signcolumn in terminal window
+    terminal_persistence = true,  --# always keep the terminal open (true) or close it at every occasion (false)
+    terminal_position = "vertical", --# or "horizontal", to open as horizontal split instead of vertical split
+    terminal_width = 45,          --# change the terminal display option width (if vertical)
+    terminal_height = 20,         --# change the terminal display option height (if horizontal)
+    notification_timeout = 5      --# timeout for nvim_notify output
+},
+show_no_output = {
+    "Classic",
+    "TempFloatingWindow",      --# implies LongTempFloatingWindow, which has no effect on its own
+},
+snipruncolors = {
+    SniprunVirtualTextOk   =  {bg="#66eeff",fg="#000000",ctermbg="Cyan",cterfg="Black"},
+    SniprunFloatingWinOk   =  {fg="#66eeff",ctermfg="Cyan"},
+    SniprunVirtualTextErr  =  {bg="#881515",fg="#000000",ctermbg="DarkRed",cterfg="Black"},
+    SniprunFloatingWinErr  =  {fg="#881515",ctermfg="DarkRed"},
+},
+live_mode_toggle='off',      --# live mode toggle, see Usage - Running for more info   
+inline_messages = false,    --# boolean toggle for a one-line way to display messages
+borders = 'single',         --# display borders around floating windows
 })
 
 -- Neotree --
@@ -109,7 +318,7 @@ require("neo-tree").setup({
                 conflict  = "",
             }
         },
-          -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
+        -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
         file_size = {
             enabled = true,
             required_width = 64, -- min width of window required to show this column
@@ -126,7 +335,7 @@ require("neo-tree").setup({
             enabled = true,
             required_width = 110, -- min width of window required to show this column
         },
-          symlink_target = {
+        symlink_target = {
             enabled = false,
         },
     },
@@ -176,60 +385,60 @@ require("neo-tree").setup({
             ["p"] = "paste_from_clipboard",
             ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
             -- ["c"] = {
-            --  "copy",
-            --  config = {
-            --    show_path = "none" -- "none", "relative", "absolute"
-            --  }
-            --}
-            ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
-            ["q"] = "close_window",
-            ["R"] = "refresh",
-            ["?"] = "show_help",
-            ["<"] = "prev_source",
-            [">"] = "next_source",
-            ["i"] = "show_file_details",
-        }
-    },
-    nesting_rules = {},
-    filesystem = {
-        filtered_items = {
-            visible = false, -- when true, they will just be displayed differently than normal items
-            hide_dotfiles = false,
-            hide_gitignored = false,
-            hide_hidden = true, -- only works on Windows for hidden files/directories
-        },
-        group_empty_dirs = false, -- when true, empty folders will be grouped together
-        hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
-                                          -- instead of relying on nvim autocmd events.
-        window = {
-            mappings = {
-                ["<bs>"] = "navigate_up",
-                ["."] = "set_root",
-                ["H"] = "toggle_hidden",
-                ["/"] = "fuzzy_finder",
-                ["D"] = "fuzzy_finder_directory",
-                ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
-                ["f"] = "filter_on_submit",
-                ["<c-x>"] = "clear_filter",
-                ["[g"] = "prev_git_modified",
-                ["]g"] = "next_git_modified",
-                ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
-                ["oc"] = { "order_by_created", nowait = false },
-                ["od"] = { "order_by_diagnostics", nowait = false },
-                ["og"] = { "order_by_git_status", nowait = false },
-                ["om"] = { "order_by_modified", nowait = false },
-                ["on"] = { "order_by_name", nowait = false },
-                ["os"] = { "order_by_size", nowait = false },
-                ["ot"] = { "order_by_type", nowait = false },
+                --  "copy",
+                --  config = {
+                    --    show_path = "none" -- "none", "relative", "absolute"
+                    --  }
+                    --}
+                    ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
+                    ["q"] = "close_window",
+                    ["R"] = "refresh",
+                    ["?"] = "show_help",
+                    ["<"] = "prev_source",
+                    [">"] = "next_source",
+                    ["i"] = "show_file_details",
+                }
             },
-            fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
-                ["<down>"] = "move_cursor_down",
-                ["<C-n>"] = "move_cursor_down",
-                ["<up>"] = "move_cursor_up",
-                ["<C-p>"] = "move_cursor_up",
+            nesting_rules = {},
+            filesystem = {
+                filtered_items = {
+                    visible = false, -- when true, they will just be displayed differently than normal items
+                    hide_dotfiles = true,
+                    hide_gitignored = false,
+                    hide_hidden = true, -- only works on Windows for hidden files/directories
+                },
+                group_empty_dirs = false, -- when true, empty folders will be grouped together
+                hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+                use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+                -- instead of relying on nvim autocmd events.
+                window = {
+                    mappings = {
+                        ["<bs>"] = "navigate_up",
+                        ["."] = "set_root",
+                        ["H"] = "toggle_hidden",
+                        ["/"] = "fuzzy_finder",
+                        ["D"] = "fuzzy_finder_directory",
+                        ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
+                        ["f"] = "filter_on_submit",
+                        ["<c-x>"] = "clear_filter",
+                        ["[g"] = "prev_git_modified",
+                        ["]g"] = "next_git_modified",
+                        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                        ["oc"] = { "order_by_created", nowait = false },
+                        ["od"] = { "order_by_diagnostics", nowait = false },
+                        ["og"] = { "order_by_git_status", nowait = false },
+                        ["om"] = { "order_by_modified", nowait = false },
+                        ["on"] = { "order_by_name", nowait = false },
+                        ["os"] = { "order_by_size", nowait = false },
+                        ["ot"] = { "order_by_type", nowait = false },
+                    },
+                    fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
+                    ["<down>"] = "move_cursor_down",
+                    ["<C-n>"] = "move_cursor_down",
+                    ["<up>"] = "move_cursor_up",
+                    ["<C-p>"] = "move_cursor_up",
+                },
             },
-        },
 
         commands = {} -- Add a custom command or override a global one using the same function name
     },
@@ -283,92 +492,92 @@ require("neo-tree").setup({
 -- bufferline --
 vim.opt.termguicolors = true
 local bufferline = require('bufferline')
-    bufferline.setup {
-        options = {
-            mode = "buffers", -- set to "tabs" to only show tabpages instead
-            style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
-            themable = false, -- allows highlight groups to be overriden i.e. sets highlights as default
-            numbers = "ordinal",
-            close_command = "bdelete! %d",       -- can be a string | function, | false see "Mouse actions"
-            right_mouse_command = "bdelete! %d", -- can be a string | function | false, see "Mouse actions"
-            left_mouse_command = "buffer %d",    -- can be a string | function, | false see "Mouse actions"
-            middle_mouse_command = nil,          -- can be a string | function, | false see "Mouse actions"
-            indicator = { -- this should be omitted if indicator style is not 'icon'
-                style = 'underline',
-            },
-            buffer_close_icon = '󰅖',
-            modified_icon = '●',
-            close_icon = '',
-            left_trunc_marker = '',
-            right_trunc_marker = '',
-            --- name_formatter can be used to change the buffer's label in the bufferline.
-            --- Please note some names can/will break the
-            --- bufferline so use this at your discretion knowing that it has
-            --- some limitations that will *NOT* be fixed.
-            name_formatter = function(buf)  -- buf contains:
-                  -- name                | str        | the basename of the active file
-                  -- path                | str        | the full path of the active file
-                  -- bufnr (buffer only) | int        | the number of the active buffer
-                  -- buffers (tabs only) | table(int) | the numbers of the buffers in the tab
-                  -- tabnr (tabs only)   | int        | the "handle" of the tab, can be converted to its ordinal number using: `vim.api.nvim_tabpage_get_number(buf.tabnr)`
-            end,
-            max_name_length = 18,
-            max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-            truncate_names = true, -- whether or not tab names should be truncated
-            tab_size = 18,
-            diagnostics = "nvim_lsp",
-            diagnostics_update_in_insert = false,
-            -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-            diagnostics_indicator = function(count, level, diagnostics_dict, context)
-                return "("..count..")"
-            end,
-            -- NOTE: this will be called a lot so don't do any heavy processing here
-            custom_filter = function(buf_number, buf_numbers)
-                -- filter out filetypes you don't want to see
-                if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-                    return true
-                end
-                -- filter out by buffer name
-                if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-                    return true
-                end
-                -- filter out based on arbitrary rules
-                -- e.g. filter out vim wiki buffer from tabline in your work repo
-                if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-                    return true
-                end
-                -- filter out by it's index number in list (don't show first buffer)
-                if buf_numbers[1] ~= buf_number then
-                    return true
-                end
-            end,
-            offsets = {
-                { filetype = "Neoree", text = "File Explorer", text_align = "left", separator = true },
-            },
-            color_icons = true, -- whether or not to add the filetype icon highlights
-            get_element_icon = function(element)
-              local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
-              return icon, hl
-            end,
-            show_buffer_icons = true, -- disable filetype icons for buffers
-            show_buffer_close_icons = true,
-            show_close_icon = true,
-            show_tab_indicators = true,
-            show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
-            persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-            move_wraps_at_ends = false, -- whether or not the move command "wraps" at the first or last position
-            -- can also be a table containing 2 custom separators
-            -- [focused and unfocused]. eg: { '|', '|' }
-            separator_style = "slant",
-            enforce_regular_tabs = true,
-            always_show_bufferline = true,
-            hover = {
-                enabled = true,
-                delay = 200,
-                reveal = {'close'}
-            },
-            sort_by = 'insert_after_current'
-        }
+bufferline.setup {
+    options = {
+        mode = "buffers", -- set to "tabs" to only show tabpages instead
+        style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
+        themable = false, -- allows highlight groups to be overriden i.e. sets highlights as default
+        numbers = "ordinal",
+        close_command = "bdelete! %d",       -- can be a string | function, | false see "Mouse actions"
+        right_mouse_command = "bdelete! %d", -- can be a string | function | false, see "Mouse actions"
+        left_mouse_command = "buffer %d",    -- can be a string | function, | false see "Mouse actions"
+        middle_mouse_command = nil,          -- can be a string | function, | false see "Mouse actions"
+        indicator = { -- this should be omitted if indicator style is not 'icon'
+        style = 'underline',
+    },
+    buffer_close_icon = '󰅖',
+    modified_icon = '●',
+    close_icon = '',
+    left_trunc_marker = '',
+    right_trunc_marker = '',
+    --- name_formatter can be used to change the buffer's label in the bufferline.
+    --- Please note some names can/will break the
+    --- bufferline so use this at your discretion knowing that it has
+    --- some limitations that will *NOT* be fixed.
+    name_formatter = function(buf)  -- buf contains:
+        -- name                | str        | the basename of the active file
+        -- path                | str        | the full path of the active file
+        -- bufnr (buffer only) | int        | the number of the active buffer
+        -- buffers (tabs only) | table(int) | the numbers of the buffers in the tab
+        -- tabnr (tabs only)   | int        | the "handle" of the tab, can be converted to its ordinal number using: `vim.api.nvim_tabpage_get_number(buf.tabnr)`
+    end,
+    max_name_length = 18,
+    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+    truncate_names = true, -- whether or not tab names should be truncated
+    tab_size = 18,
+    diagnostics = "nvim_lsp",
+    diagnostics_update_in_insert = false,
+    -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        return "("..count..")"
+    end,
+    -- NOTE: this will be called a lot so don't do any heavy processing here
+    custom_filter = function(buf_number, buf_numbers)
+        -- filter out filetypes you don't want to see
+        if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
+            return true
+        end
+        -- filter out by buffer name
+        if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
+            return true
+        end
+        -- filter out based on arbitrary rules
+        -- e.g. filter out vim wiki buffer from tabline in your work repo
+        if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+            return true
+        end
+        -- filter out by it's index number in list (don't show first buffer)
+        if buf_numbers[1] ~= buf_number then
+            return true
+        end
+    end,
+    offsets = {
+        { filetype = "Neoree", text = "File Explorer", text_align = "left", separator = true },
+    },
+    color_icons = true, -- whether or not to add the filetype icon highlights
+    get_element_icon = function(element)
+        local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
+        return icon, hl
+    end,
+    show_buffer_icons = true, -- disable filetype icons for buffers
+    show_buffer_close_icons = true,
+    show_close_icon = true,
+    show_tab_indicators = true,
+    show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
+    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+    move_wraps_at_ends = false, -- whether or not the move command "wraps" at the first or last position
+    -- can also be a table containing 2 custom separators
+    -- [focused and unfocused]. eg: { '|', '|' }
+    separator_style = "slant",
+    enforce_regular_tabs = true,
+    always_show_bufferline = true,
+    hover = {
+        enabled = true,
+        delay = 200,
+        reveal = {'close'}
+    },
+    sort_by = 'insert_after_current'
+}
     }
 
 
@@ -377,33 +586,30 @@ local bufferline = require('bufferline')
 
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
-lsp.configure('ccls', {
-  force_setup = true,
-  init_options = {
-    compilationDatabaseDirectory = 'build',
-    index = {
-      threads = 0
-    },
-    clang = {
-      excludeArgs = {'-frounding-math'}
-    }
-  }
-})
 lsp.set_sign_icons({
-  error = '✘',
-  warn = '▲',
-  hint = '⚑',
-  info = '»'
+    error = '✘',
+    warn = '▲',
+    hint = '⚑',
+    info = '»'
 })
 lsp.setup()
 
 --cmp-nvim-lsp--
 
+local lspkind = require('lspkind')
 require'cmp'.setup {
-  sources = {
-    { name = 'cmp_nvim_lsp' }
-  }
+    formatting = {
+        format = lspkind.cmp_format({
+            mode = 'symbol', -- show only symbol annotations
+            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+        })
+    },
+    sources = {
+        { name = 'cmp_nvim_lsp' }
+    }
 }
+
 
 --indent-backline--
 local highlight = {
@@ -438,13 +644,13 @@ require("ibl").setup { indent = { highlight = highlight } }
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y>'] = cmp.mapping.confirm({select = true}),
-	['<C-Space>'] = cmp.mapping.complete()
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({select = true}),
+    ['<C-Space>'] = cmp.mapping.complete()
 })
 lsp.setup_nvim_cmp({
-	mapping = cmp_mappings
+    mapping = cmp_mappings
 })
 
 --LuaLine--
@@ -454,130 +660,130 @@ local lualine = require('lualine')
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
-  yellow   = '#ECBE7B',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#98be65',
-  orange   = '#FF8800',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#51afef',
-  red      = '#ec5f67',
+    bg       = '#202328',
+    fg       = '#bbc2cf',
+    yellow   = '#ECBE7B',
+    cyan     = '#008080',
+    darkblue = '#081633',
+    green    = '#98be65',
+    orange   = '#FF8800',
+    violet   = '#a9a1e1',
+    magenta  = '#c678dd',
+    blue     = '#51afef',
+    red      = '#ec5f67',
 }
 
 local conditions = {
-  buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-  end,
-  hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
-  end,
-  check_git_workspace = function()
-    local filepath = vim.fn.expand('%:p:h')
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
-    return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end,
+    buffer_not_empty = function()
+        return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+    end,
+    hide_in_width = function()
+        return vim.fn.winwidth(0) > 80
+    end,
+    check_git_workspace = function()
+        local filepath = vim.fn.expand('%:p:h')
+        local gitdir = vim.fn.finddir('.git', filepath .. ';')
+        return gitdir and #gitdir > 0 and #gitdir < #filepath
+    end,
 }
 
 -- Config
 local config = {
-  options = {
-    -- Disable sections and component separators
-    component_separators = '',
-    section_separators = '',
-    theme = {
-      -- We are going to use lualine_c an lualine_x as left and
-      -- right section. Both are highlighted by c theme .  So we
-      -- are just setting default looks o statusline
-      normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg } },
+    options = {
+        -- Disable sections and component separators
+        component_separators = '',
+        section_separators = '',
+        theme = {
+            -- We are going to use lualine_c an lualine_x as left and
+            -- right section. Both are highlighted by c theme .  So we
+            -- are just setting default looks o statusline
+            normal = { c = { fg = colors.fg, bg = colors.bg } },
+            inactive = { c = { fg = colors.fg, bg = colors.bg } },
+        },
     },
-  },
-  sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    -- These will be filled later
-    lualine_c = {},
-    lualine_x = {},
-  },
-  inactive_sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    lualine_c = {},
-    lualine_x = {},
-  },
+    sections = {
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        -- These will be filled later
+        lualine_c = {},
+        lualine_x = {},
+    },
+    inactive_sections = {
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        lualine_c = {},
+        lualine_x = {},
+    },
 }
 
 -- Inserts a component in lualine_c at left section
 local function ins_left(component)
-  table.insert(config.sections.lualine_c, component)
+    table.insert(config.sections.lualine_c, component)
 end
 
 -- Inserts a component in lualine_x at right section
 local function ins_right(component)
-  table.insert(config.sections.lualine_x, component)
+    table.insert(config.sections.lualine_x, component)
 end
 
 ins_left {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don't need space before this
+    function()
+        return '▊'
+    end,
+    color = { fg = colors.blue }, -- Sets highlighting of component
+    padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
 ins_left {
-  -- mode component
-  function()
-    return ''
-  end,
-  color = function()
-    -- auto change color according to neovims mode
-    local mode_color = {
-      n = colors.red,
-      i = colors.green,
-      v = colors.blue,
-      [''] = colors.blue,
-      V = colors.blue,
-      c = colors.magenta,
-      no = colors.red,
-      s = colors.orange,
-      S = colors.orange,
-      [''] = colors.orange,
-      ic = colors.yellow,
-      R = colors.violet,
-      Rv = colors.violet,
-      cv = colors.red,
-      ce = colors.red,
-      r = colors.cyan,
-      rm = colors.cyan,
-      ['r?'] = colors.cyan,
-      ['!'] = colors.red,
-      t = colors.red,
-    }
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
-  padding = { right = 1 },
+    -- mode component
+    function()
+        return ''
+    end,
+    color = function()
+        -- auto change color according to neovims mode
+        local mode_color = {
+            n = colors.red,
+            i = colors.green,
+            v = colors.blue,
+            [''] = colors.blue,
+            V = colors.blue,
+            c = colors.magenta,
+            no = colors.red,
+            s = colors.orange,
+            S = colors.orange,
+            [''] = colors.orange,
+            ic = colors.yellow,
+            R = colors.violet,
+            Rv = colors.violet,
+            cv = colors.red,
+            ce = colors.red,
+            r = colors.cyan,
+            rm = colors.cyan,
+            ['r?'] = colors.cyan,
+            ['!'] = colors.red,
+            t = colors.red,
+        }
+        return { fg = mode_color[vim.fn.mode()] }
+    end,
+    padding = { right = 1 },
 }
 
 ins_left {
-  -- filesize component
-  'filesize',
-  cond = conditions.buffer_not_empty,
+    -- filesize component
+    'filesize',
+    cond = conditions.buffer_not_empty,
 }
 
 ins_left {
-  'filename',
-  cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' },
+    'filename',
+    cond = conditions.buffer_not_empty,
+    color = { fg = colors.magenta, gui = 'bold' },
 }
 
 ins_left { 'location' }
@@ -585,84 +791,84 @@ ins_left { 'location' }
 ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 
 ins_left {
-  'diagnostics',
-  sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
-  diagnostics_color = {
-    color_error = { fg = colors.red },
-    color_warn = { fg = colors.yellow },
-    color_info = { fg = colors.cyan },
-  },
+    'diagnostics',
+    sources = { 'nvim_diagnostic' },
+    symbols = { error = ' ', warn = ' ', info = ' ' },
+    diagnostics_color = {
+        color_error = { fg = colors.red },
+        color_warn = { fg = colors.yellow },
+        color_info = { fg = colors.cyan },
+    },
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
 ins_left {
-  function()
-    return '%='
-  end,
+    function()
+        return '%='
+    end,
 }
 
 ins_left {
-  -- Lsp server name .
-  function()
-    local msg = 'No Active Lsp'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-      return msg
-    end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
-  end,
-  icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
+    -- Lsp server name .
+    function()
+        local msg = 'No Active Lsp'
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_active_clients()
+        if next(clients) == nil then
+            return msg
+        end
+        for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                return client.name
+            end
+        end
+        return msg
+    end,
+    icon = ' LSP:',
+    color = { fg = '#ffffff', gui = 'bold' },
 }
 
 -- Add components to right sections
 ins_right {
-  'o:encoding', -- option component same as &encoding in viml
-  fmt = string.upper, -- I'm not sure why it's upper case either ;)
-  cond = conditions.hide_in_width,
-  color = { fg = colors.green, gui = 'bold' },
+    'o:encoding', -- option component same as &encoding in viml
+    fmt = string.upper, -- I'm not sure why it's upper case either ;)
+    cond = conditions.hide_in_width,
+    color = { fg = colors.green, gui = 'bold' },
 }
 
 ins_right {
-  'fileformat',
-  fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.green, gui = 'bold' },
+    'fileformat',
+    fmt = string.upper,
+    icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+    color = { fg = colors.green, gui = 'bold' },
 }
 
 ins_right {
-  'branch',
-  icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
+    'branch',
+    icon = '',
+    color = { fg = colors.violet, gui = 'bold' },
 }
 
 ins_right {
-  'diff',
-  -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
-  diff_color = {
-    added = { fg = colors.green },
-    modified = { fg = colors.orange },
-    removed = { fg = colors.red },
-  },
-  cond = conditions.hide_in_width,
+    'diff',
+    -- Is it me or the symbol for modified us really weird
+    symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+    diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+    },
+    cond = conditions.hide_in_width,
 }
 
 ins_right {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue },
-  padding = { left = 1 },
+    function()
+        return '▊'
+    end,
+    color = { fg = colors.blue },
+    padding = { left = 1 },
 }
 
 -- Now don't forget to initialize lualine
@@ -673,8 +879,8 @@ lualine.setup(config)
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local Autopair = require('cmp')
 Autopair.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
+'confirm_done',
+cmp_autopairs.on_confirm_done()
 )
 
 --AutoClose--
@@ -706,9 +912,9 @@ require("autoclose").setup({
 --cmp-nvim-lsp--
 
 require'cmp'.setup {
-  sources = {
-    { name = 'nvim_lsp' }
-  }
+    sources = {
+        { name = 'nvim_lsp' }
+    }
 }
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
@@ -716,51 +922,51 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- The following example advertise capabilities to `clangd`.
 require'lspconfig'.clangd.setup {
- capabilities = capabilities,
+    capabilities = capabilities,
 }
 
 --marks--
 
 require'marks'.setup {
-  default_mappings = true,
-  builtin_marks = { ".", "<", ">", "^" },
-  cyclic = true,
-  force_write_shada = false,
-  refresh_interval = 250,
-  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-  excluded_filetypes = {},
-  bookmark_0 = {
-    sign = "⚑",
-    virt_text = "hello world",
-    annotate = false,
-  },
+    default_mappings = true,
+    builtin_marks = { ".", "<", ">", "^" },
+    cyclic = true,
+    force_write_shada = false,
+    refresh_interval = 250,
+    sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+    excluded_filetypes = {},
+    bookmark_0 = {
+        sign = "⚑",
+        virt_text = "hello world",
+        annotate = false,
+    },
 }
 
 --TokyoNight--
 
 require("tokyonight").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  light_style = "storm", -- The theme is used when the background is set to light
-  transparent = false, -- Enable this to disable setting the background color
-  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
-  styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value for `:help nvim_set_hl`
-    comments = { italic = true },
-    keywords = { italic = true },
-    functions = {},
-    variables = {},
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "dark", -- style for sidebars, see below
-    floats = "dark", -- style for floating windows
-  },
-  sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-  day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-  hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-  dim_inactive = false, -- dims inactive windows
-  lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+    light_style = "storm", -- The theme is used when the background is set to light
+    transparent = false, -- Enable this to disable setting the background color
+    terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
+    styles = {
+        -- Style to be applied to different syntax groups
+        -- Value is any valid attr-list value for `:help nvim_set_hl`
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variables = {},
+        -- Background styles. Can be "dark", "transparent" or "normal"
+        sidebars = "dark", -- style for sidebars, see below
+        floats = "dark", -- style for floating windows
+    },
+    sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+    day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+    hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+    dim_inactive = false, -- dims inactive windows
+    lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
 
   --- You can override specific color groups to use other groups or a hex color
   --- function will be called with a ColorScheme table
