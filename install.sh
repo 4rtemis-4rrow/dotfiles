@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "swappy" "autotiling" "brightnessctl" "swaybg" "workstyle" "clipman" "python-pyquery" "lsd" "bat" "ranger" "satty-bin" "ripdrag-git" "ripgrep)
+packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "swappy" "autotiling" "brightnessctl" "swaybg" "workstyle" "clipman" "python-pyquery" "lsd" "bat" "ranger" "satty-bin" "ripdrag-git" "ripgrep")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
@@ -29,6 +29,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+git clone https://github.com/MichaelAquilina/zsh-auto-notify.git $ZSH_CUSTOM/plugins/auto-notify
+git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins $ZSH_CUSTOM/plugins/autoupdate
 
 git clone github.com/4rtemis-4rrow/dotfiles
 cd dotfiles

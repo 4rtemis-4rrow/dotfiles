@@ -1,8 +1,9 @@
 {
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "clock", "custom/weather", "custom/notifications", "tray", "custom/power"],
+    "modules-center": ["custom/clock"],
+    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "custom/weather", "custom/notifications", "tray", "custom/power"],
     "disable-click": true,
+
 
     "keyboard-state": {
         "numlock": true,
@@ -38,10 +39,10 @@ ndwidthUpBytes:>4}",
         // "format-alt": "{alt}",
     },
 
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    },
+    "custom/clock": {
+            "exec": "date +'%H:%M:%S - %a, %d/%m/%Y'",
+            "restart-interval": 1,
+        },
 
     "cpu": {
         "format": "{usage}% ",

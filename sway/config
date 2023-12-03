@@ -28,16 +28,6 @@ exec swaync
 exec_always nm-applet
 exec_always QT_QPA_PLATFORM='wayland' /usr/lib/polkit-kde-authentication-agent-1
 
-output VGA-1 position 1366,0 resolution 1440x900
-output LVDS-1 position 0,132 resolution 1366x768
-
-input "2:7:SynPS/2_Synaptics_TouchPad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-}
-
 input type:keyboard {
   xkb_layout "us,ara"
   xkb_options "grp:lalt_lshift_toggle"

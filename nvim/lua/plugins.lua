@@ -18,20 +18,22 @@ require('lazy').setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
     }},
+    'tamton-aquib/staline.nvim',
     'nvim-tree/nvim-web-devicons',
     "MunifTanjim/nui.nvim",
     'chentoast/marks.nvim',
-    'akinsho/bufferline.nvim',
     'nvim-neo-tree/neo-tree.nvim',
     'nvim-pack/nvim-spectre',
     'onsails/lspkind.nvim',
-    'nvim-treesitter/nvim-treesitter',
+    'akinsho/bufferline.nvim',
+    { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
     'HiPhish/rainbow-delimiters.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'folke/tokyonight.nvim',
     'dense-analysis/ale',
     'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',
+    {'akinsho/toggleterm.nvim', version = "*", config = true},
     {
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
@@ -82,10 +84,6 @@ require('lazy').setup({
     },
     'jghauser/mkdir.nvim',
     'm4xshen/autoclose.nvim',
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
-    },
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {

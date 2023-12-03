@@ -6,6 +6,7 @@ export LC_ALL=en_US.UTF-8
 export LESS='-R --use-color -Dd+r$Du+b$'
 export EDITOR='nvim'
 export MANPAGER="nvim +Man!"
+export UPDATE_ZSH_DAYS=1
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -22,6 +23,10 @@ plugins=(git
     command-not-found
     sudo
     copyfile
+    zsh-256color
+    auto-notify
+    autoupdate
+    colored-man-pages
 )
 
 ex ()
@@ -52,7 +57,7 @@ ex ()
 nv() {
     kitty @ set-background-opacity 1
     nvim "$@"
-    kitty @ set-background-opacity 0.7
+    kitty @ set-background-opacity $(pgrep -x nvim > /dev/null && echo 1 || echo 0.7)
 }
 
 
@@ -65,9 +70,13 @@ nv() {
 
 source $ZSH/oh-my-zsh.sh
 
+alias 1d="cd .."  
+alias 2d="cd ..;cd .."  
+alias 3d="cd ..;cd ..;cd .."  
+alias 4d="cd ..;cd ..;cd ..;cd .."  
+alias 5d="cd ..;cd ..;cd ..;cd ..;cd .." 
 alias ytm='yt-dlp -f 139'
 alias ls='lsd'
-alias less='cless'
 alias img='kitty +kitten icat'
 alias py='ipython'
 alias mk='musikcube'
@@ -79,5 +88,4 @@ alias ytdlp='yt-dlp'
 alias snapper='QT_QPA_PLATFORM='' sudo -E snapper-tools'
 alias qbittorrent='QT_QPA_PLATFORM="" qbittorrent'
 alias ranger='ranger --choosedir=/dev/shm/cdir && cd $(cat /dev/shm/cdir)'
-
-
+cd() { builtin cd "$@" && ls; }
