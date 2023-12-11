@@ -9,6 +9,228 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
+-- Lualine --
+local lualine = require('lualine')
+
+-- Color table for highlights
+-- stylua: ignore
+local colors = {
+    bg       = "#011627",
+    fg       = "#acb4c2",
+    yellow   = "#ecc48d",
+    cyan     = "#7fdbca",
+    darkblue = "#82aaff",
+    green    = "#21c7a8",
+    orange   = "#e3d18a",
+    violet   = "#a9a1e1",
+    magenta  = "#ae81ff",
+    blue     = "#82aaff ",
+    red      = "#ff5874",
+}
+
+local conditions = {
+    buffer_not_empty = function()
+        return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+    end,
+    hide_in_width = function()
+        return vim.fn.winwidth(0) > 80
+    end,
+    check_git_workspace = function()
+        local filepath = vim.fn.expand('%:p:h')
+        local gitdir = vim.fn.finddir('.git', filepath .. ';')
+        return gitdir and #gitdir > 0 and #gitdir < #filepath
+    end,
+}
+
+-- Config
+local config = {
+    options = {
+        -- Disable sections and component separators
+        component_separators = '',
+        section_separators = '',
+        theme = {
+            -- We are going to use lualine_c an lualine_x as left and
+            -- right section. Both are highlighted by c theme .  So we
+            -- are just setting default looks o statusline
+            normal = { c = { fg = colors.fg, bg = colors.bg } },
+            inactive = { c = { fg = colors.fg, bg = colors.bg } },
+        },
+    },
+    sections = {
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        -- These will be filled later
+        lualine_c = {},
+        lualine_x = {},
+    },
+    inactive_sections = {
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        lualine_c = {},
+        lualine_x = {},
+    },
+}
+
+-- Inserts a component in lualine_c at left section
+local function ins_left(component)
+    table.insert(config.sections.lualine_c, component)
+end
+
+-- Inserts a component in lualine_x at right section
+local function ins_right(component)
+    table.insert(config.sections.lualine_x, component)
+end
+
+ins_left {
+    function()
+        return '▊'
+    end,
+    color = { fg = colors.blue }, -- Sets highlighting of component
+    padding = { left = 0, right = 1 }, -- We don't need space before this
+}
+
+ins_left {
+    -- mode component
+    function()
+        return ''
+    end,
+    color = function()
+        -- auto change color according to neovims mode
+        local mode_color = {
+            n = colors.red,
+            i = colors.green,
+            v = colors.blue,
+            ['␖'] = colors.blue,
+            V = colors.blue,
+            c = colors.magenta,
+            no = colors.red,
+            s = colors.orange,
+            S = colors.orange,
+            ['␓'] = colors.orange,
+            ic = colors.yellow,
+            R = colors.violet,
+            Rv = colors.violet,
+            cv = colors.red,
+            ce = colors.red,
+            r = colors.cyan,
+            rm = colors.cyan,
+            ['r?'] = colors.cyan,
+            ['!'] = colors.red,
+            t = colors.red,
+        }
+        return { fg = mode_color[vim.fn.mode()] }
+    end,
+    padding = { right = 1 },
+}
+
+ins_left {
+    -- filesize component
+    'filesize',
+    cond = conditions.buffer_not_empty,
+}
+
+ins_left {
+    'filename',
+    cond = conditions.buffer_not_empty,
+    color = { fg = colors.magenta, gui = 'bold' },
+}
+
+ins_left { 'location' }
+
+ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+
+ins_left {
+    'diagnostics',
+    sources = { 'nvim_diagnostic' },
+    symbols = { error = ' ', warn = ' ', info = ' ' },
+    diagnostics_color = {
+        color_error = { fg = colors.red },
+        color_warn = { fg = colors.yellow },
+        color_info = { fg = colors.cyan },
+    },
+}
+
+-- Insert mid section. You can make any number of sections in neovim :)
+-- for lualine it's any number greater then 2
+ins_left {
+    function()
+        return '%='
+    end,
+}
+
+ins_left {
+    -- Lsp server name .
+    function()
+        local msg = 'No Active Lsp'
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_active_clients()
+        if next(clients) == nil then
+            return msg
+        end
+        for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                return client.name
+            end
+        end
+        return msg
+    end,
+    icon = ' LSP:',
+    color = { fg = colors.cyan, gui = 'bold' },
+}
+
+-- Add components to right sections
+ins_right {
+    'o:encoding', -- option component same as &encoding in viml
+    fmt = string.upper, -- I'm not sure why it's upper case either ;)
+    cond = conditions.hide_in_width,
+    color = { fg = colors.green, gui = 'bold' },
+}
+
+ins_right {
+    'fileformat',
+    fmt = string.upper,
+    icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+    color = { fg = colors.green, gui = 'bold' },
+}
+
+ins_right {
+    'branch',
+    icon = '',
+    color = { fg = colors.violet, gui = 'bold' },
+}
+
+ins_right {
+    'diff',
+    -- Is it me or the symbol for modified us really weird
+    symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+    diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+    },
+    cond = conditions.hide_in_width,
+}
+
+ins_right {
+    function()
+        return '▊'
+    end,
+    color = { fg = colors.blue },
+    padding = { left = 1 },
+}
+
+-- Now don't forget to initialize lualine
+lualine.setup(config)
+
+
+
 -- bufferline --
 vim.opt.termguicolors = true
 local bufferline = require('bufferline')
@@ -79,60 +301,6 @@ bufferline.setup {
     sort_by = 'insert_after_current'
 }
 }
-
--- Staline --
-require("staline").setup {
-	sections = {
-		left = {
-            'mode',
-			'',
-			'file_size',
-			{'StalineEnc', 'file_name'},
-		},
-		mid = { 
-            {'StalineEnc', 'lsp_name'},
-            {'StalineEnc', ": "},
-            {'StalineEnc', "lsp"}
-        },
-		right = {
-			{ 'StalineEnc', vim.bo.fileencoding:upper() },
-			{ 'StalineEnc', 'cool_symbol' },
-			{ 'StalineGit', 'branch' },
-            { 'StalineEnc', 'line_column'},
-		}
-	},
-	defaults = {
-        cool_symbol = "",
-		bg = "#202328",
-        branch_symbol   = "",
-        line_column = "[%l:%c] 並%p%% "
-	},
-        mode_colors = {
-        n = "#f7768e",
-        i = "#2ac3de",
-        c = "#bb9af7",
-        v = "#9ece6a",
-    },
-        mode_icons = {
-        n = " ",
-        i = " ",
-        c = " ",
-        v = " ",
-    },
-        lsp_symbols = {
-        Error=" ",
-        Info=" ",
-        Warn=" ",
-        Hint="",
-    },
-
-}
-vim.cmd [[hi StalineEnc  guifg=#c37cda guibg=#202328]]       -- Encoding Highlight
-vim.cmd [[hi StalineGit  guifg=#8583b3 guibg=#202328]]       -- Branch Name Highlight
-vim.cmd [[hi Lsp guifg=#c37cda guibg=#202328]]
-
--- Dap-UI --
-require("dapui").setup()
 
 -- ale --
 vim.g.ale_echo_cursor = 0
@@ -475,107 +643,107 @@ require("neo-tree").setup({
             ["p"] = "paste_from_clipboard",
             ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
             -- ["c"] = {
-                --  "copy",
-                --  config = {
-                    --    show_path = "none" -- "none", "relative", "absolute"
-                    --  }
-                    --}
-                    ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
-                    ["q"] = "close_window",
-                    ["R"] = "refresh",
-                    ["?"] = "show_help",
-                    ["<"] = "prev_source",
-                    [">"] = "next_source",
-                    ["i"] = "show_file_details",
-                }
-            },
-            nesting_rules = {},
-            filesystem = {
-                filtered_items = {
-                    visible = false, -- when true, they will just be displayed differently than normal items
-                    hide_dotfiles = true,
-                    hide_gitignored = false,
-                    hide_hidden = true, -- only works on Windows for hidden files/directories
-                },
-                group_empty_dirs = false, -- when true, empty folders will be grouped together
-                hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-                use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
-                -- instead of relying on nvim autocmd events.
-                window = {
-                    mappings = {
-                        ["<bs>"] = "navigate_up",
-                        ["."] = "set_root",
-                        ["H"] = "toggle_hidden",
-                        ["/"] = "fuzzy_finder",
-                        ["D"] = "fuzzy_finder_directory",
-                        ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
-                        ["f"] = "filter_on_submit",
-                        ["<c-x>"] = "clear_filter",
-                        ["[g"] = "prev_git_modified",
-                        ["]g"] = "next_git_modified",
-                        ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
-                        ["oc"] = { "order_by_created", nowait = false },
-                        ["od"] = { "order_by_diagnostics", nowait = false },
-                        ["og"] = { "order_by_git_status", nowait = false },
-                        ["om"] = { "order_by_modified", nowait = false },
-                        ["on"] = { "order_by_name", nowait = false },
-                        ["os"] = { "order_by_size", nowait = false },
-                        ["ot"] = { "order_by_type", nowait = false },
-                    },
-                    fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
-                    ["<down>"] = "move_cursor_down",
-                    ["<C-n>"] = "move_cursor_down",
-                    ["<up>"] = "move_cursor_up",
-                    ["<C-p>"] = "move_cursor_up",
-                },
-            },
-
-        commands = {} -- Add a custom command or override a global one using the same function name
+            --  "copy",
+            --  config = {
+            --    show_path = "none" -- "none", "relative", "absolute"
+            --  }
+            --}
+            ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
+            ["q"] = "close_window",
+            ["R"] = "refresh",
+            ["?"] = "show_help",
+            ["<"] = "prev_source",
+            [">"] = "next_source",
+            ["i"] = "show_file_details",
+        }
     },
-    buffers = {
-        follow_current_file = {
-            enabled = true, -- This will find and focus the file in the active buffer every time
-            --              -- the current file is changed while the tree is open.
-            leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+    nesting_rules = {},
+    filesystem = {
+        filtered_items = {
+            visible = false, -- when true, they will just be displayed differently than normal items
+            hide_dotfiles = true,
+            hide_gitignored = false,
+            hide_hidden = true, -- only works on Windows for hidden files/directories
         },
-        group_empty_dirs = true, -- when true, empty folders will be grouped together
-        show_unloaded = true,
+        group_empty_dirs = false, -- when true, empty folders will be grouped together
+        hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+        -- instead of relying on nvim autocmd events.
         window = {
             mappings = {
-                ["bd"] = "buffer_delete",
                 ["<bs>"] = "navigate_up",
                 ["."] = "set_root",
+                ["H"] = "toggle_hidden",
+                ["/"] = "fuzzy_finder",
+                ["D"] = "fuzzy_finder_directory",
+                ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
+                ["f"] = "filter_on_submit",
+                ["<c-x>"] = "clear_filter",
+                ["[g"] = "prev_git_modified",
+                ["]g"] = "next_git_modified",
                 ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
                 ["oc"] = { "order_by_created", nowait = false },
                 ["od"] = { "order_by_diagnostics", nowait = false },
+                ["og"] = { "order_by_git_status", nowait = false },
                 ["om"] = { "order_by_modified", nowait = false },
                 ["on"] = { "order_by_name", nowait = false },
                 ["os"] = { "order_by_size", nowait = false },
                 ["ot"] = { "order_by_type", nowait = false },
-            }
+            },
+            fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
+            ["<down>"] = "move_cursor_down",
+            ["<C-n>"] = "move_cursor_down",
+            ["<up>"] = "move_cursor_up",
+            ["<C-p>"] = "move_cursor_up",
         },
     },
-    git_status = {
-        window = {
-            position = "float",
-            mappings = {
-                ["A"]  = "git_add_all",
-                ["gu"] = "git_unstage_file",
-                ["ga"] = "git_add_file",
-                ["gr"] = "git_revert_file",
-                ["gc"] = "git_commit",
-                ["gp"] = "git_push",
-                ["gg"] = "git_commit_and_push",
-                ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
-                ["oc"] = { "order_by_created", nowait = false },
-                ["od"] = { "order_by_diagnostics", nowait = false },
-                ["om"] = { "order_by_modified", nowait = false },
-                ["on"] = { "order_by_name", nowait = false },
-                ["os"] = { "order_by_size", nowait = false },
-                ["ot"] = { "order_by_type", nowait = false },
-            }
+
+    commands = {} -- Add a custom command or override a global one using the same function name
+},
+buffers = {
+    follow_current_file = {
+        enabled = true, -- This will find and focus the file in the active buffer every time
+        --              -- the current file is changed while the tree is open.
+        leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+    },
+    group_empty_dirs = true, -- when true, empty folders will be grouped together
+    show_unloaded = true,
+    window = {
+        mappings = {
+            ["bd"] = "buffer_delete",
+            ["<bs>"] = "navigate_up",
+            ["."] = "set_root",
+            ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+            ["oc"] = { "order_by_created", nowait = false },
+            ["od"] = { "order_by_diagnostics", nowait = false },
+            ["om"] = { "order_by_modified", nowait = false },
+            ["on"] = { "order_by_name", nowait = false },
+            ["os"] = { "order_by_size", nowait = false },
+            ["ot"] = { "order_by_type", nowait = false },
+        }
+    },
+},
+git_status = {
+    window = {
+        position = "float",
+        mappings = {
+            ["A"]  = "git_add_all",
+            ["gu"] = "git_unstage_file",
+            ["ga"] = "git_add_file",
+            ["gr"] = "git_revert_file",
+            ["gc"] = "git_commit",
+            ["gp"] = "git_push",
+            ["gg"] = "git_commit_and_push",
+            ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+            ["oc"] = { "order_by_created", nowait = false },
+            ["od"] = { "order_by_diagnostics", nowait = false },
+            ["om"] = { "order_by_modified", nowait = false },
+            ["on"] = { "order_by_name", nowait = false },
+            ["os"] = { "order_by_size", nowait = false },
+            ["ot"] = { "order_by_type", nowait = false },
         }
     }
+}
 })
 
 
@@ -591,21 +759,6 @@ lsp.set_sign_icons({
 })
 lsp.setup()
 
---cmp-nvim-lsp--
-
-local lspkind = require('lspkind')
-require'cmp'.setup {
-    formatting = {
-        format = lspkind.cmp_format({
-            mode = 'symbol', -- show only symbol annotations
-            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-        })
-    },
-    sources = {
-        { name = 'cmp_nvim_lsp' }
-    }
-}
 
 --indent-backline--
 local highlight = {
@@ -631,18 +784,66 @@ end)
 
 require("ibl").setup { indent = { highlight = highlight } }
 
---CMP--
+
+-- CMP --
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({select = true}),
-    ['<C-Space>'] = cmp.mapping.complete()
+local cmp_action = require('lsp-zero').cmp_action()
+cmp.setup({
+    formatting = {
+        fields = {'menu', 'abbr', 'kind'},
+        format = function(entry, item)
+            local menu_icon = {
+                nvim_lsp = 'λ',
+                luasnip = '⋗',
+                buffer = 'Ω',
+                path = '/',
+                nvim_lua = 'Π',
+            }
+            item.menu = menu_icon[entry.source.name]
+            return item
+        end,
+    },
+    sources = {
+        {name = 'luasnip'},
+        {name = 'nvim_lsp'},
+        {name = 'nvim_lsp_signature_help'},
+        {name = 'path'}
+    },
+    mapping = {
+        ['<CR>'] = cmp.mapping.confirm({select = true}),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<Tab>'] = cmp_action.luasnip_supertab(),
+        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+    },
+    preselect = 'item',
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
 })
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
-})
+
+-- LuaSnip --
+local ls = require "luasnip"
+ls.config.set_config {
+  history = false,
+  updateevents = "TextChanged,TextChangedI",
+  enable_autosnippets = true,
+  ext_opts = {
+    [require('luasnip.util.types').choiceNode] = {
+      active = {
+        virt_text = { { " « ", "NonTest" } },
+      },
+    },
+  },
+}
 
 --AutoPairs--
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -688,21 +889,6 @@ require'lspconfig'.clangd.setup {
     capabilities = capabilities,
 }
 
---marks--
-require'marks'.setup {
-    default_mappings = true,
-    builtin_marks = { ".", "<", ">", "^" },
-    cyclic = true,
-    force_write_shada = false,
-    refresh_interval = 250,
-    sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-    excluded_filetypes = {},
-    bookmark_0 = {
-        sign = "⚑",
-        virt_text = "hello world",
-        annotate = false,
-    },
-}
 
 --TokyoNight--
 require("tokyonight").setup({
@@ -725,15 +911,15 @@ require("tokyonight").setup({
     dim_inactive = false, -- dims inactive windows
     lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
 
-  --- You can override specific color groups to use other groups or a hex color
-  --- function will be called with a ColorScheme table
-  ---@param colors ColorScheme
-  on_colors = function(colors) end,
+    --- You can override specific color groups to use other groups or a hex color
+    --- function will be called with a ColorScheme table
+    ---@param colors ColorScheme
+    on_colors = function(colors) end,
 
-  --- You can override specific highlights to use other groups or a hex color
-  --- function will be called with a Highlights and ColorScheme table
-  ---@param highlights Highlights
-  ---@param colors ColorScheme
-  on_highlights = function(highlights, colors) end,
+    --- You can override specific highlights to use other groups or a hex color
+    --- function will be called with a Highlights and ColorScheme table
+    ---@param highlights Highlights
+    ---@param colors ColorScheme
+    on_highlights = function(highlights, colors) end,
 })
 

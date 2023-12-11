@@ -60,6 +60,7 @@ nv() {
     kitty @ set-background-opacity $(pgrep -x nvim > /dev/null && echo 1 || echo 0.7)
 }
 
+cd() { builtin cd "$@" && lsd; }
 
 # Arch Linux command-not-found support, you must have package pkgfile installed
 # https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
@@ -71,10 +72,10 @@ nv() {
 source $ZSH/oh-my-zsh.sh
 
 alias 1d="cd .."  
-alias 2d="cd ..;cd .."  
-alias 3d="cd ..;cd ..;cd .."  
-alias 4d="cd ..;cd ..;cd ..;cd .."  
-alias 5d="cd ..;cd ..;cd ..;cd ..;cd .." 
+alias 2d="cd ../.."  
+alias 3d="cd ../../.."  
+alias 4d="cd ../../../.."  
+alias 5d="cd ../../../../.." 
 alias ytm='yt-dlp -f 139'
 alias ls='lsd'
 alias img='kitty +kitten icat'
@@ -87,5 +88,5 @@ alias mkd='mkdir -p'
 alias ytdlp='yt-dlp'
 alias snapper='QT_QPA_PLATFORM='' sudo -E snapper-tools'
 alias qbittorrent='QT_QPA_PLATFORM="" qbittorrent'
-alias ranger='ranger --choosedir=/dev/shm/cdir && cd $(cat /dev/shm/cdir)'
-cd() { builtin cd "$@" && ls; }
+alias ranger='ranger --choosedir=/dev/shm/cdir && builtin cd $(cat /dev/shm/cdir)'
+alias c='clear'

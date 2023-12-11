@@ -9,9 +9,9 @@
     "notification-icon-size": 64,
     "notification-body-image-height": 100,
     "notification-body-image-width": 200,
-    "timeout": 10,
+    "timeout": 5,
     "timeout-low": 5,
-    "timeout-critical": 0,
+    "timeout-critical": 5,
     "fit-to-screen": false,
     "control-center-width": 500,
     "control-center-height": 1030,
@@ -25,8 +25,6 @@
     "widgets": [
         "buttons-grid",
         "mpris",
-        "volume",
-        "backlight",
         "title",
         "dnd",
         "notifications"
@@ -47,12 +45,6 @@
         "mpris": {
             "image-size": 96,
             "image-radius": 12
-        },
-        "volume": {
-            "label": "󰕾 "
-        },
-        "backlight": {
-            "label": "󰃟 "
         },
         "buttons-grid": {
             "actions": [
@@ -75,26 +67,6 @@
                 {
                     "label": "󰏥",
                     "command": "systemctl suspend"
-                },
-                {
-                    "label": "󰕾",
-                    "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-                },
-                {
-                    "label": "󰍬",
-                    "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-                },
-                {
-                    "label": "󰖩",
-                    "command": "iwgtk"
-                },
-                {
-                    "label": "󰂯",
-                    "command": "blueman-manager"
-                },
-                {
-                    "label": "",
-                    "command": "kooha"
                 }
             ]
         }

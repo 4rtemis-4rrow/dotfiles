@@ -11,22 +11,25 @@ set $browser librewolf
 gaps inner 6
 gaps outer 3
 corner_radius 15
-default_border none
-default_floating_border none
+default_border pixel 2
+default_floating_border pixel 2
 font pango:JetBrainsMono Nerd Font 11
 titlebar_padding 16
 titlebar_border_thickness 0
+default_dim_inactive 0.3
+focus_wrapping yes
 
 
 output * bg $HOME/.wallpapers/tokyo-girl-japanese-cyberpunk-synthwave-ao-1336x768.jpg fill
 
-exec_always autotiling
-exec_always python $HOME/.scripts/ChargeNotify.py
-exec_always --no-startup-id workstyle &> /tmp/workstyle.log
-exec --no-startup-id wl-paste -n -t text --watch clipman store --primary --histpath="~/.cache/clipman.json" >> /tmp/clipman-log.txt 2>&1 &# Example configuration:
+exec autotiling
+exec --no-startup-id workstyle &> /tmp/workstyle.log
+exec wl-paste --watch cliphist store
 exec swaync
-exec_always nm-applet
-exec_always QT_QPA_PLATFORM='wayland' /usr/lib/polkit-kde-authentication-agent-1
+exec nm-applet
+# exec lxpolkit
+
+focus_follows_mouse no
 
 input type:keyboard {
   xkb_layout "us,ara"
@@ -55,7 +58,7 @@ bindsym $mod+Alt+equal exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
 bindsym $mod+Alt+minus exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
 
 bindsym $mod+Alt+c exec $HOME/.scripts/calc.sh
-bindsym $mod+z exec clipman pick -t wofi --histpath="~/.cache/clipman.json" --primary --notify
+bindsym $mod+z exec cliphist list | wofi -dmenu | cliphist decode | wl-copy
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
 bindsym $mod+$left focus left
@@ -89,6 +92,8 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 bindsym $mod+b splith
 bindsym $mod+v splitv
@@ -110,6 +115,11 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+# Window colors
+#                   title-border    title-background   title-text   indicator     focused-border
+client.focused      #4c7899         #285577            #ffffff      #f7768e       #bb9af7
+client.unfocused    #333333         #5f676a            #ffffff      #7dcfff       #2ac3de
 
 bar {
     swaybar_command waybar

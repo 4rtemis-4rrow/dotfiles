@@ -1,7 +1,7 @@
 {
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["custom/clock"],
-    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "custom/weather", "custom/notifications", "tray", "custom/power"],
+    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "custom/weather", "tray", "custom/notifications"],
     "disable-click": true,
 
 
@@ -27,8 +27,7 @@
     "custom/network_traffic": {
 	    "exec": "~/.scripts/network_traffic.sh",
 	    "return-type": "json",
-	    "format-ethernet": "{icon} {ifname} ⇣{bandwidthDownBytes:>4} ⇡{ba
-ndwidthUpBytes:>4}",
+	    "format-ethernet": "{icon} {ifname} ⇣{bandwidthDownBytes:>4} ⇡{bandwidthUpBytes:>4}",
     },
 
     "custom/weather": {
@@ -36,13 +35,12 @@ ndwidthUpBytes:>4}",
         "restart-interval": 300,
         "return-type": "json",
         "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
-        // "format-alt": "{alt}",
     },
 
     "custom/clock": {
             "exec": "date +'%H:%M:%S - %a, %d/%m/%Y'",
             "restart-interval": 1,
-        },
+    },
 
     "cpu": {
         "format": "{usage}% ",

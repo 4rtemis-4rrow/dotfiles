@@ -3,6 +3,7 @@ vim.cmd.colorscheme("tokyonight-night")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
 vim.cmd.colorscheme("tokyonight-night")
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='red', linehl='', numhl=''})
 
 --global options--
 vim.opt.clipboard = "unnamedplus"
@@ -13,6 +14,9 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.wrap = true
 vim.opt.linebreak=true
+vim.opt.conceallevel = 3
+vim.opt.cursorline = true
+-- vim.opt.smoothscroll = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4

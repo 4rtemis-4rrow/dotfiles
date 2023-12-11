@@ -41,6 +41,7 @@ button:hover {
 }
 
 #workspaces button {
+    margin: 0 2px;
     padding: 0 5px;
     background-color: rgba(0, 0, 0, 0.4);
     color: #000000;
@@ -49,7 +50,7 @@ button:hover {
 
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.6);
-    box-shadow: inset 0 -3px rgba(0, 0, 0, 0.0)
+    box-shadow: inset 0 0px rgba(0, 0, 0, 0.0)
 }
 
 #workspaces button.focused {
@@ -80,14 +81,13 @@ button:hover {
 #tray,
 #mode,
 #scratchpad,
-#custom-power,
 #custom-notifications,
 #custom-weather,
 #custom-network_traffic
 #custom-clock
 #window,
 #workspaces {
-    margin: 0 4px;
+    margin: 0 2px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -99,6 +99,7 @@ button:hover {
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
 }
+
 
 #custom-clock {
     /* background-color: #2ac3de; */
@@ -118,7 +119,7 @@ button:hover {
     color: #000000;
     background-color: #f7768e;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(247,118,142);
     background: linear-gradient(135deg, rgba(247,118,142,1) 0%, rgba(187,154,247,1) 100%);
 }
@@ -127,7 +128,7 @@ button:hover {
     color: #000000;
     background-color: #ff9e64;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(255,158,100);
     background: linear-gradient(135deg, rgba(255,158,100,1) 0%, rgba(247,118,142,1) 100%);
 }
@@ -136,7 +137,7 @@ button:hover {
     color: #000000;
     background-color: #bb9af7;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 50%);
 }
@@ -145,7 +146,7 @@ button:hover {
     color: #000000;
     background-color: #c0caf5;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(125,207,255);
     background: linear-gradient(135deg, rgba(125,207,255,1) 0%, rgba(180,249,248,1) 100%);
 }
@@ -154,7 +155,7 @@ button:hover {
     color: #000000;
     background-color: #2ac3de;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 100%);
 }
@@ -163,7 +164,7 @@ button:hover {
     color: #000000;
     background-color: #b4f9f8;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(65,72,104,1) 100%);
 }
@@ -172,23 +173,13 @@ button:hover {
     color: #000000;
     background-color: #9ece6a;
     padding: 0 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     background: rgb(158,206,106);
     background: linear-gradient(135deg, rgba(158,206,106,1) 0%, rgba(42,195,222,1) 100%);
-}
-
-#custom-power {
-    background-color: #9ece6a;
-    color: #000000;
-    /*margin: 0 5px;*/
-    padding: 0 5px;
-    background: rgb(158,206,106);
-    background: linear-gradient(135deg, rgba(158,206,106,1) 0%, rgba(42,195,222,1) 100%);
-
 }
 
 #custom-notifications {
-    /*margin: 0 5px;*/
+    margin: 0 2px;
     color: #000000;
     background-color: #bb9af7;
     min-width: 20px;
@@ -249,6 +240,7 @@ label:focus {
     background-color: #bb9af7;
     color: #000000;
     padding: 0 2px;
+    margin: 0 2px;
     background: rgb(187,154,247);
     background: linear-gradient(135deg, rgba(187,154,247,1) 0%, rgba(115,218,202,1) 100%);
 }
@@ -262,6 +254,7 @@ label:focus {
     background-color: #2ac3de;
     color: #000000;
     padding: 0 5px;
+    margin: 0 2px;
     background: rgb(247,118,142);
     background: linear-gradient(135deg, rgba(247,118,142,1) 0%, rgba(187,154,247,1) 100%);
 }
@@ -307,6 +300,7 @@ label:focus {
     color: #000000;
     min-width: 20px;
     padding: 0 5px;
+    margin: 0 2px;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 100%);
 }
@@ -314,8 +308,8 @@ label:focus {
 #keyboard-state {
     background: #e0af68;
     color: #000000;
-    /*padding: 0 0px;
-    margin: 0 5px;*/
+    padding: 0 0px;
+    margin: 0 2px;
     min-width: 16px;
 }
 
