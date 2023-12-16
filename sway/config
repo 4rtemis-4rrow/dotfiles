@@ -27,7 +27,7 @@ exec --no-startup-id workstyle &> /tmp/workstyle.log
 exec wl-paste --watch cliphist store
 exec swaync
 exec nm-applet
-# exec lxpolkit
+exec lxpolkit
 
 focus_follows_mouse no
 
