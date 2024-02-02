@@ -6,20 +6,20 @@
 window {
   margin: 1px;
   border: 10px solid #2ac3de;
-  border-radius: 10px;
+  border-radius: 50px;
 }
 
 #input {
   margin: 5px;
-  border-radius: 0px;
-  border: none;
-  border-bottom: 0px solid #c0caf5;
+  border-radius: 50px;
+  border: 0px;
+  border-bottom: 0px;
   background-color: #1d202f;
   color: #c0caf5;
 }
 
 #inner-box {
-  margin: 5px;
+  margin: 10px;
   background-color: #1d202f;
 }
 
@@ -27,7 +27,7 @@ window {
   margin: 3px;
   padding: 20px;
   background-color: #1d202f;
-  border-radius: 10px;
+  border-radius: 50px;
 }
 
 #text {

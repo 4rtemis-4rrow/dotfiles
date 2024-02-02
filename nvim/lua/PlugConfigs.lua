@@ -11,9 +11,6 @@ require'nvim-treesitter.configs'.setup {
 
 -- Lualine --
 local lualine = require('lualine')
-
--- Color table for highlights
--- stylua: ignore
 local colors = {
     bg       = "#011627",
     fg       = "#acb4c2",
@@ -27,7 +24,6 @@ local colors = {
     blue     = "#82aaff ",
     red      = "#ff5874",
 }
-
 local conditions = {
     buffer_not_empty = function()
         return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -41,8 +37,6 @@ local conditions = {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
 }
-
--- Config
 local config = {
     options = {
         -- Disable sections and component separators
@@ -76,17 +70,12 @@ local config = {
         lualine_x = {},
     },
 }
-
--- Inserts a component in lualine_c at left section
 local function ins_left(component)
     table.insert(config.sections.lualine_c, component)
 end
-
--- Inserts a component in lualine_x at right section
 local function ins_right(component)
     table.insert(config.sections.lualine_x, component)
 end
-
 ins_left {
     function()
         return '▊'
@@ -94,11 +83,10 @@ ins_left {
     color = { fg = colors.blue }, -- Sets highlighting of component
     padding = { left = 0, right = 1 }, -- We don't need space before this
 }
-
 ins_left {
     -- mode component
     function()
-        return ''
+        return ''
     end,
     color = function()
         -- auto change color according to neovims mode
@@ -128,23 +116,18 @@ ins_left {
     end,
     padding = { right = 1 },
 }
-
 ins_left {
     -- filesize component
     'filesize',
     cond = conditions.buffer_not_empty,
 }
-
 ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
     color = { fg = colors.magenta, gui = 'bold' },
 }
-
 ins_left { 'location' }
-
 ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
-
 ins_left {
     'diagnostics',
     sources = { 'nvim_diagnostic' },
@@ -155,15 +138,11 @@ ins_left {
         color_info = { fg = colors.cyan },
     },
 }
-
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
 ins_left {
     function()
         return '%='
     end,
 }
-
 ins_left {
     -- Lsp server name .
     function()
@@ -184,28 +163,23 @@ ins_left {
     icon = ' LSP:',
     color = { fg = colors.cyan, gui = 'bold' },
 }
-
--- Add components to right sections
 ins_right {
     'o:encoding', -- option component same as &encoding in viml
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
     color = { fg = colors.green, gui = 'bold' },
 }
-
 ins_right {
     'fileformat',
     fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
     color = { fg = colors.green, gui = 'bold' },
 }
-
 ins_right {
     'branch',
     icon = '',
     color = { fg = colors.violet, gui = 'bold' },
 }
-
 ins_right {
     'diff',
     -- Is it me or the symbol for modified us really weird
@@ -217,7 +191,6 @@ ins_right {
     },
     cond = conditions.hide_in_width,
 }
-
 ins_right {
     function()
         return '▊'
@@ -225,10 +198,7 @@ ins_right {
     color = { fg = colors.blue },
     padding = { left = 1 },
 }
-
--- Now don't forget to initialize lualine
 lualine.setup(config)
-
 
 
 -- bufferline --
@@ -482,41 +452,41 @@ require'sniprun'.setup({
     repl_enable = {},               --# enable REPL-like behavior for the given interpreters
     repl_disable = {},              --# disable REPL-like behavior for the given interpreters
     interpreter_options = {         --# interpreter-specific options, see doc / :SnipInfo <name>
-    GFM_original = {
-        use_on_filetypes = {"markdown.pandoc"}    --# the 'use_on_filetypes' configuration key is
+        GFM_original = {
+            use_on_filetypes = {"markdown.pandoc"}    --# the 'use_on_filetypes' configuration key is
+        },
+        Python3_original = {
+            error_truncate = "auto"         --# Truncate runtime errors 'long', 'short' or 'auto'
+        }
+    },      
+    display = {
+        "VirtualText",                    --# display results in the command-line  area
+        "VirtualTextOk",              --# display ok results as virtual text (multiline is shortened)
     },
-    Python3_original = {
-        error_truncate = "auto"         --# Truncate runtime errors 'long', 'short' or 'auto'
-    }
-},      
-display = {
-    "VirtualText",                    --# display results in the command-line  area
-    "VirtualTextOk",              --# display ok results as virtual text (multiline is shortened)
-},
-live_display = { "VirtualTextOk" }, --# display mode used in live_mode
-display_options = {
-    terminal_scrollback = vim.o.scrollback, --# change terminal display scrollback lines
-    terminal_line_number = false, --# whether show line number in terminal window
-    terminal_signcolumn = false,  --# whether show signcolumn in terminal window
-    terminal_persistence = true,  --# always keep the terminal open (true) or close it at every occasion (false)
-    terminal_position = "vertical", --# or "horizontal", to open as horizontal split instead of vertical split
-    terminal_width = 45,          --# change the terminal display option width (if vertical)
-    terminal_height = 20,         --# change the terminal display option height (if horizontal)
-    notification_timeout = 5      --# timeout for nvim_notify output
-},
-show_no_output = {
-    "Classic",
-    "TempFloatingWindow",      --# implies LongTempFloatingWindow, which has no effect on its own
-},
-snipruncolors = {
-    SniprunVirtualTextOk   =  {bg="#66eeff",fg="#000000",ctermbg="Cyan",cterfg="Black"},
-    SniprunFloatingWinOk   =  {fg="#66eeff",ctermfg="Cyan"},
-    SniprunVirtualTextErr  =  {bg="#881515",fg="#000000",ctermbg="DarkRed",cterfg="Black"},
-    SniprunFloatingWinErr  =  {fg="#881515",ctermfg="DarkRed"},
-},
-live_mode_toggle='off',      --# live mode toggle, see Usage - Running for more info   
-inline_messages = false,    --# boolean toggle for a one-line way to display messages
-borders = 'single',         --# display borders around floating windows
+    live_display = { "VirtualTextOk" }, --# display mode used in live_mode
+    display_options = {
+        terminal_scrollback = vim.o.scrollback, --# change terminal display scrollback lines
+        terminal_line_number = false, --# whether show line number in terminal window
+        terminal_signcolumn = false,  --# whether show signcolumn in terminal window
+        terminal_persistence = true,  --# always keep the terminal open (true) or close it at every occasion (false)
+        terminal_position = "vertical", --# or "horizontal", to open as horizontal split instead of vertical split
+        terminal_width = 45,          --# change the terminal display option width (if vertical)
+        terminal_height = 20,         --# change the terminal display option height (if horizontal)
+        notification_timeout = 5      --# timeout for nvim_notify output
+    },
+    show_no_output = {
+        "Classic",
+        "TempFloatingWindow",      --# implies LongTempFloatingWindow, which has no effect on its own
+    },
+    snipruncolors = {
+        SniprunVirtualTextOk   =  {bg="#66eeff",fg="#000000",ctermbg="Cyan",cterfg="Black"},
+        SniprunFloatingWinOk   =  {fg="#66eeff",ctermfg="Cyan"},
+        SniprunVirtualTextErr  =  {bg="#881515",fg="#000000",ctermbg="DarkRed",cterfg="Black"},
+        SniprunFloatingWinErr  =  {fg="#881515",ctermfg="DarkRed"},
+    },
+    live_mode_toggle='off',      --# live mode toggle, see Usage - Running for more info   
+    inline_messages = false,    --# boolean toggle for a one-line way to display messages
+    borders = 'single',         --# display borders around floating windows
 })
 
 -- Neotree --
@@ -691,62 +661,60 @@ require("neo-tree").setup({
                 ["ot"] = { "order_by_type", nowait = false },
             },
             fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
-            ["<down>"] = "move_cursor_down",
-            ["<C-n>"] = "move_cursor_down",
-            ["<up>"] = "move_cursor_up",
-            ["<C-p>"] = "move_cursor_up",
+                ["<down>"] = "move_cursor_down",
+                ["<C-n>"] = "move_cursor_down",
+                ["<up>"] = "move_cursor_up",
+                ["<C-p>"] = "move_cursor_up",
+            },
+        },
+
+        commands = {} -- Add a custom command or override a global one using the same function name
+    },
+    buffers = {
+        follow_current_file = {
+            enabled = true, -- This will find and focus the file in the active buffer every time
+            --              -- the current file is changed while the tree is open.
+            leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+        },
+        group_empty_dirs = true, -- when true, empty folders will be grouped together
+        show_unloaded = true,
+        window = {
+            mappings = {
+                ["bd"] = "buffer_delete",
+                ["<bs>"] = "navigate_up",
+                ["."] = "set_root",
+                ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                ["oc"] = { "order_by_created", nowait = false },
+                ["od"] = { "order_by_diagnostics", nowait = false },
+                ["om"] = { "order_by_modified", nowait = false },
+                ["on"] = { "order_by_name", nowait = false },
+                ["os"] = { "order_by_size", nowait = false },
+                ["ot"] = { "order_by_type", nowait = false },
+            }
         },
     },
-
-    commands = {} -- Add a custom command or override a global one using the same function name
-},
-buffers = {
-    follow_current_file = {
-        enabled = true, -- This will find and focus the file in the active buffer every time
-        --              -- the current file is changed while the tree is open.
-        leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
-    },
-    group_empty_dirs = true, -- when true, empty folders will be grouped together
-    show_unloaded = true,
-    window = {
-        mappings = {
-            ["bd"] = "buffer_delete",
-            ["<bs>"] = "navigate_up",
-            ["."] = "set_root",
-            ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
-            ["oc"] = { "order_by_created", nowait = false },
-            ["od"] = { "order_by_diagnostics", nowait = false },
-            ["om"] = { "order_by_modified", nowait = false },
-            ["on"] = { "order_by_name", nowait = false },
-            ["os"] = { "order_by_size", nowait = false },
-            ["ot"] = { "order_by_type", nowait = false },
-        }
-    },
-},
-git_status = {
-    window = {
-        position = "float",
-        mappings = {
-            ["A"]  = "git_add_all",
-            ["gu"] = "git_unstage_file",
-            ["ga"] = "git_add_file",
-            ["gr"] = "git_revert_file",
-            ["gc"] = "git_commit",
-            ["gp"] = "git_push",
-            ["gg"] = "git_commit_and_push",
-            ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
-            ["oc"] = { "order_by_created", nowait = false },
-            ["od"] = { "order_by_diagnostics", nowait = false },
-            ["om"] = { "order_by_modified", nowait = false },
-            ["on"] = { "order_by_name", nowait = false },
-            ["os"] = { "order_by_size", nowait = false },
-            ["ot"] = { "order_by_type", nowait = false },
+    git_status = {
+        window = {
+            position = "float",
+            mappings = {
+                ["A"]  = "git_add_all",
+                ["gu"] = "git_unstage_file",
+                ["ga"] = "git_add_file",
+                ["gr"] = "git_revert_file",
+                ["gc"] = "git_commit",
+                ["gp"] = "git_push",
+                ["gg"] = "git_commit_and_push",
+                ["o"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+                ["oc"] = { "order_by_created", nowait = false },
+                ["od"] = { "order_by_diagnostics", nowait = false },
+                ["om"] = { "order_by_modified", nowait = false },
+                ["on"] = { "order_by_name", nowait = false },
+                ["os"] = { "order_by_size", nowait = false },
+                ["ot"] = { "order_by_type", nowait = false },
+            }
         }
     }
-}
 })
-
-
 
 --lsp-zero--
 local lsp = require('lsp-zero')
@@ -833,16 +801,16 @@ cmp.setup({
 -- LuaSnip --
 local ls = require "luasnip"
 ls.config.set_config {
-  history = false,
-  updateevents = "TextChanged,TextChangedI",
-  enable_autosnippets = true,
-  ext_opts = {
-    [require('luasnip.util.types').choiceNode] = {
-      active = {
-        virt_text = { { " « ", "NonTest" } },
-      },
+    history = false,
+    updateevents = "TextChanged,TextChangedI",
+    enable_autosnippets = true,
+    ext_opts = {
+        [require('luasnip.util.types').choiceNode] = {
+            active = {
+                virt_text = { { " « ", "NonTest" } },
+            },
+        },
     },
-  },
 }
 
 --AutoPairs--
@@ -882,18 +850,15 @@ require'cmp'.setup {
         { name = 'nvim_lsp' }
     }
 }
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 require'lspconfig'.clangd.setup {
     capabilities = capabilities,
 }
 
-
 --TokyoNight--
 require("tokyonight").setup({
-    style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-    light_style = "storm", -- The theme is used when the background is set to light
+    style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+    light_style = "day", -- The theme is used when the background is set to light
     transparent = false, -- Enable this to disable setting the background color
     terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
     styles = {
@@ -901,7 +866,6 @@ require("tokyonight").setup({
         keywords = { italic = true },
         functions = {},
         variables = {},
-        -- Background styles. Can be "dark", "transparent" or "normal"
         sidebars = "dark", -- style for sidebars, see below
         floats = "dark", -- style for floating windows
     },
@@ -910,16 +874,5 @@ require("tokyonight").setup({
     hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
     dim_inactive = false, -- dims inactive windows
     lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
-
-    --- You can override specific color groups to use other groups or a hex color
-    --- function will be called with a ColorScheme table
-    ---@param colors ColorScheme
-    on_colors = function(colors) end,
-
-    --- You can override specific highlights to use other groups or a hex color
-    --- function will be called with a Highlights and ColorScheme table
-    ---@param highlights Highlights
-    ---@param colors ColorScheme
-    on_highlights = function(highlights, colors) end,
 })
 

@@ -20,14 +20,14 @@ default_dim_inactive 0.3
 focus_wrapping yes
 
 
-output * bg $HOME/.wallpapers/tokyo-girl-japanese-cyberpunk-synthwave-ao-1336x768.jpg fill
-
 exec autotiling
 exec --no-startup-id workstyle &> /tmp/workstyle.log
-exec wl-paste --watch cliphist store
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 exec swaync
 exec nm-applet
-# exec lxpolkit
+exec lxpolkit
+exec $HOME/.scripts/wall.sh
 
 focus_follows_mouse no
 
@@ -120,6 +120,17 @@ bindsym $mod+r mode "resize"
 #                   title-border    title-background   title-text   indicator     focused-border
 client.focused      #4c7899         #285577            #ffffff      #f7768e       #bb9af7
 client.unfocused    #333333         #5f676a            #ffffff      #7dcfff       #2ac3de
+
+for_window [app_id="pavucontrol" ] floating enable, resize set width 40 ppt height 30 ppt
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [window_role="About"] floating enable
+for_window [title="File Operation Progress"] floating enable, border pixel 1, sticky enable, resize set width 40 ppt height 30 ppt
+
 
 bar {
     swaybar_command waybar

@@ -1,6 +1,6 @@
 ## Why?
 
-I made this config as my first proper rice after switching from KDE, as a power user, I wanted it to be perfect for that, but I also wanted to make it simple to use for beginners, while at the same time being as beautiful as possible, tokyo night was the perfect theme for that, offering high contrast in colors to make it easy to code with, at the same time having a great set of colors
+I made this config as my first proper rice after switching from KDE, as a power user, I wanted it to be perfect for that, but I also wanted to make it simple to use for beginners, while at the same time being as beautiful as possible, tokyonight was the perfect theme for that, offering high contrast in colors to make it easy to code with, at the same time having a great look, very few themes can top tokyonight
 
 ## Installation
 
@@ -10,35 +10,9 @@ just run this command
 
 it will install the following, clone these dotfiles, and link them to their proper directory (I chose symlinks because it makes it easier to update from this repo)
 
-note: it's designed to work on arch based distros only, I haven't added support for package managers besides yay and paru, if you use any other distro, you'll have to manually install the dependancies as well as manually move the dotfiles
+note: it's designed to work on arch based distros only, I haven't added support for package managers besides yay and paru, if you use any other distro, you'll have to manually install the dependancies, you can find the list in the install.sh file
 
-1. swayfx
-2. swaync
-3. waybar
-4. kitty
-5. zsh
-6. oh my zsh
-7. neovim
-8. zathura
-9. wofi
-10. grim
-11. slurp
-12. swappy
-13. autotiling
-14. brightnessctl
-15. swaybg
-16. workstyle
-17. clipman
-18. python-pyquery
-19. lsd
-20. bat
-21. cless
-22. ranger
-23. ripdrag
-24. satty
-24. ripgrep
-
-there might be missing dependancies that I forgot to add here, if you find any, feel free to update the install.sh file, or submit an issue for me to update it
+there might be missing dependancies that I forgot to add, if you find any, feel free to update the install.sh file, or submit an issue for me to update it
 
 ## Screenshots
 

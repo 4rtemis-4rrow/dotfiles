@@ -83,8 +83,9 @@ button:hover {
 #scratchpad,
 #custom-notifications,
 #custom-weather,
-#custom-network_traffic
-#custom-clock
+#custom-network_traffic,
+#custom-clock,
+#custom-media,
 #window,
 #workspaces {
     margin: 0 2px;
@@ -107,6 +108,13 @@ button:hover {
     padding: 0 5px;
     background: rgb(158,206,106);
     background: linear-gradient(135deg, rgba(158,206,106,1) 0%, rgba(42,195,222,1) 100%);
+}
+
+#custom-media {
+    color: #000000;
+    padding: 0 5px;
+    background: rgb(42,195,222);
+    background: linear-gradient(135deg, rgba(42,195,222,1) 35%, rgba(187,154,247,1) 70%);
 }
 
 #battery {
@@ -180,6 +188,7 @@ button:hover {
 
 #custom-notifications {
     margin: 0 2px;
+    padding: 0 0 0 1px;
     color: #000000;
     background-color: #bb9af7;
     min-width: 20px;

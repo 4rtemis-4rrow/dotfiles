@@ -1,28 +1,38 @@
 {
-    "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["custom/clock"],
-    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "custom/weather", "tray", "custom/notifications"],
+    "modules-left": ["sway/workspaces", "custom/media", "sway/mode"],
+    "modules-center": [ "custom/clock"],
+    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "sway/language", "custom/weather", "tray", "custom/notifications"],
     "disable-click": true,
-
-
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
 
     "tray": {
         // "icon-size": 21,
         "spacing": 10
     },
+    "custom/media": {
+        "format": "{icon} {}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 40,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl stop",
+        "smooth-scrolling-threshold": 10,
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "exec": "$HOME/.scripts/mediaplayer.py 2> /dev/null",
+    },
 
     "custom/notifications": {
-	    "format": "󰂚",
-	    "on-click": "swaync-client -t -sw"
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂞 ",
+            "none": "",
+        },
+        "return-type": "json",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "escape": true
+
     },
     "custom/network_traffic": {
 	    "exec": "~/.scripts/network_traffic.sh",
@@ -38,10 +48,9 @@
     },
 
     "custom/clock": {
-            "exec": "date +'%H:%M:%S - %a, %d/%m/%Y'",
-            "restart-interval": 1,
+        "exec": "date +'%H:%M:%S - %a, %d/%m/%Y'",
+        "restart-interval": 1,
     },
-
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
@@ -58,33 +67,6 @@
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
-    },
-
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-
-    "custom/power": {
-        "format": "⏻",
-        "tooltip": false,
-        "on-click": "nwgbar"
     },
 
     "pulseaudio": {
