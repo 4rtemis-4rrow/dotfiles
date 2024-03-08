@@ -24,8 +24,6 @@ require('lazy').setup({
     'saadparwaiz1/cmp_luasnip',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-path',
-    'nvim-neo-tree/neo-tree.nvim',
-    'akinsho/bufferline.nvim',
     { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
     'HiPhish/rainbow-delimiters.nvim',
     'folke/tokyonight.nvim',
@@ -92,15 +90,6 @@ require('lazy').setup({
         event = "VeryLazy",
         opts = {
         },
-    },
-    {
-        "michaelb/sniprun",
-        branch = "master",
-        build = "sh install.sh",
-        config = function()
-            require("sniprun").setup({
-            })
-        end,
     },
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     'jghauser/mkdir.nvim',

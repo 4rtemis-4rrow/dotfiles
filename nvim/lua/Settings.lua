@@ -25,8 +25,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.breakindent = true
 vim.opt.smartindent = true
-vim.opt.foldmethod = 'indent'
 vim.opt.foldenable = false
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.opt.swapfile = false
 vim.opt.backup = false

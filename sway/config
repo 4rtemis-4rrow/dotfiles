@@ -6,7 +6,7 @@ set $right l
 set $term kitty -o allow_remote_control=yes
 set $menu wofi --show drun --allow-images
 set $explorer $term ranger ~/
-set $browser librewolf
+set $browser firedragon
 
 gaps inner 6
 gaps outer 3
@@ -19,6 +19,7 @@ titlebar_border_thickness 0
 default_dim_inactive 0.3
 focus_wrapping yes
 
+seat seat0 hide_cursor 3000
 
 exec autotiling
 exec --no-startup-id workstyle &> /tmp/workstyle.log
@@ -34,6 +35,13 @@ focus_follows_mouse no
 input type:keyboard {
   xkb_layout "us,ara"
   xkb_options "grp:lalt_lshift_toggle"
+}
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled
+    accel_profile "flat"
 }
 
 bindsym $mod+t exec $term
@@ -59,7 +67,7 @@ bindsym $mod+Alt+minus exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
 
 bindsym $mod+Alt+c exec $HOME/.scripts/calc.sh
 bindsym $mod+z exec cliphist list | wofi -dmenu | cliphist decode | wl-copy
-bindsym $mod+Shift+n exec swaync-client -t -sw
+bindsym $mod+n exec swaync-client -t -sw
 
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down

@@ -2,17 +2,15 @@ vim.g.mapleader = ' '
 vim.keymap.set("n", "Q", "<nop>")
 
 --Plugins--
-
 vim.keymap.set('n', '<C-f>', '<Cmd>Neotree toggle<CR>', {desc = 'Toggle Neotree File Explorer'})
 vim.keymap.set('n', '<C-t>', '<Cmd>ToggleTerm<CR>', {desc = 'Toggle Terminal'})
 vim.keymap.set('t', '<C-t>', [[<C-\><C-n>]], opts, {desc = 'Toggle Terminal'})
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", {desc = 'Find Files With Telescope'})
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", {desc = 'Find File Contents with Telescope'})
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", {desc = 'Search Previously Opened Files With Telescope'})
-vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>", {desc = 'View Undo History With Telescope'})
+vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", {desc = 'View Undo History With Telescope'})
 
 --UI--
-
 vim.keymap.set("n", "<leader>sv", vim.cmd.vsplit, {desc = 'Split The Editor Vertically'})
 vim.keymap.set("n", "<leader>sh", vim.cmd.split, {desc = 'Split The Editor Horizontally'})
 vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<CR>", {desc = 'Resize The Editor Vertically'})
@@ -21,7 +19,6 @@ vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", {desc = 'Resize T
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", {desc = 'Resize The Editor Horizontally'})
 
 --LSP--
-
 vim.keymap.set('n', "<leader>ld", function() vim.lsp.buf.definition() end, opts, {desc = 'Go To The Definition Of The Symbol Under The Cursor'})
 vim.keymap.set('n', "<leader>lc", vim.cmd.CodeActionMenu, {desc = 'Suggest Code Fix'})
 vim.keymap.set('n', '<leader>lk', function() vim.lsp.buf.hover() end, opts, {desc = 'Show Info About The Symbol Under The Cursor'})
@@ -36,7 +33,6 @@ vim.keymap.set("s", "<A-j>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 vim.keymap.set("n", "<leader>ex", function() require("luasnip").expand() end, {silent = true})
 
 --Navigation--
-
 vim.keymap.set("n", "<C-h>", "<C-w>h", {desc = 'Navigate To The Split On The Left'})
 vim.keymap.set("n", "<C-j>", "<C-w>j", {desc = 'Navigate To The Split Underneath'})
 vim.keymap.set("n", "<C-k>", "<C-w>k", {desc = 'Navigate To the Split Above'})
