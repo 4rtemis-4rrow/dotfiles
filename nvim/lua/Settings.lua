@@ -44,4 +44,6 @@ vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
 vim.opt.laststatus=2
 
+vim.g.indent_blankline_filetype_exclude = {'dashboard'}
+
 vim.g.mapleader = " "

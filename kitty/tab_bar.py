@@ -22,7 +22,7 @@ date_color = as_rgb(color_as_int(opts.color8))
 SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
 RIGHT_MARGIN = 1
 REFRESH_TIME = 1
-ICON = "  "
+ICON = " "
 
 
 def _draw_icon(screen: Screen, index: int) -> int:

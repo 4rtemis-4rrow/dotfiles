@@ -9,6 +9,63 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
+-- aerial --
+require("aerial").setup({
+    on_attach = function(bufnr)
+	vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+	vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+    end,
+})
+
+-- dashboard --
+require('dashboard').setup {
+    theme = 'doom',
+    config = {
+        header = {
+            "           ▄ ▄                   ",
+            "       ▄   ▄▄▄     ▄ ▄▄▄ ▄ ▄     ",
+            "       █ ▄ █▄█ ▄▄▄ █ █▄█ █ █     ",
+            "    ▄▄ █▄█▄▄▄█ █▄█▄█▄▄█▄▄█ █     ",
+            "  ▄ █▄▄█ ▄ ▄▄ ▄█ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ",
+            "  █▄▄▄▄ ▄▄▄ █ ▄ ▄▄▄ ▄ ▄▄▄ ▄ ▄ █ ▄",
+            "▄ █ █▄█ █▄█ █ █ █▄█ █ █▄█ ▄▄▄ █ █",
+            "█▄█ ▄ █▄▄█▄▄█ █ ▄▄█ █ ▄ █ █▄█▄█ █",
+            "    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█ █▄█▄▄▄█    ",
+        },
+        center = {
+            {
+                icon = '󰮗 ',
+                desc = 'Find File',
+                key = 'f',
+                key_format = ' %s', -- remove default surrounding `[]`
+                action = 'Telescope find_files'
+            },
+            {
+                icon = ' ',
+                desc = 'Recent Files',
+                key = 'r',
+                key_format = ' %s', -- remove default surrounding `[]`
+                action = 'Telescope oldfiles'
+            },
+            {
+                icon = '󱩾 ',
+                desc = 'Find Word',
+                key = 'w',
+                key_format = ' %s',
+                action = 'Telescope live_grep'
+            },
+            {
+                icon = '󰗼 ',
+                desc = "Quit",
+                key = 'q',
+                key_format = ' %s',
+                action = 'quit'
+            },
+        },
+        footer = {}  --your footer
+    }
+}
+
 
 -- Lualine --
 local lualine = require('lualine')
@@ -79,7 +136,7 @@ ins_left {
 }
 ins_left {
     function()
-        return ''
+        return ''
     end,
     color = function()
         local mode_color = {
@@ -377,7 +434,10 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
     vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#BB9AF7" })
     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#2ac3de" })
 end)
-require("ibl").setup { indent = { highlight = highlight } }
+require("ibl").setup {
+    indent = { highlight = highlight },
+    exclude = { filetypes = {'dashboard'} }
+}
 
 -- nvim-cmp --
 kind_icons = {

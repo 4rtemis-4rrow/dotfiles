@@ -64,11 +64,15 @@ class PlayerManager:
     def write_output(self, text, player):
         logger.debug(f"Writing output: {text}")
         if text != "\uf144   - ":
+            if text == None:
+                cls = "Empty"
+            else:
+                cls = "custom-" + player.props.player_name
             output = {"text": text,
-                      "class": "custom-" + player.props.player_name,
+                      "class": cls,
                       "alt": player.props.player_name}
         else:
-            output = ""
+            output = {"class": "Empty"}
         sys.stdout.write(json.dumps(output) + "\n")
         sys.stdout.flush()
 

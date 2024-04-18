@@ -4,9 +4,9 @@ set $down j
 set $up k
 set $right l
 set $term kitty -o allow_remote_control=yes
-set $menu wofi --show drun --allow-images
-set $explorer $term ranger ~/
-set $browser firedragon
+set $menu wofi --show drun --allow-images --insensitive --term=kitty
+set $explorer $term yazi ~/
+set $browser floorp
 
 gaps inner 6
 gaps outer 3
@@ -28,7 +28,9 @@ exec wl-paste --type image --watch cliphist store
 exec swaync
 exec nm-applet
 exec lxpolkit
+exec swayosd-server
 exec $HOME/.scripts/wall.sh
+exec udiskie --terminal $term -f $explorer -a -s
 
 focus_follows_mouse no
 
@@ -53,20 +55,24 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-bindsym XF86AudioRaiseVolume exec python $HOME/.scripts/VolUp.py
-bindsym XF86AudioLowerVolume exec python $HOME/.scripts/VolDown.py
-
-bindsym XF86MonBrightnessUp exec brightnessctl s 350+
-bindsym XF86MonBrightnessDown exec brightnessctl s 350-
+bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume 5
+bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume -5
+bindsym XF86MonBrightnessUp  exec swayosd-client --brightness 10
+bindsym XF86MonBrightnessDown exec swayosd-client --brightness -10
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+Shift+s exec ~/.scripts/SS.sh
-bindsym $mod+Shift+m exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+Shift+m exec swayosd-client --input-volume mute-toggle
 
-bindsym $mod+Alt+equal exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
-bindsym $mod+Alt+minus exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
+bindsym --release Caps_Lock exec swayosd-client --caps-lock
 
-bindsym $mod+Alt+c exec $HOME/.scripts/calc.sh
-bindsym $mod+z exec cliphist list | wofi -dmenu | cliphist decode | wl-copy
+bindsym $mod+Alt+equal exec swayosd-client --input-volume 5
+bindsym $mod+Alt+minus exec swayosd-client --input-volume -5
+
+bindsym $mod+z exec cliphist list | wofi --show dmenu | cliphist decode | wl-copy
 bindsym $mod+n exec swaync-client -t -sw
 
 bindsym $mod+$left focus left
@@ -122,7 +128,16 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
+mode "menus" {
+    bindsym Escape mode "default"
+    bindsym p exec $HOME/.scripts/power.sh
+    bindsym w exec $HOME/.scripts/wifi.sh
+    bindsym l exec $HOME/.scripts/WallChooser.sh
+}
+
 bindsym $mod+r mode "resize"
+bindsym $mod+m mode "menus"
 
 # Window colors
 #                   title-border    title-background   title-text   indicator     focused-border

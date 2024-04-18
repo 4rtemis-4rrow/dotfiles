@@ -1,13 +1,3 @@
-export EDITOR='nvim'
-export GOPATH=~/.go
-export LC_ALL=en_US.UTF-8
-export LESS='-R --use-color -Dd+r$Du+b$'
-export MANPAGER="nvim +Man!"
-export SDL_VIDEODRIVER=wayland
-export MOZ_ENABLE_WAYLAND=1
-export UPDATE_ZSH_DAYS=1
-export ZSH="$HOME/.oh-my-zsh"
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -62,6 +52,15 @@ nv() {
 
 cd() { builtin cd "$@" && lsd; }
 
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 # Arch Linux command-not-found support, you must have package pkgfile installed
 # https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
 [[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
@@ -83,6 +82,7 @@ alias ip='ip -color=auto'
 alias ls='lsd'
 alias mkdir='mkdir -p'
 alias py='ipython'
-alias ranger='ranger --choosedir=/dev/shm/cdir && builtin cd $(cat /dev/shm/cdir)'
 alias ytdlp='yt-dlp'
 alias ytm='yt-dlp -f 139'
+alias snapper-restore='sudo snapper --ambit classic rollback'
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'

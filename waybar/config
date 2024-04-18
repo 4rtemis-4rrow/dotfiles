@@ -1,7 +1,7 @@
 {
-    "modules-left": ["sway/workspaces", "custom/media", "sway/mode"],
-    "modules-center": [ "custom/clock"],
-    "modules-right": ["pulseaudio", "custom/network_traffic", "cpu", "memory", "temperature", "sway/language", "custom/weather", "tray", "custom/notifications"],
+    "modules-left": ["custom/icon", "sway/workspaces", "custom/media", "sway/mode"],
+    "modules-center": [ "clock"],
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "sway/language", "custom/weather", "tray", "custom/notifications"],
     "disable-click": true,
 
     "tray": {
@@ -21,23 +21,34 @@
         "exec": "$HOME/.scripts/mediaplayer.py 2> /dev/null",
     },
 
+    "custom/icon": {
+        "format": "<span font_family='Material Icons' rise='-4000' size='large'> </span>",
+    },
+
     "custom/notifications": {
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-            "notification": "󰂞 ",
-            "none": "",
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
         },
         "return-type": "json",
+        "exec-if": "which swaync-client",
         "exec": "swaync-client -swb",
         "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
         "escape": true
-
     },
-    "custom/network_traffic": {
-	    "exec": "~/.scripts/network_traffic.sh",
-	    "return-type": "json",
-	    "format-ethernet": "{icon} {ifname} ⇣{bandwidthDownBytes:>4} ⇡{bandwidthUpBytes:>4}",
+    "network": {
+    "format": "{bandwidthDownBytes}⇣ {bandwidthUpBytes}⇡",
+    "interval": 1,
+
     },
 
     "custom/weather": {
@@ -47,9 +58,9 @@
         "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
     },
 
-    "custom/clock": {
-        "exec": "date +'%H:%M:%S - %a, %d/%m/%Y'",
-        "restart-interval": 1,
+    "clock": {
+        "format": "{:%H:%M:%S - %a, %d/%m/%Y}",
+        "interval": 1,
     },
     "cpu": {
         "format": "{usage}% ",

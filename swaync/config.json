@@ -23,10 +23,8 @@
     "hide-on-action": true,
     "script-fail-notify": true,
     "widgets": [
-        "buttons-grid",
         "mpris",
         "title",
-        "dnd",
         "notifications"
     ],
     "widget-config": {
@@ -34,9 +32,6 @@
             "text": "Notifications",
             "clear-all-button": true,
             "button-text": "Clear All"
-        },
-        "dnd": {
-            "text": "Do Not Disturb"
         },
         "label": {
             "max-lines": 1,
@@ -46,29 +41,11 @@
             "image-size": 96,
             "image-radius": 12
         },
-        "buttons-grid": {
-            "actions": [
-                {
-                    "label": "󰐥",
-                    "command": "systemctl poweroff"
-                },
-                {
-                    "label": "󰜉",
-                    "command": "systemctl reboot"
-                },
-                {
-                    "label": "󰌾",
-                    "command": "swaylock"
-                },
-                {
-                    "label": "󰍃",
-                    "command": "swaymsg exit"
-                },
-                {
-                    "label": "󰏥",
-                    "command": "systemctl suspend"
-                }
-            ]
+    }
+    "scripts": {
+        "audio": {
+            "exec": "sh $HOME/.scripts/notif.sh",
+            "app-name": ".*",
         }
     }
 }

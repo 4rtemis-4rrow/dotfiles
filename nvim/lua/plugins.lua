@@ -22,12 +22,26 @@ require('lazy').setup({
     'nvim-tree/nvim-web-devicons',
     "MunifTanjim/nui.nvim",
     'saadparwaiz1/cmp_luasnip',
+    {
+        'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    },
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-path',
     { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
     'HiPhish/rainbow-delimiters.nvim',
     'folke/tokyonight.nvim',
     'dense-analysis/ale',
+    {
+        'stevearc/aerial.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+    },
     {
         "chrisgrieser/nvim-spider",
         keys = {

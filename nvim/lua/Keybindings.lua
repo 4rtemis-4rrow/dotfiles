@@ -9,6 +9,7 @@ vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", {desc = 'Find
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", {desc = 'Find File Contents with Telescope'})
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", {desc = 'Search Previously Opened Files With Telescope'})
 vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", {desc = 'View Undo History With Telescope'})
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle<CR>", {desc = 'Toggle Aerial Panel'})
 
 --UI--
 vim.keymap.set("n", "<leader>sv", vim.cmd.vsplit, {desc = 'Split The Editor Vertically'})
