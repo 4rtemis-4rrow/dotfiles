@@ -75,7 +75,7 @@ alias 3d="cd ../../.."
 alias 4d="cd ../../../.."  
 alias 5d="cd ../../../../.." 
 alias cat='bat'
-alias c='clear'
+alias c="printf '\033[2J\033[3J\033[1;1H'"
 alias grep='rg'
 alias img='kitten icat'
 alias ip='ip -color=auto'
@@ -84,5 +84,5 @@ alias mkdir='mkdir -p'
 alias py='ipython'
 alias ytdlp='yt-dlp'
 alias ytm='yt-dlp -f 139'
-alias snapper-restore='sudo snapper --ambit classic rollback'
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias btrfs-assisstant='sudo -E btrfs-assistant-bin'

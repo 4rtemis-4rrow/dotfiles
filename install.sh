@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "ripdrag-git" "ripgrep" "lxsession" "git" "curl" "yazi" "cliphist" "vimiv-qt" "swayosd-git" "floorp" "udiskie" "ttf-iosevkaterm-nerd" "fd")
+packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "ripdrag-git" "ripgrep" "xfce-polkit" "git" "curl" "ranger-git" "cliphist" "imv" "swayosd-git" "floorp-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
@@ -51,7 +51,7 @@ ln -s "$dotfiles_dir/sway/" "$HOME/.config/sway"
 ln -s "$dotfiles_dir/swaync/" "$HOME/.config/swaync"
 ln -s "$dotfiles_dir/wofi/" "$HOME/.config/wofi"
 ln -s "$dotfiles_dir/waybar/" "$HOME/.config/waybar"
-ln -s "$dotfiles_dir/yazi" "$HOME/.config/yazi"
+ln -s "$dotfiles_dir/ranger" "$HOME/.config/ranger"
 ln -s "$dotfiles_dir/zshenv" "$HOME/.zshenv"
 ln -s "$dotfiles_dir/p10k.zsh" "$HOME/.p10k.zsh"
 ln -s "$dotfiles_dir/zshrc" "$HOME/.zshrc"

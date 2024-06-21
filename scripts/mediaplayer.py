@@ -126,7 +126,7 @@ class PlayerManager:
 
         if track_info:
             if player.props.status == "Playing":
-                track_info = " " + track_info
+                track_info = "  " + track_info
             else:
                 track_info = "  " + track_info
         # only print output if no other player is playing

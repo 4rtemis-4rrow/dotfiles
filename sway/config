@@ -4,8 +4,8 @@ set $down j
 set $up k
 set $right l
 set $term kitty -o allow_remote_control=yes
-set $menu wofi --show drun --allow-images --insensitive --term=kitty
-set $explorer $term yazi ~/
+set $menu $HOME/.scripts/launcher.sh
+set $explorer $term ranger ~/
 set $browser floorp
 
 gaps inner 6
@@ -18,8 +18,7 @@ titlebar_padding 16
 titlebar_border_thickness 0
 default_dim_inactive 0.3
 focus_wrapping yes
-
-seat seat0 hide_cursor 3000
+seat seat0 xcursor_theme Catppuccin-Mocha-Dark 1
 
 exec autotiling
 exec --no-startup-id workstyle &> /tmp/workstyle.log
@@ -27,7 +26,7 @@ exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec swaync
 exec nm-applet
-exec lxpolkit
+exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
 exec swayosd-server
 exec $HOME/.scripts/wall.sh
 exec udiskie --terminal $term -f $explorer -a -s
@@ -66,13 +65,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+Shift+s exec ~/.scripts/SS.sh
 bindsym $mod+Shift+m exec swayosd-client --input-volume mute-toggle
+bindsym $mod+p exec $HOME/.scripts/powermenu.sh
 
 bindsym --release Caps_Lock exec swayosd-client --caps-lock
 
 bindsym $mod+Alt+equal exec swayosd-client --input-volume 5
 bindsym $mod+Alt+minus exec swayosd-client --input-volume -5
 
-bindsym $mod+z exec cliphist list | wofi --show dmenu | cliphist decode | wl-copy
+bindsym $mod+z exec rofi -modi clipboard:$HOME/.scripts/clipboard.sh -show clipboard -show-icons -theme $HOME/.config/rofi/launcher.rasi
 bindsym $mod+n exec swaync-client -t -sw
 
 bindsym $mod+$left focus left
@@ -129,15 +129,7 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
-mode "menus" {
-    bindsym Escape mode "default"
-    bindsym p exec $HOME/.scripts/power.sh
-    bindsym w exec $HOME/.scripts/wifi.sh
-    bindsym l exec $HOME/.scripts/WallChooser.sh
-}
-
 bindsym $mod+r mode "resize"
-bindsym $mod+m mode "menus"
 
 # Window colors
 #                   title-border    title-background   title-text   indicator     focused-border
