@@ -119,13 +119,8 @@ def draw_tab(
     global right_status_length
     if timer_id is None:
         timer_id = add_timer(_redraw_tab_bar, REFRESH_TIME, True)
-    clock = datetime.now().strftime(" %H:%M")
-    date = datetime.now().strftime(" %d.%m.%Y")
-    cells = [(clock_color, clock)]
-    cells.append((date_color, date))
     right_status_length = RIGHT_MARGIN
-    for cell in cells:
-        right_status_length += len(str(cell[1]))
+    cells = []
 
     _draw_icon(screen, index)
     _draw_left_status(

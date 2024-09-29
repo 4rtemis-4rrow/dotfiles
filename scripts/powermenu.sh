@@ -3,7 +3,6 @@
 uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
 
-# Options
 shutdown=''
 reboot=''
 lock=''

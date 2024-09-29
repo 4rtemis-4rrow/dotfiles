@@ -17,17 +17,6 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<CR>", {desc = 'Resize The Editor
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", {desc = 'Resize The Editor Horizontally'})
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", {desc = 'Resize The Editor Horizontally'})
 
---LSP--
-vim.keymap.set('n', "<leader>ld", function() require('telescope.builtin').lsp_definitions() end, {desc = 'Go To The Definition'})
-vim.keymap.set('n', "<leader>lc", vim.cmd.CodeActionMenu, {desc = 'Suggest Code Fix'})
-vim.keymap.set('n', '<leader>lh', function() vim.lsp.buf.hover() end, {desc = 'Show Info'})
-vim.keymap.set('n', '<leader>lr', function() vim.lsp.buf.rename() end, {desc = 'Rename'})
-vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.formatting() end, {desc = 'Format'})
-vim.keymap.set('n', '<leader>lD', function() vim.lsp.buf.declaration() end, {desc = "Jump to declaration"})
-vim.keymap.set('n', "<leader>lR", function() require('telescope.builtin').lsp_references() end, {desc="List References"})
-vim.keymap.set('n', "<leader>li", function() require('telescope.builtin').lsp_implementations() end, {desc="List Implementations"})
-vim.keymap.set('n', "<leader>lC", function() require("telescope.builtin").lsp_incoming_calls() end, {desc="List Incoming Calls"})
-
 --Navigation--
 vim.keymap.set("n", "<C-h>", "<C-w>h", {desc = 'Navigate To The Split On The Left'})
 vim.keymap.set("n", "<C-j>", "<C-w>j", {desc = 'Navigate To The Split Underneath'})
@@ -50,16 +39,3 @@ vim.keymap.set("n", "n", "nzzzv", {desc = 'Next Match'})
 vim.keymap.set("n", "N", "Nzzzv", {desc = 'Previous Match'})
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
--- Debugger --
-vim.keymap.set('n', '<leader>db', vim.cmd.DapToggleBreakpoint, {desc = 'Toggle Breakpoint'})
-vim.keymap.set('n', '<leader>dc', vim.cmd.DapContinue, {desc = 'Start Debuggee'})
-vim.keymap.set('n', '<leader>dr', vim.cmd.DapRestartFrame, {desc = 'Restart Debuggee'})
-vim.keymap.set('n', '<leader>di', vim.cmd.DapStepInto, {desc = 'Step Into The Function'})
-vim.keymap.set('n', '<leader>do', vim.cmd.DapStepOut, {desc = 'Step Out Of The Function'})
-vim.keymap.set('n', '<leader>dv', vim.cmd.DapStepOver, {desc = 'Step Over The Function'})
-vim.keymap.set('n', '<leader>dk', vim.cmd.DapTerminate, {desc = 'Kill Debuggee'})
-
--- Git --
-vim.keymap.set('n', '<leader>gs', function() require("tinygit").interactiveStaging() end, {desc="Interactively Stage Files"})
-vim.keymap.set("n", "<leader>gc", function() require("tinygit").smartCommit() end, {desc="Commit Changes"})
-vim.keymap.set("n", "<leader>gp", function() require("tinygit").push() end, {desc="Push Changes"})

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "wofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "ripdrag-git" "ripgrep" "xfce-polkit" "git" "curl" "ranger-git" "cliphist" "imv" "swayosd-git" "floorp-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv")
+packages=("swayfx" "swaync" "waybar" "kitty" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "ranger-git" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
@@ -45,19 +45,22 @@ echo "[!] Downloading Dotfiles"
 git clone github.com/4rtemis-4rrow/dotfiles
 echo "[!] Installing Dotfiles"
 dotfiles_dir="$(pwd)/dotfiles"
+ln -s "$dotfiles_dir/hypr" "$HOME/.config/hypr"
 ln -s "$dotfiles_dir/kitty/" "$HOME/.config/kitty"
+ln -s "$dotfiles_dir/neonote" "$HOME/.config/neonote"
 ln -s "$dotfiles_dir/nvim/" "$HOME/.config/nvim"
+ln -s "$dotfiles_dir/p10k.zsh" "$HOME/.p10k.zsh"
+ln -s "$dotfiles_dir/ranger" "$HOME/.config/ranger"
+ln -s "$dotfiles_dir/rofi/" "$HOME/.config/rofi"
+ln -s "$dotfiles_dir/scripts" "$HOME/.scripts"
 ln -s "$dotfiles_dir/sway/" "$HOME/.config/sway"
 ln -s "$dotfiles_dir/swaync/" "$HOME/.config/swaync"
-ln -s "$dotfiles_dir/wofi/" "$HOME/.config/wofi"
-ln -s "$dotfiles_dir/waybar/" "$HOME/.config/waybar"
-ln -s "$dotfiles_dir/ranger" "$HOME/.config/ranger"
-ln -s "$dotfiles_dir/zshenv" "$HOME/.zshenv"
-ln -s "$dotfiles_dir/p10k.zsh" "$HOME/.p10k.zsh"
-ln -s "$dotfiles_dir/zshrc" "$HOME/.zshrc"
-ln -s "$dotfiles_dir/scripts" "$HOME/.scripts"
 ln -s "$dotfiles_dir/wallpapers" "$HOME/.wallpapers"
+ln -s "$dotfiles_dir/waybar/" "$HOME/.config/waybar"
+ln -s "$dotfiles_dir/zshenv" "$HOME/.zshenv"
+ln -s "$dotfiles_dir/zshrc" "$HOME/.zshrc"
 chmod +x $HOME/.scripts/*
+mountavfs
 
 echo "[?] search the weather.com website for your city, copy the city code from the URL, and set it as an environment variable called WEATHER_KEY"
 

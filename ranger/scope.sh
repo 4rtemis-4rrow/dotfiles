@@ -50,8 +50,8 @@ OPENSCAD_COLORSCHEME=${RNGR_OPENSCAD_COLORSCHEME:-Tomorrow Night}
 handle_extension() {
     case "${FILE_EXTENSION_LOWER}" in
         ## Archive
-        a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
-        rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)
+        a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|jar|lha|lz|lzh|lzma|lzo|\
+        rpm|rz|t7z|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z)
             atool --list -- "${FILE_PATH}" && exit 5
             bsdtar --list --file "${FILE_PATH}" && exit 5
             exit 1;;
@@ -59,9 +59,16 @@ handle_extension() {
             ## Avoid password prompt by providing empty password
             unrar lt -p- -- "${FILE_PATH}" && exit 5
             exit 1;;
+        tar|gz)
+            tar -tf "${FILE_PATH}" | tree --fromfile && exit 5
+            exit 1;;
+        zip)
+            unzip -l -- "${FILE_PATH}" | awk 'FNR>3 {$1=$2=$3=""; print substr($0,4)}' | tree --fromfile && exit 5
+            exit 1;;
         7z)
-            ## Avoid password prompt by providing empty password
-            7z l -p -- "${FILE_PATH}" && exit 5
+            # This awk script finds out which character column "Name" is at.
+            awk_script='{if (ix == 0) {ix = index($0, "Name");}p = (body == 1);if (ix > 0) {body = (body + ($0 ~ / *-[ -]+/)) % 2;}if (p == 1 && body == 1) {print ix;}}'
+            7z l "${FILE_PATH}" | awk 'FNR>20 {print $0}' | head -n -2 | cut -c$(7z l "${FILE_PATH}" | awk "$awk_script")- | tree --fromfile && exit 5
             exit 1;;
 
         ## PDF
@@ -96,11 +103,7 @@ handle_extension() {
 
         ## HTML
         htm|html|xhtml)
-            ## Preview as text conversion
-            w3m -dump "${FILE_PATH}" && exit 5
             lynx -dump -- "${FILE_PATH}" && exit 5
-            elinks -dump "${FILE_PATH}" && exit 5
-            pandoc -s -t markdown -- "${FILE_PATH}" && exit 5
             ;;
 
         ## JSON

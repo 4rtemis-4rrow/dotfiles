@@ -21,7 +21,49 @@ require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     'nvim-tree/nvim-web-devicons',
     "MunifTanjim/nui.nvim",
+    'yaocccc/nvim-foldsign',
+    'nvim-neotest/nvim-nio',
+    'm-demare/hlargs.nvim',
+    'kevinhwang91/promise-async',
+    'kevinhwang91/nvim-ufo',
+    'ray-x/guihua.lua',
     'saadparwaiz1/cmp_luasnip',
+    "jay-babu/mason-nvim-dap.nvim",
+    'Slotos/telescope-lsp-handlers.nvim',
+    {
+        "otavioschwanck/arrow.nvim",
+        opts = {
+            show_icons = true,
+            leader_key = ';',
+            buffer_leader_key = 'm', -- Per Buffer Mappings
+        },
+    },
+    {
+        "chrisgrieser/nvim-tinygit",
+        dependencies = {
+            "stevearc/dressing.nvim",
+            "nvim-telescope/telescope.nvim", -- optional, but recommended
+            "rcarriga/nvim-notify", -- optional, but recommended
+        },
+    },
+    {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
+    {
+        "m4xshen/hardtime.nvim",
+        dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+        opts = {}
+    },
+    {
+        'sindrets/diffview.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        -- lazy, only load diffview by these commands
+        cmd = {
+            'DiffviewFileHistory', 'DiffviewOpen', 'DiffviewToggleFiles', 'DiffviewFocusFiles', 'DiffviewRefresh'
+        }
+    },
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
@@ -32,16 +74,8 @@ require('lazy').setup({
     { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
     'HiPhish/rainbow-delimiters.nvim',
     'folke/tokyonight.nvim',
-    'dense-analysis/ale',
-    {
-        'stevearc/aerial.nvim',
-        opts = {},
-        -- Optional dependencies
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
-        },
-    },
+    'mfussenegger/nvim-lint',
+    'simrat39/symbols-outline.nvim',
     {
         "chrisgrieser/nvim-spider",
         keys = {
@@ -54,7 +88,6 @@ require('lazy').setup({
             skipInsignificantPunctuation = true,
         },
     },
-    {'akinsho/toggleterm.nvim', version = "*", config = true, event = "VeryLazy"},
     {
         "jay-babu/mason-nvim-dap.nvim",
         event = "VeryLazy",
@@ -107,7 +140,14 @@ require('lazy').setup({
     },
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     'jghauser/mkdir.nvim',
-    'm4xshen/autoclose.nvim',
+    {
+        'altermo/ultimate-autopair.nvim',
+        event={'InsertEnter','CmdlineEnter'},
+        branch='v0.6', --recommended as each new version will have breaking changes
+        opts={
+            --Config goes here
+        },
+    },
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -123,8 +163,11 @@ require('lazy').setup({
             })
             require("telescope").load_extension("undo")
             vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+	    require'telescope'.load_extension('project')
         end,
     },
+    "nvim-telescope/telescope-file-browser.nvim",
+    "nvim-telescope/telescope-project.nvim",
     {
         {
             'VonHeikemen/lsp-zero.nvim',
@@ -153,26 +196,6 @@ require('lazy').setup({
                     dependencies = { "rafamadriz/friendly-snippets" },
                 }
             },
-            config = function()
-                -- Here is where you configure the autocompletion settings.
-                local lsp_zero = require('lsp-zero')
-                lsp_zero.extend_cmp()
-
-                -- And you can configure cmp even more, if you want to.
-                local cmp = require('cmp')
-                local cmp_action = lsp_zero.cmp_action()
-
-                cmp.setup({
-                    formatting = lsp_zero.cmp_format(),
-                    mapping = cmp.mapping.preset.insert({
-                        ['<C-Space>'] = cmp.mapping.complete(),
-                        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-                        ['<C-d>'] = cmp.mapping.scroll_docs(4),
-                        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-                        ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-                    })
-                })
-            end
         },
 
         -- LSP

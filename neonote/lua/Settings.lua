@@ -3,7 +3,7 @@ vim.cmd.colorscheme("tokyonight-night")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
 vim.cmd.colorscheme("tokyonight-night")
-vim.fn.sign_define('DapBreakpoint', {text='', texthl='red', linehl='', numhl=''})
+vim.opt.signcolumn = 'auto'
 
 --global options--
 vim.opt.clipboard = "unnamedplus"
@@ -18,7 +18,6 @@ vim.opt.breakindent = true
 vim.opt.conceallevel = 3
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
-vim.g.ale_echo_cursor = 0
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -45,6 +44,5 @@ vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
 vim.opt.laststatus=2
 
-vim.g.indent_blankline_filetype_exclude = {'dashboard'}
-
 vim.g.mapleader = " "
+
