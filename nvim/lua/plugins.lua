@@ -14,13 +14,9 @@ vim.g.mapleader = ' '
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    {"folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-    }},
     'nvim-lualine/lualine.nvim',
     'nvim-tree/nvim-web-devicons',
-    "MunifTanjim/nui.nvim",
+    'MunifTanjim/nui.nvim',
     'yaocccc/nvim-foldsign',
     'nvim-neotest/nvim-nio',
     'm-demare/hlargs.nvim',
@@ -28,8 +24,26 @@ require('lazy').setup({
     'kevinhwang91/nvim-ufo',
     'ray-x/guihua.lua',
     'saadparwaiz1/cmp_luasnip',
-    "jay-babu/mason-nvim-dap.nvim",
     'Slotos/telescope-lsp-handlers.nvim',
+    'rcarriga/nvim-notify',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-path',
+    'HiPhish/rainbow-delimiters.nvim',
+    'folke/tokyonight.nvim',
+    'mfussenegger/nvim-lint',
+    'simrat39/symbols-outline.nvim',
+    'jghauser/mkdir.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-project.nvim',
+    'pwntester/octo.nvim',
+
+    { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
+
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "LspAttach",
+    },
+
     {
         "otavioschwanck/arrow.nvim",
         opts = {
@@ -38,44 +52,39 @@ require('lazy').setup({
             buffer_leader_key = 'm', -- Per Buffer Mappings
         },
     },
+
     {
-        "chrisgrieser/nvim-tinygit",
-        dependencies = {
-            "stevearc/dressing.nvim",
-            "nvim-telescope/telescope.nvim", -- optional, but recommended
-            "rcarriga/nvim-notify", -- optional, but recommended
-        },
+        "michaelb/sniprun",
+        branch = "master",
+        build = "sh install.sh",
     },
+
     {
         "chentoast/marks.nvim",
         event = "VeryLazy",
         opts = {},
     },
+
     {
         "m4xshen/hardtime.nvim",
         dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
         opts = {}
     },
+
     {
         'sindrets/diffview.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        -- lazy, only load diffview by these commands
         cmd = {
             'DiffviewFileHistory', 'DiffviewOpen', 'DiffviewToggleFiles', 'DiffviewFocusFiles', 'DiffviewRefresh'
         }
     },
+
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
         dependencies = { {'nvim-tree/nvim-web-devicons'}}
     },
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'hrsh7th/cmp-path',
-    { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
-    'HiPhish/rainbow-delimiters.nvim',
-    'folke/tokyonight.nvim',
-    'mfussenegger/nvim-lint',
-    'simrat39/symbols-outline.nvim',
+
     {
         "chrisgrieser/nvim-spider",
         keys = {
@@ -88,6 +97,7 @@ require('lazy').setup({
             skipInsignificantPunctuation = true,
         },
     },
+
     {
         "jay-babu/mason-nvim-dap.nvim",
         event = "VeryLazy",
@@ -98,6 +108,7 @@ require('lazy').setup({
             handlers = {}
         },
     },
+
     {
         "rcarriga/nvim-dap-ui",
         dependencies = {"mfussenegger/nvim-dap", 'theHamsta/nvim-dap-virtual-text'},
@@ -116,12 +127,13 @@ require('lazy').setup({
                 dapui.close()
             end
         end
-
     },
+
     {
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
     },
+
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
@@ -132,14 +144,16 @@ require('lazy').setup({
         opts = {
         }
     },
+
     {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
         },
     },
+
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-    'jghauser/mkdir.nvim',
+
     {
         'altermo/ultimate-autopair.nvim',
         event={'InsertEnter','CmdlineEnter'},
@@ -148,6 +162,7 @@ require('lazy').setup({
             --Config goes here
         },
     },
+
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -163,11 +178,10 @@ require('lazy').setup({
             })
             require("telescope").load_extension("undo")
             vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
-	    require'telescope'.load_extension('project')
+            require'telescope'.load_extension('project')
         end,
     },
-    "nvim-telescope/telescope-file-browser.nvim",
-    "nvim-telescope/telescope-project.nvim",
+
     {
         {
             'VonHeikemen/lsp-zero.nvim',
@@ -175,20 +189,20 @@ require('lazy').setup({
             lazy = true,
             config = false,
             init = function()
-                -- Disable automatic setup, we are doing it manually
                 vim.g.lsp_zero_extend_cmp = 0
                 vim.g.lsp_zero_extend_lspconfig = 0
             end,
         },
+
         {
             'williamboman/mason.nvim',
             lazy = false,
             config = true,
         },
 
-        -- Autocompletion
         {
-            'hrsh7th/nvim-cmp',
+            "iguanacucumber/magazine.nvim",
+            name = "nvim-cmp",
             event = 'InsertEnter',
             dependencies = {
                 {
@@ -198,7 +212,6 @@ require('lazy').setup({
             },
         },
 
-        -- LSP
         {
             'neovim/nvim-lspconfig',
             cmd = {'LspInfo', 'LspInstall', 'LspStart'},
@@ -208,13 +221,10 @@ require('lazy').setup({
                 {'williamboman/mason-lspconfig.nvim'},
             },
             config = function()
-                -- This is where all the LSP shenanigans will live
                 local lsp_zero = require('lsp-zero')
                 lsp_zero.extend_lspconfig()
 
                 lsp_zero.on_attach(function(client, bufnr)
-                    -- see :help lsp-zero-keybindings
-                    -- to learn the available actions
                     lsp_zero.default_keymaps({buffer = bufnr})
                 end)
 
@@ -223,7 +233,6 @@ require('lazy').setup({
                     handlers = {
                         lsp_zero.default_setup,
                         lua_ls = function()
-                            -- (Optional) Configure lua language server for neovim
                             local lua_opts = lsp_zero.nvim_lua_ls()
                             require('lspconfig').lua_ls.setup(lua_opts)
                         end,
@@ -232,8 +241,30 @@ require('lazy').setup({
             end
         }
     },
+
     {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
+    },
+
+    {
+        'SuperBo/fugit2.nvim',
+        opts = {
+            width = 70,
+            external_diffview = true,
+        },
+        dependencies = {
+            'MunifTanjim/nui.nvim',
+            'nvim-tree/nvim-web-devicons',
+            'nvim-lua/plenary.nvim',
+            {
+                'chrisgrieser/nvim-tinygit',
+                dependencies = { 'stevearc/dressing.nvim' }
+            },
+        },
+        cmd = { 'Fugit2', 'Fugit2Blame', 'Fugit2Diff', 'Fugit2Graph' },
+        keys = {
+            { '<leader>F', mode = 'n', '<cmd>Fugit2<cr>' }
+        }
     },
 })

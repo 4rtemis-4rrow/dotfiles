@@ -1,3 +1,9 @@
+export PATH="$PATH:$HOME/.bin/"
+export GOPATH=$HOME/.go
+export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
+
+bindkey -v
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -15,12 +21,12 @@ plugins=(
     copyfile
     git
     sudo
-	zsh-autocomplete
+	zsh-autosuggestions
 	zsh-syntax-highlighting
+    zsh-vim-mode
 )
 
-ex ()
-{
+ex () {
     if [ -f "$1" ] ; then
         case $1 in
             *.7z)        7z x $1      ;;
@@ -45,20 +51,21 @@ ex ()
 }
 
 nv() {
-    kitty @ set-background-opacity 1
-    nvim "$@"
-    kitty @ set-background-opacity $(pgrep -x nvim > /dev/null && echo 1 || echo 0.7)
-}
+    local arg
+    local set_nvim_appname=false
 
-cd() { builtin cd "$@" && lsd; }
+    for arg in "$@"; do
+        if [[ "$arg" == *.md ]]; then
+            set_nvim_appname=true
+            break
+        fi
+    done
 
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+    if $set_nvim_appname; then
+        NVIM_APPNAME=neonote nvim "$@"
+    else
+        nvim "$@"
+    fi
 }
 
 # Arch Linux command-not-found support, you must have package pkgfile installed
@@ -69,20 +76,30 @@ function yy() {
 
 source $ZSH/oh-my-zsh.sh
 
-alias 1d="cd .."  
-alias 2d="cd ../.."  
-alias 3d="cd ../../.."  
-alias 4d="cd ../../../.."  
-alias 5d="cd ../../../../.." 
-alias cat='bat'
+alias z1="z .."  
+alias z2="z ../.."  
+alias z3="z ../../.."  
+alias z4="z ../../../.."  
+alias z5="z ../../../../.." 
 alias c="printf '\033[2J\033[3J\033[1;1H'"
+alias cat='bat'
+alias compose='sudo docker compose'
 alias grep='rg'
 alias img='kitten icat'
 alias ip='ip -color=auto'
 alias ls='lsd'
 alias mkdir='mkdir -p'
 alias py='ipython'
+alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; z "$LASTDIR"'
+alias sudo='run0 --background=0'
+alias wiki='floorp /usr/share/doc/arch-wiki/html/en/Table_of_contents.html'
 alias ytdlp='yt-dlp'
 alias ytm='yt-dlp -f 139'
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias btrfs-assisstant='sudo -E btrfs-assistant-bin'
+alias arch='wget -E -k -p'
+alias rsync='rsync -avzh --progress --stats'
+alias gudo='sudo /bin/env WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"  XDG_RUNTIME_DIR=/user/run/1000'
+
+eval "$(zoxide init zsh)"
+z() { __zoxide_z "$@" && lsd; }
+zi() {__zoxide_zi "$@" && lsd; }
+cd() { echo "[!] Use z instead" }

@@ -1,7 +1,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     border-radius: 20px;
-    font-family: JetBrainsMonoNL;
+    font-family: JetBrainsMono NFP;
     font-size: 13px;
 }
 
@@ -34,10 +34,9 @@ button {
     border-radius: 0;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
+    background: #1a1b26;
+    color: #bb9af7;
 }
 
 #workspaces button {
@@ -86,7 +85,6 @@ button:hover {
 #custom-notifications,
 #custom-weather,
 #clock,
-#custom-media,
 #window,
 #custom-icon,
 
@@ -120,16 +118,11 @@ button:hover {
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 100%); 
 }
 
-#custom-media {
+#mpris {
     color: #24283b;
     padding: 0 5px;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 35%, rgba(187,154,247,1) 70%);
-}
-
-#custom-media.Empty {
-    background: rgba(0, 0, 0, 0);
-    color: rgba(0, 0, 0, 0);
 }
 
 #battery {
@@ -138,16 +131,7 @@ button:hover {
     padding: 0 5px;
 }
 
-#custom-weather.severe {
-    color: #24283b;
-    background-color: #f7768e;
-    padding: 0 5px;
-    margin: 0 2px;
-    background: rgb(247,118,142);
-    background: linear-gradient(135deg, rgba(247,118,142,1) 0%, rgba(187,154,247,1) 100%);
-}
-
-#custom-weather.sunnyDay {
+#custom-weather {
     color: #24283b;
     background-color: #ff9e64;
     padding: 0 5px;
@@ -155,52 +139,6 @@ button:hover {
     background: rgb(255,158,100);
     background: linear-gradient(135deg, rgba(255,158,100,1) 0%, rgba(247,118,142,1) 100%);
 }
-
-#custom-weather.clearNight {
-    color: #24283b;
-    background-color: #bb9af7;
-    padding: 0 5px;
-    margin: 0 2px;
-    background: rgb(42,195,222);
-    background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 50%);
-}
-
-#custom-weather.cloudyFoggyDay, #custom-weather.cloudyFoggyNight {
-    color: #24283b;
-    background-color: #c0caf5;
-    padding: 0 5px;
-    margin: 0 2px;
-    background: rgb(125,207,255);
-    background: linear-gradient(135deg, rgba(125,207,255,1) 0%, rgba(180,249,248,1) 100%);
-}
-
-#custom-weather.rainyDay, #custom-weather.rainyNight {
-    color: #24283b;
-    background-color: #2ac3de;
-    padding: 0 5px;
-    margin: 0 2px;
-    background: rgb(42,195,222);
-    background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 100%);
-}
-
-#custom-weather.showyIcyDay, #custom-weather.snowyIcyNight {
-    color: #24283b;
-    background-color: #b4f9f8;
-    padding: 0 5px;
-    margin: 0 2px;
-    background: rgb(42,195,222);
-    background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(65,72,104,1) 100%);
-}
-
-#custom-weather.default {
-    color: #24283b;
-    background-color: #9ece6a;
-    padding: 0 5px;
-    margin: 0 2px;
-    background: rgb(158,206,106);
-    background: linear-gradient(135deg, rgba(158,206,106,1) 0%, rgba(42,195,222,1) 100%);
-}
-
 #custom-notifications {
     margin: 0 2px;
     padding: 0 0 0 1px;

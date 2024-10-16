@@ -67,7 +67,7 @@ ins_left {
 }
 ins_left {
     function()
-        return ''
+        return ' '
     end,
     color = function()
         local mode_color = {
@@ -110,7 +110,7 @@ ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 ins_left {
     'diagnostics',
     sources = { 'nvim_diagnostic' },
-    symbols = { error = ' ', warn = ' ', info = ' ' },
+    symbols = { error = ' ', warn = ' ', info = ' ' },
     diagnostics_color = {
         color_error = { fg = colors.red },
         color_warn = { fg = colors.yellow },
@@ -177,10 +177,7 @@ ins_right {
 }
 lualine.setup(config)
 
--- ale --
-vim.g.ale_echo_cursor = 0
-
--- Noice --
+-- noice --
 local noice = require("noice")
 noice.setup({
     cmdline = {
@@ -202,7 +199,7 @@ noice.setup({
         view = "notify",
         view_error = "notify",
         view_warn = "notify",
-        view_history = "messages", 
+        view_history = "messages",
         view_search = "virtualtext",
     },
     popupmenu = {
@@ -224,7 +221,7 @@ noice.setup({
                     { error = true },
                     { warning = true },
                     { event = "msg_show", kind = { "" } },
-                    { event = "lsp", kind = "message" },
+                    { event = "lsp",      kind = "message" },
                 },
             },
         },
@@ -237,7 +234,7 @@ noice.setup({
                     { error = true },
                     { warning = true },
                     { event = "msg_show", kind = { "" } },
-                    { event = "lsp", kind = "message" },
+                    { event = "lsp",      kind = "message" },
                 },
             },
             filter_opts = { count = 1 },
@@ -334,173 +331,7 @@ noice.setup({
     format = {},
 })
 
---lsp-zero--
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-lsp.set_sign_icons({
-    error = '✘',
-    warn = '▲',
-    hint = '⚑',
-    info = '»'
-})
-lsp.setup()
-
---indent-backline--
-local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
-}
-local hooks = require "ibl.hooks"
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#F7768E" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E0AF68" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#2AC3DE" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#FF9E64" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#9ECE6A" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#BB9AF7" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#2ac3de" })
-end)
-require("ibl").setup {
-    indent = { highlight = highlight },
-    exclude = { filetypes = {'dashboard'} }
-}
-
--- nvim-cmp --
-kind_icons = {
-    Class = "󰠱",
-    Color = "󰏘",
-    Constant = "󰏿",
-    Constructor = "",
-    Enum = "",
-    EnumMember = "",
-    Event = "",
-    Field = "󰜢",
-    File = "󰈙",
-    Folder = "󰉋",
-    Function = "󰊕",
-    Interface = "",
-    Keyword = "󰌋",
-    Method = "󰆧",
-    Module = "",
-    Operator = "󰆕",
-    Property = "󰜢",
-    Reference = "",
-    Snippet = "",
-    Struct = "󰙅",
-    Text = "",
-    TypeParameter = "󰅲",
-    Unit = "󰑭",
-    Value = "󰎠",
-    Variable = "󰀫",
-}
-local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
-cmp.setup({
-    formatting = {
-        fields = {'abbr', 'kind'},
-        format = function(entry, vim_item)
-            -- Kind icons
-            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
-            -- Source
-            vim_item.menu = ({
-                buffer = "[Buffer]",
-                nvim_lsp = "[LSP]",
-                luasnip = "[LuaSnip]",
-                nvim_lua = "[Lua]",
-                latex_symbols = "[LaTeX]",
-            })[entry.source.name]
-            return vim_item
-        end
-    },
-    sources = cmp.config.sources({
-        {name = 'luasnip'},
-        {name = 'nvim_lsp'},
-        {name = 'nvim_lsp_signature_help'},
-        {name = 'path'}
-    }),
-    mapping = cmp.mapping.preset.insert({
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<Tab>'] = cmp_action.luasnip_supertab(),
-        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-        ['<CR>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-        })
-    }),
-    preselect = 'item',
-    completion = {
-        completeopt = 'menu,menuone,noinsert'
-    },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
-    snippet = {
-        expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-        end,
-    },
-})
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require'lspconfig'.clangd.setup {
-    capabilities = capabilities,
-}
-
--- LuaSnip --
-local ls = require "luasnip"
-require("luasnip/loaders/from_vscode").lazy_load({ paths = { "~/.local/share/nvim/lazy/friendly-snippets" } })
-ls.config.set_config {
-    history = false,
-    updateevents = "TextChanged,TextChangedI",
-    enable_autosnippets = true,
-    ext_opts = {
-        [require('luasnip.util.types').choiceNode] = {
-            active = {
-                virt_text = { { " « ", "NonTest" } },
-            },
-        },
-    },
-}
-
---AutoPairs--
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local Autopair = require('cmp')
-Autopair.event:on(
-'confirm_done',
-cmp_autopairs.on_confirm_done()
-)
-
---AutoClose--
-require("autoclose").setup({
-    keys = {
-        ["("] = { escape = false, close = true, pair = "()", disabled_filetypes = {} },
-        ["["] = { escape = false, close = true, pair = "[]", disabled_filetypes = {} },
-        ["{"] = { escape = false, close = true, pair = "{}", disabled_filetypes = {} },
-
-        [")"] = { escape = true, close = false, pair = "()", disabled_filetypes = {} },
-        ["]"] = { escape = true, close = false, pair = "[]", disabled_filetypes = {} },
-        ["}"] = { escape = true, close = false, pair = "{}", disabled_filetypes = {} },
-
-        ['"'] = { escape = true, close = true, pair = '""', disabled_filetypes = {} },
-        ["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = {} },
-        ["`"] = { escape = true, close = true, pair = "``", disabled_filetypes = {} },
-    },
-    options = {
-        disabled_filetypes = { "text" },
-        disable_when_touch = false,
-        pair_spaces = false,
-        auto_indent = true,
-    }, 
-})
-
-
---TokyoNight--
+-- tokyonight --
 require("tokyonight").setup({
     style = "night",
     transparent = false,
@@ -520,3 +351,95 @@ require("tokyonight").setup({
     lualine_bold = false,
 })
 
+-- treesitter --
+require 'nvim-treesitter.configs'.setup {
+    ensure_installed = {"markdown", "markdown_inline"},
+    sync_install = true,
+    auto_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = true,
+    },
+}
+
+-- hydra.nvim --
+local Hydra = require("hydra")
+local venn_hint_utf = [[
+ Arrow^^^^^^  Select region with <C-v>^^^^^^
+ ^ ^ _K_ ^ ^  _f_: Surround with box ^ ^ ^ ^
+ _H_ ^ ^ _L_  _<C-h>_: ◄, _<C-j>_: ▼
+ ^ ^ _J_ ^ ^  _<C-k>_: ▲, _<C-l>_: ► _<C-c>_
+]]
+
+-- :setlocal ve=all
+-- :setlocal ve=none
+Hydra {
+  name = 'Draw Utf-8 Venn Diagram',
+  hint = venn_hint_utf,
+  config = {
+    color = 'pink',
+    invoke_on_body = true,
+    on_enter = function() vim.wo.virtualedit = 'all' end,
+  },
+  mode = 'n',
+  body = '<leader>ve',
+  heads = {
+    { '<C-h>', 'xi<C-v>u25c4<Esc>' }, -- mode = 'v' somehow breaks
+    { '<C-j>', 'xi<C-v>u25bc<Esc>' },
+    { '<C-k>', 'xi<C-v>u25b2<Esc>' },
+    { '<C-l>', 'xi<C-v>u25ba<Esc>' },
+    { 'H', '<C-v>h:VBox<CR>' },
+    { 'J', '<C-v>j:VBox<CR>' },
+    { 'K', '<C-v>k:VBox<CR>' },
+    { 'L', '<C-v>l:VBox<CR>' },
+    { 'f', ':VBox<CR>', { mode = 'v' } },
+    { '<C-c>', nil, { exit = true } },
+  },
+}
+
+-- nvim-cmp --
+local cmp = require('cmp')
+
+cmp.setup({
+    formatting = {
+        fields = { 'abbr', 'kind' },
+        format = function(entry, vim_item)
+            -- Remove kind icons
+            vim_item.kind = vim_item.kind  -- Keep only the kind name without icons
+            -- Source
+            vim_item.menu = ({
+                buffer = "[Buffer]",
+                path = "[Path]",
+            })[entry.source.name]
+            return vim_item
+        end
+    },
+    sources = cmp.config.sources({
+        { name = 'buffer' },
+        { name = 'path' }
+    }),
+    mapping = {
+        ['<CR>'] = cmp.mapping.confirm({
+            select = true,
+        }),
+
+        ["<Tab>"] = cmp.mapping.select_next_item(),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    },
+    preselect = 'item',
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+})
+
+-- MarkView --
+local markview = require("markview");
+local presets = require("markview.presets");
+
+markview.setup();
+
+vim.cmd("Markview enableAll");

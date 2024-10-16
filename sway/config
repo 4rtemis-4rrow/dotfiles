@@ -3,17 +3,17 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term kitty -o allow_remote_control=yes
+set $term wezterm
 set $menu $HOME/.scripts/launcher.sh
-set $explorer $term ranger ~/
-set $browser floorp
+set $explorer $term start ranger ~/
+set $browser zen-browser
 
 gaps inner 6
 gaps outer 3
 corner_radius 15
 default_border pixel 2
 default_floating_border pixel 2
-font pango:JetBrainsMono Nerd Font 11
+font pango:JetBrainsMono NF 11
 titlebar_padding 16
 titlebar_border_thickness 0
 default_dim_inactive 0.3
@@ -21,21 +21,22 @@ focus_wrapping yes
 seat seat0 xcursor_theme Catppuccin-Mocha-Dark 1
 
 exec autotiling
-exec --no-startup-id workstyle &> /tmp/workstyle.log
+exec --no-startup-id sworkstyle &> /tmp/sworkstyle.log
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec swaync
 exec nm-applet
 exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
-exec swayosd-server
 exec $HOME/.scripts/wall.sh
 exec udiskie --terminal $term -f $explorer -a -s
+exec swayosd-server
+exec ~/.autostart.sh
 
 focus_follows_mouse no
 
 input type:keyboard {
   xkb_layout "us,ara"
-  xkb_options "grp:lalt_lshift_toggle"
+  xkb_options "grp:lalt_lshift_toggle, numlock:on"
 }
 
 input type:touchpad {
@@ -54,8 +55,8 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume 5
-bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume -5
+bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume 5 --max-volume 200
+bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume -5 --max-volume 200
 bindsym XF86MonBrightnessUp  exec swayosd-client --brightness 10
 bindsym XF86MonBrightnessDown exec swayosd-client --brightness -10
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -72,7 +73,7 @@ bindsym --release Caps_Lock exec swayosd-client --caps-lock
 bindsym $mod+Alt+equal exec swayosd-client --input-volume 5
 bindsym $mod+Alt+minus exec swayosd-client --input-volume -5
 
-bindsym $mod+z exec rofi -modi clipboard:$HOME/.scripts/clipboard.sh -show clipboard -show-icons -theme $HOME/.config/rofi/launcher.rasi
+bindsym $mod+z exec nwg-clipman
 bindsym $mod+n exec swaync-client -t -sw
 
 bindsym $mod+$left focus left
@@ -136,7 +137,8 @@ bindsym $mod+r mode "resize"
 client.focused      #4c7899         #285577            #ffffff      #f7768e       #bb9af7
 client.unfocused    #333333         #5f676a            #ffffff      #7dcfff       #2ac3de
 
-for_window [app_id="pavucontrol" ] floating enable, resize set width 40 ppt height 30 ppt
+for_window [app_id="pavucontrol" ] floating enable
+for_window [app_id="xfce-polkit"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -144,7 +146,7 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [window_role="About"] floating enable
-for_window [title="File Operation Progress"] floating enable, border pixel 1, sticky enable, resize set width 40 ppt height 30 ppt
+for_window [title="File Operation Progress"] floating enable
 
 
 bar {

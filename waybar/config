@@ -1,38 +1,44 @@
 {
-    "modules-left": ["custom/icon", "sway/workspaces", "custom/media", "sway/mode"],
+    "modules-left": ["custom/icon", "sway/workspaces", "mpris", "sway/mode"],
     "modules-center": [ "clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "sway/language", "custom/weather", "tray", "custom/notifications"],
+    "modules-right": ["network", "pulseaudio", "temperature", "sway/language", "custom/weather", "tray", "custom/notifications"],
     "disable-click": true,
 
     "tray": {
         // "icon-size": 21,
         "spacing": 10
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "escape": true,
-        "return-type": "json",
-        "max-length": 40,
-        "on-click": "playerctl play-pause",
-        "on-click-right": "playerctl stop",
-        "smooth-scrolling-threshold": 10,
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous",
-        "exec": "$HOME/.scripts/mediaplayer.py 2> /dev/null",
+
+    "mpris": {
+        "format": "{status_icon} {artist} - {title}",
+        "format-paused": "{status_icon} {artist} - {title}",
+        "status-icons": {
+            "paused": " ",
+            "playing": " "
+        },
+        "title-len": 25
     },
 
     "custom/icon": {
-        "format": "<span font_family='Material Icons' rise='-4000' size='large'> </span>",
+        "format": "<span font_family='Material Icons' rise='-4000' size='large'>󰂧 </span>",
+    },
+
+    "custom/weather": {
+        "format": "{}°",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "wttrbar",
+        "return-type": "json"
     },
 
     "custom/notifications": {
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-            "notification": "<span foreground='red'><sup></sup></span>",
-            "none": "",
-            "dnd-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-none": "",
+            "notification": "",
+            "none": "",
+            "dnd-notification": "",
+            "dnd-none": "",
             "inhibited-notification": "<span foreground='red'><sup></sup></span>",
             "inhibited-none": "",
             "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
@@ -45,50 +51,52 @@
         "on-click-right": "swaync-client -d -sw",
         "escape": true
     },
+
     "network": {
-    "format": "{bandwidthDownBytes}⇣ {bandwidthUpBytes}⇡",
+    "format": "{bandwidthDownBytes} {bandwidthUpBytes} ",
     "interval": 1,
-
-    },
-
-    "custom/weather": {
-        "exec": "python ~/.scripts/weather.py",
-        "restart-interval": 300,
-        "return-type": "json",
-        "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/$(location_id)"
     },
 
     "clock": {
         "format": "{:%H:%M:%S - %a, %d/%m/%Y}",
         "interval": 1,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode"          : "year",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}%  ",
         "tooltip": false
     },
 
     "memory": {
-        "format": "{}% "
+        "format": "{}%  "
     },
 
     "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""]
     },
 
     "pulseaudio": {
         "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format": "{volume}% {icon}  {format_source}",
         "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
