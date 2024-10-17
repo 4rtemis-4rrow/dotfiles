@@ -1,6 +1,7 @@
 export PATH="$PATH:$HOME/.bin/"
 export GOPATH=$HOME/.go
 export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
+export BAT_THEME="Enki-Tokyo-Night"
 
 bindkey -v
 

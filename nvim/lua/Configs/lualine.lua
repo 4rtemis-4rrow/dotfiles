@@ -25,6 +25,17 @@ local conditions = {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
 }
+
+-- Your show_macro_recording function
+local function show_macro_recording()
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == "" then
+    return ""
+  else
+    return "Recording @" .. recording_register
+  end
+end
+
 local config = {
     options = {
         component_separators = '',
@@ -59,6 +70,7 @@ local function ins_right(component)
     table.insert(config.sections.lualine_x, component)
 end
 
+-- Left section
 ins_left {
     function() return '▊' end,
     color = { fg = colors.blue },
@@ -136,6 +148,12 @@ ins_left {
     end,
     icon = ' LSP:',
     color = { fg = colors.cyan, gui = 'bold' },
+}
+
+-- Right section
+ins_right {
+    show_macro_recording,
+    color = { fg = colors.red, gui = 'bold' },
 }
 
 ins_right {

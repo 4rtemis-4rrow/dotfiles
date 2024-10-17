@@ -62,8 +62,6 @@ ln -s "$dotfiles_dir/zshrc" "$HOME/.zshrc"
 chmod +x $HOME/.scripts/*
 mountavfs
 
-echo "[?] search the weather.com website for your city, copy the city code from the URL, and set it as an environment variable called WEATHER_KEY"
-
-floorp 'weather.com'
+git clone https://github.com/enkia/enki-theme "$(bat --config-dir)/themes/enki-theme" && bat cache --build
 
 echo "[!] Now everything should be ready to go, you might want to install icons, cursors, a gtk theme, a qt theme, etc, that is all up to you, enjoy"

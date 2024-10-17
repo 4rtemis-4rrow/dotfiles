@@ -16,7 +16,7 @@
             "paused": " ",
             "playing": " "
         },
-        "title-len": 25
+        "title-len": 10
     },
 
     "custom/icon": {
