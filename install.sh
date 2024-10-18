@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-packages=("swayfx" "swaync" "waybar" "wezterm" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "ranger-git" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs")
+packages=("swayfx" "swaync" "waybar" "wezterm" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "ranger-git" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs" "github-cli")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
@@ -61,6 +61,8 @@ ln -s "$dotfiles_dir/zshenv" "$HOME/.zshenv"
 ln -s "$dotfiles_dir/zshrc" "$HOME/.zshrc"
 chmod +x $HOME/.scripts/*
 mountavfs
+
+gh extension install dlvhdr/gh-dash
 
 git clone https://github.com/enkia/enki-theme "$(bat --config-dir)/themes/enki-theme" && bat cache --build
 

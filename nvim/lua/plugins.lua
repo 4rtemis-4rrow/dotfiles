@@ -36,6 +36,37 @@ require('lazy').setup({
     'nvim-telescope/telescope-file-browser.nvim',
     'nvim-telescope/telescope-project.nvim',
     'pwntester/octo.nvim',
+    {'akinsho/toggleterm.nvim', version = "*", config = true},
+
+    {
+        "Zeioth/compiler.nvim",
+        cmd = {"CompilerOpen", "CompilerToggleResults", "CompilerRedo"},
+        dependencies = { "stevearc/overseer.nvim", "nvim-telescope/telescope.nvim" },
+        opts = {},
+    },
+    {
+        "stevearc/overseer.nvim",
+        commit = "6271cab7ccc4ca840faa93f54440ffae3a3918bd",
+        cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+        opts = {
+            task_list = {
+                direction = "bottom",
+                min_height = 25,
+                max_height = 25,
+                default_detail = 1
+            },
+        },
+    },
+
+    {
+        "luckasRanarison/nvim-devdocs",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        opts = {}
+    },
 
     { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
 
@@ -242,11 +273,11 @@ require('lazy').setup({
         }
     },
 
-    {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    },
-
+    -- {
+    --     "windwp/nvim-autopairs",
+    --     config = function() require("nvim-autopairs").setup {} end
+    -- },
+    --
     {
         'SuperBo/fugit2.nvim',
         opts = {
