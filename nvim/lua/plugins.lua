@@ -14,29 +14,42 @@ vim.g.mapleader = ' '
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    'nvim-lualine/lualine.nvim',
-    'nvim-tree/nvim-web-devicons',
-    'MunifTanjim/nui.nvim',
-    'yaocccc/nvim-foldsign',
-    'nvim-neotest/nvim-nio',
-    'm-demare/hlargs.nvim',
-    'kevinhwang91/promise-async',
-    'kevinhwang91/nvim-ufo',
-    'ray-x/guihua.lua',
-    'saadparwaiz1/cmp_luasnip',
-    'Slotos/telescope-lsp-handlers.nvim',
-    'rcarriga/nvim-notify',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'hrsh7th/cmp-path',
-    'HiPhish/rainbow-delimiters.nvim',
-    'folke/tokyonight.nvim',
-    'mfussenegger/nvim-lint',
-    'simrat39/symbols-outline.nvim',
-    'jghauser/mkdir.nvim',
-    'nvim-telescope/telescope-file-browser.nvim',
-    'nvim-telescope/telescope-project.nvim',
-    'pwntester/octo.nvim',
-    {'akinsho/toggleterm.nvim', version = "*", config = true},
+    { 'nvim-lualine/lualine.nvim', event = 'VimEnter' },
+    { 'nvim-tree/nvim-web-devicons', lazy = true },
+    { 'MunifTanjim/nui.nvim', lazy = true },
+    { 'yaocccc/nvim-foldsign', event = 'BufReadPre' },
+    { 'nvim-neotest/nvim-nio', lazy = true },
+    { 'm-demare/hlargs.nvim', event = 'InsertEnter' },
+    { 'kevinhwang91/promise-async', lazy = true },
+    { 'kevinhwang91/nvim-ufo', event = 'BufReadPre' },
+    { 'ray-x/guihua.lua', lazy = true },
+    { 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
+    { 'Slotos/telescope-lsp-handlers.nvim', cmd = 'Telescope' },
+    { 'rcarriga/nvim-notify', event = 'VimEnter' },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help', event = 'InsertEnter' },
+    { 'hrsh7th/cmp-path', event = 'InsertEnter' },
+    { 'HiPhish/rainbow-delimiters.nvim', event = 'BufReadPre' },
+    { 'folke/tokyonight.nvim', event = 'VimEnter' },
+    { 'mfussenegger/nvim-lint', event = 'BufReadPre' },
+    { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' },
+    { 'jghauser/mkdir.nvim', event = 'BufWritePre' },
+    { 'nvim-telescope/telescope-file-browser.nvim', cmd = 'Telescope' },
+    { 'nvim-telescope/telescope-project.nvim', cmd = 'Telescope' },
+    { 'pwntester/octo.nvim', cmd = 'Octo' },
+    { 'akinsho/toggleterm.nvim', version = "*", config = true, keys = { [[<c-\>]] } },
+
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "nvimtools/none-ls.nvim",
+        },
+        config = function()
+            local null_ls = require("null-ls")
+            null_ls.setup({})
+        end,
+    },
 
     {
         "Zeioth/compiler.nvim",
@@ -65,10 +78,11 @@ require('lazy').setup({
             "nvim-telescope/telescope.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
+        event = "VeryLazy",
         opts = {}
     },
 
-    { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdateSync', event = 'BufRead' },
 
     {
         "rachartier/tiny-inline-diagnostic.nvim",
@@ -77,6 +91,7 @@ require('lazy').setup({
 
     {
         "otavioschwanck/arrow.nvim",
+        event = 'BufRead',
         opts = {
             show_icons = true,
             leader_key = ';',
@@ -88,6 +103,7 @@ require('lazy').setup({
         "michaelb/sniprun",
         branch = "master",
         build = "sh install.sh",
+        cmd = "SnipRun",
     },
 
     {
@@ -183,7 +199,7 @@ require('lazy').setup({
         },
     },
 
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", event = "BufRead", opts = {} },
 
     {
         'altermo/ultimate-autopair.nvim',
@@ -200,6 +216,7 @@ require('lazy').setup({
             "nvim-lua/plenary.nvim",
             "debugloop/telescope-undo.nvim",
         },
+        cmd = "Telescope",
         config = function()
             require("telescope").setup({
                 extensions = {
@@ -273,11 +290,6 @@ require('lazy').setup({
         }
     },
 
-    -- {
-    --     "windwp/nvim-autopairs",
-    --     config = function() require("nvim-autopairs").setup {} end
-    -- },
-    --
     {
         'SuperBo/fugit2.nvim',
         opts = {
@@ -299,3 +311,4 @@ require('lazy').setup({
         }
     },
 })
+

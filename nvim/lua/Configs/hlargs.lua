@@ -5,11 +5,11 @@ require('hlargs').setup {
     paint_arg_declarations = true,
     paint_arg_usages = true,
     paint_catch_blocks = {
-        declarations = false,
-        usages = false
+        declarations = true,
+        usages = true
     },
     extras = {
-        named_parameters = false,
+        named_parameters = true,
     },
     hl_priority = 120,
     excluded_argnames = {

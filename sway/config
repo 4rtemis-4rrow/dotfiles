@@ -5,7 +5,7 @@ set $up k
 set $right l
 set $term wezterm
 set $menu $HOME/.scripts/launcher.sh
-set $explorer $term start ranger ~/
+set $explorer $term start ranger
 set $browser zen-browser
 
 gaps inner 6
@@ -28,7 +28,7 @@ exec swaync
 exec nm-applet
 exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
 exec $HOME/.scripts/wall.sh
-exec udiskie --terminal $term -f $explorer -a -s
+exec udiskie -nt -m nested --appindicator -f "wezterm start -- ranger" --terminal wezterm
 exec swayosd-server
 exec ~/.autostart.sh
 

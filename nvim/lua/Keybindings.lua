@@ -1,5 +1,6 @@
 vim.g.mapleader = ' '
 vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "q:", "<nop>")
 
 --Plugins--
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", {desc = 'Find Files With Telescope'})
@@ -40,7 +41,6 @@ vim.keymap.set("v", "<", "<gv", {desc = 'Indent Code Block To The Left'})
 vim.keymap.set("v", ">", ">gv", {desc = 'Indent Code Block To The Right'})
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = 'Search And Replace The Word Under The Cursor'})
 vim.keymap.set('v', 'p', '_dP', {desc = 'Paste'})
-vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]])
 vim.keymap.set("n", "<TAB>", ":bn<CR>", {desc = 'Next Buffer'})
 vim.keymap.set("n", "<S-TAB>", ":bp<CR>", {desc = 'Previous Buffer'})
 vim.keymap.set("n", "n", "nzzzv", {desc = 'Next Match'})

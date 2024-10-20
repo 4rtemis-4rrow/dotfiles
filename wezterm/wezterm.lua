@@ -30,7 +30,7 @@ custom = {
 projects = {
   default_workspace = "default",
   repositories      = {
-    { type = "personal", workspace = "default",  name = "home",     path = os.getenv("HOME")                                                                     },
+    { type = "personal", workspace = "default",  name = "home",     path = os.getenv("HOME")},
   }
 }
 
@@ -75,7 +75,7 @@ config.use_ime = false
 
 -- Keys Mapping
 config.disable_default_key_bindings = true
-config.leader = { key = "f", mods = "CTRL", timeout_milliseconds = custom.timeout.leader }
+config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = custom.timeout.leader }
 config.keys = {
   { key = "o", mods = "LEADER",
       action = action.ActivateKeyTable {
@@ -348,12 +348,22 @@ wezterm.on("update-status", function(window, pane)
     workspace_color = colors.ansi[2]
   end
 
+-- Get the home directory path
+local home = os.getenv("HOME")
+
 -- Current working directory
 local cwd = pane:get_current_working_dir()
 if cwd then
   if type(cwd) == "userdata" then
     -- Wezterm introduced the URL object in 20240127-113634-bbcac864
     cwd = cwd.path:gsub("%%20", " ") -- Replace '%20' with a space
+
+    -- Replace home path with "~"
+    if home and cwd:sub(1, #home) == home then
+      cwd = "~" .. cwd:sub(#home + 1)
+    end
+
+    -- Shorten long paths to 32 characters
     if string.len(cwd) > 32 then
       cwd = ".." .. string.sub(cwd, -32, -1)
     end
@@ -361,7 +371,7 @@ if cwd then
 else
   cwd = ""
 end
-
+--
   -- Left status (left of the tab line)
   window:set_left_status(wezterm.format({
     { Background = { Color = colors.background }                },
