@@ -28,6 +28,6 @@ that is the terminal and prompt
 
 ![](../main/Screenshots/Neovim.png)
 
-Note that the background changes every short while to any photo placed in ~/.wallpapers/ (it chooses the wallpaper randomly)
-
 and finally, the neovim config (that's the source code of my other project, [github.com/The0dinProject/0din](0din))
+
+Note that the background changes every short while to any photo placed in ~/.wallpapers/ (it chooses the wallpaper randomly)
