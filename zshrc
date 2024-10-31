@@ -3,8 +3,6 @@ export GOPATH=$HOME/.go
 export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 export BAT_THEME="Enki-Tokyo-Night"
 
-bindkey -v
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -22,9 +20,11 @@ plugins=(
     copyfile
     git
     sudo
-	zsh-autosuggestions
+	zsh-autocomplete
 	zsh-syntax-highlighting
-    zsh-vim-mode
+    zsh-calc
+    colorize
+    forgit
 )
 
 ex () {
@@ -51,12 +51,14 @@ ex () {
     fi
 }
 
+k() { ps aux | grep -i "$1" | awk '{print $2, $11, $12}' | column -t | fzf -m | awk '{print $1}' | xargs -r kill -9; }
+
 nv() {
     local arg
     local set_nvim_appname=false
 
     for arg in "$@"; do
-        if [[ "$arg" == *.md ]]; then
+        if [[ "$arg" == *.md || "$arg" == *.tex ]]; then
             set_nvim_appname=true
             break
         fi
@@ -103,4 +105,3 @@ alias gudo='sudo /bin/env WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"  X
 eval "$(zoxide init zsh)"
 z() { __zoxide_z "$@" && lsd; }
 zi() {__zoxide_zi "$@" && lsd; }
-cd() { echo "[!] Use z instead" }

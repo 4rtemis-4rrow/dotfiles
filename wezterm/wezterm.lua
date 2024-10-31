@@ -24,7 +24,6 @@ custom = {
     key = 3000,
     leader = 1000
   },
-  username = os.getenv("USER") or os.getenv("LOGNAME") or os.getenv("USERNAME"),
 }
 
 projects = {
@@ -408,49 +407,6 @@ end
     { Background = { Color = colors.background }         },
     { Foreground = { Color = colors.ansi[1] }            },
     { Text       = nerdfonts.ple_right_half_circle_thick },
-
-    { Text       = " "                                   },
-    { Background = { Color = colors.background }         },
-    { Foreground = { Color = colors.ansi[6] }            },
-    { Text       = nerdfonts.ple_left_half_circle_thick  },
-    { Background = { Color = colors.ansi[6] }            },
-    { Foreground = { Color = colors.background }         },
-    { Text       = nerdfonts.fa_user .. " "              },
-    { Background = { Color = colors.ansi[1] }            },
-    { Foreground = { Color = colors.foreground }         },
-    { Text       = " " .. custom.username                },
-    { Background = { Color = colors.background }         },
-    { Foreground = { Color = colors.ansi[1] }            },
-    { Text       = nerdfonts.ple_right_half_circle_thick },
-
-    { Text       = " "                                   },
-    { Background = { Color = colors.background }         },
-    { Foreground = { Color = colors.ansi[7] }            },
-    { Text       = nerdfonts.ple_left_half_circle_thick  },
-    { Background = { Color = colors.ansi[7] }            },
-    { Foreground = { Color = colors.ansi[1] }            },
-    { Text       = nerdfonts.cod_server .. " "           },
-    { Background = { Color = colors.ansi[1] }            },
-    { Foreground = { Color = colors.foreground }         },
-    { Text       = " " .. custom.hostname.current        },
-    { Background = { Color = colors.background }         },
-    { Foreground = { Color = colors.ansi[1] }            },
-    { Text       = nerdfonts.ple_right_half_circle_thick },
-
-    { Text       = " "                                   },
-    { Background = { Color = colors.background }         },
-    { Foreground = { Color = colors.ansi[8]}             },
-    { Text       = nerdfonts.ple_left_half_circle_thick  },
-    { Background = { Color = colors.ansi[8]}             },
-    { Foreground = { Color = colors.background }         },
-    { Text       = nerdfonts.md_calendar_clock .. " "    },
-    { Background = { Color = colors.ansi[1] }            },
-    { Foreground = { Color = colors.foreground }         },
-    { Text       = " " .. time                           },
-    { Background = { Color = colors.background }         },
-    { Foreground = { Color = colors.ansi[1] }            },
-    { Text       = nerdfonts.ple_right_half_circle_thick },
-
   }))
 
 end)

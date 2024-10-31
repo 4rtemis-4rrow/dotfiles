@@ -9,6 +9,8 @@ vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", {desc = 'Search
 vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", {desc = 'View Undo History With Telescope'})
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", {desc = 'Buffer Switcher'})
 vim.keymap.set("n", "<leader>a", "<cmd>SymbolsOutline<CR>", {desc = 'Toggle Symbol Outline Panel'})
+vim.keymap.set("n", "<leader>n", "<cmd>Arrow prev_buffer_bookmark", {desc = 'Next Buffer Bookmark'})
+vim.keymap.set("n", "<leader>p", "<cmd>Arrow next_buffer_bookmark", {desc = 'Previous Buffer Bookmark'})
 
 --UI--
 vim.keymap.set("n", "<leader>Sv", vim.cmd.vsplit, {desc = 'Split The Editor Vertically'})
@@ -47,6 +49,8 @@ vim.keymap.set("n", "n", "nzzzv", {desc = 'Next Match'})
 vim.keymap.set("n", "N", "Nzzzv", {desc = 'Previous Match'})
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 vim.keymap.set('n', 'Z', "za")
+vim.keymap.set("n", "<c-d>", "<c-d>zz")
+vim.keymap.set("n", "<c-u>", "<c-u>zz")
 
 -- Debugger --
 vim.keymap.set("n", "<leader>dR", function() require("dap").run_to_cursor() end, { desc = "Run to Cursor" })

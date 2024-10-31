@@ -30,6 +30,7 @@ exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
 exec $HOME/.scripts/wall.sh
 exec udiskie -nt -m nested --appindicator -f "wezterm start -- ranger" --terminal wezterm
 exec swayosd-server
+exec_always caps2esc -m 1
 exec ~/.autostart.sh
 
 focus_follows_mouse no
