@@ -1,6 +1,8 @@
 require("plugins")
 require("Settings")
 require("Keybindings")
+require("highlight")
+require("autocmd")
 
 local plugin_dir = vim.fn.stdpath('config') .. "/lua/Configs"
 

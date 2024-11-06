@@ -14,46 +14,62 @@ vim.g.mapleader = ' '
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    { 'nvim-lualine/lualine.nvim', event = 'VimEnter' },
-    { 'nvim-tree/nvim-web-devicons', lazy = true },
-    { 'MunifTanjim/nui.nvim', lazy = true },
-    { 'yaocccc/nvim-foldsign', event = 'BufReadPre' },
-    { 'nvim-neotest/nvim-nio', lazy = true },
-    { 'm-demare/hlargs.nvim', event = 'InsertEnter' },
-    { 'kevinhwang91/promise-async', lazy = true },
-    { 'kevinhwang91/nvim-ufo', event = 'BufReadPre' },
-    { 'ray-x/guihua.lua', lazy = true },
-    { 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
-    { 'Slotos/telescope-lsp-handlers.nvim', cmd = 'Telescope' },
-    { 'rcarriga/nvim-notify', event = 'VimEnter' },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help', event = 'InsertEnter' },
-    { 'hrsh7th/cmp-path', event = 'InsertEnter' },
-    { 'HiPhish/rainbow-delimiters.nvim', event = 'BufReadPre' },
-    { 'folke/tokyonight.nvim', event = 'VimEnter' },
-    { 'mfussenegger/nvim-lint', event = 'BufReadPre' },
-    { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' },
-    { 'jghauser/mkdir.nvim', event = 'BufWritePre' },
+    { 'nvim-lualine/lualine.nvim',                  event = 'VimEnter' },
+    { 'nvim-tree/nvim-web-devicons',                lazy = true },
+    { 'MunifTanjim/nui.nvim',                       lazy = true },
+    { 'yaocccc/nvim-foldsign',                      event = 'BufReadPre' },
+    { 'nvim-neotest/nvim-nio',                      lazy = true },
+    { 'm-demare/hlargs.nvim',                       event = 'InsertEnter' },
+    { 'kevinhwang91/promise-async',                 lazy = true },
+    { 'kevinhwang91/nvim-ufo',                      event = 'BufReadPre' },
+    { 'ray-x/guihua.lua',                           lazy = true },
+    { 'saadparwaiz1/cmp_luasnip',                   event = 'InsertEnter' },
+    { 'Slotos/telescope-lsp-handlers.nvim',         cmd = 'Telescope' },
+    { 'rcarriga/nvim-notify',                       event = 'VimEnter' },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help',        event = 'InsertEnter' },
+    { 'hrsh7th/cmp-path',                           event = 'InsertEnter' },
+    { 'HiPhish/rainbow-delimiters.nvim',            event = 'BufReadPre' },
+    { 'folke/tokyonight.nvim',                      event = 'VimEnter' },
+    { 'simrat39/symbols-outline.nvim',              cmd = 'SymbolsOutline' },
+    { 'jghauser/mkdir.nvim',                        event = 'BufWritePre' },
     { 'nvim-telescope/telescope-file-browser.nvim', cmd = 'Telescope' },
-    { 'nvim-telescope/telescope-project.nvim', cmd = 'Telescope' },
-    { 'pwntester/octo.nvim', cmd = 'Octo' },
-    { 'akinsho/toggleterm.nvim', version = "*", config = true, keys = { [[<c-\>]] } },
+    { 'nvim-telescope/telescope-project.nvim',      cmd = 'Telescope' },
+    { 'pwntester/octo.nvim',                        cmd = 'Octo' },
+    { 'akinsho/toggleterm.nvim',                    version = "*",         config = true, keys = { [[<c-\>]] } },
+    { "jbyuki/venn.nvim" },
+    { "nvimtools/hydra.nvim" },
+    "stevearc/conform.nvim",
+    "zapling/mason-conform.nvim",
 
     {
-        "jay-babu/mason-null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        "utilyre/barbecue.nvim",
+        name = "barbecue",
+        version = "*",
         dependencies = {
-            "williamboman/mason.nvim",
-            "nvimtools/none-ls.nvim",
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
         },
-        config = function()
-            local null_ls = require("null-ls")
-            null_ls.setup({})
-        end,
+        opts = {
+            -- configurations go here
+        },
+    },
+
+    {
+        "Fildo7525/pretty_hover",
+        event = "LspAttach",
+        opts = {}
+    },
+
+    {
+        "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
+        opts = {},
+        config = function(_, opts) require'lsp_signature'.setup(opts) end
     },
 
     {
         "Zeioth/compiler.nvim",
-        cmd = {"CompilerOpen", "CompilerToggleResults", "CompilerRedo"},
+        cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
         dependencies = { "stevearc/overseer.nvim", "nvim-telescope/telescope.nvim" },
         opts = {},
     },
@@ -82,7 +98,7 @@ require('lazy').setup({
         opts = {}
     },
 
-    { 'nvim-treesitter/nvim-treesitter', build = 'TSUpdate', event = 'BufRead' },
+    { 'nvim-treesitter/nvim-treesitter',     build = 'TSUpdate', event = 'BufRead' },
 
     {
         "rachartier/tiny-inline-diagnostic.nvim",
@@ -129,15 +145,15 @@ require('lazy').setup({
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
-        dependencies = { {'nvim-tree/nvim-web-devicons'}}
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
 
     {
         "chrisgrieser/nvim-spider",
         keys = {
-            { "w", "<cmd>lua require('spider').motion('w')<CR>", desc = "Spider-w", mode = { "n", "o", "x" } },
-            { "e", "<cmd>lua require('spider').motion('e')<CR>", desc = "Spider-e", mode = { "n", "o", "x" } },
-            { "b", "<cmd>lua require('spider').motion('b')<CR>", desc = "Spider-b", mode = { "n", "o", "x" } },
+            { "w",  "<cmd>lua require('spider').motion('w')<CR>",  desc = "Spider-w",  mode = { "n", "o", "x" } },
+            { "e",  "<cmd>lua require('spider').motion('e')<CR>",  desc = "Spider-e",  mode = { "n", "o", "x" } },
+            { "b",  "<cmd>lua require('spider').motion('b')<CR>",  desc = "Spider-b",  mode = { "n", "o", "x" } },
             { "ge", "<cmd>lua require('spider').motion('ge')<CR>", desc = "Spider-ge", mode = { "n", "o", "x" } },
         },
         opts = {
@@ -154,11 +170,12 @@ require('lazy').setup({
         opts = {
             handlers = {}
         },
+        key = '<leader>dc'
     },
 
     {
         "rcarriga/nvim-dap-ui",
-        dependencies = {"mfussenegger/nvim-dap", 'theHamsta/nvim-dap-virtual-text'},
+        dependencies = { "mfussenegger/nvim-dap", 'theHamsta/nvim-dap-virtual-text' },
         event = "VeryLazy",
         config = function()
             local dap = require("dap")
@@ -173,7 +190,8 @@ require('lazy').setup({
             dap.listeners.before.event_exited["dapui_config"] = function()
                 dapui.close()
             end
-        end
+        end,
+        key = '<leader>dc'
     },
 
     {
@@ -199,13 +217,13 @@ require('lazy').setup({
         },
     },
 
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", event = "BufRead", opts = {} },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl",       event = "BufRead", opts = {} },
 
     {
         'altermo/ultimate-autopair.nvim',
-        event={'InsertEnter','CmdlineEnter'},
-        branch='v0.6', --recommended as each new version will have breaking changes
-        opts={
+        event = { 'InsertEnter', 'CmdlineEnter' },
+        branch = 'v0.6', --recommended as each new version will have breaking changes
+        opts = {
             --Config goes here
         },
     },
@@ -226,15 +244,18 @@ require('lazy').setup({
             })
             require("telescope").load_extension("undo")
             vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
-            require'telescope'.load_extension('project')
+            require 'telescope'.load_extension('project')
         end,
     },
 
     {
         'williamboman/mason.nvim',
-        lazy = false,
+        lazy = true,
         config = true,
     },
+
+    "mfussenegger/nvim-lint",
+    "rshkarin/mason-nvim-lint",
 
     {
         "iguanacucumber/magazine.nvim",
@@ -250,14 +271,14 @@ require('lazy').setup({
 
     {
         'neovim/nvim-lspconfig',
-        cmd = {'LspInfo', 'LspInstall', 'LspStart'},
-        event = {'BufReadPre', 'BufNewFile'},
+        cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'williamboman/mason-lspconfig.nvim' },
         },
     },
-    
+
     {
         'SuperBo/fugit2.nvim',
         opts = {
@@ -278,5 +299,18 @@ require('lazy').setup({
             { '<leader>F', mode = 'n', '<cmd>Fugit2<cr>' }
         }
     },
+
+    {
+        "OXY2DEV/markview.nvim",
+        lazy = true,
+        ft = { "markdown", "latex" },
+
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        }
+    },
+
 })
 
+require("mason").setup()

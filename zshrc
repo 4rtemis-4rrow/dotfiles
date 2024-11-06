@@ -53,28 +53,7 @@ ex () {
 
 k() { ps aux | grep -i "$1" | awk '{print $2, $11, $12}' | column -t | fzf -m | awk '{print $1}' | xargs -r kill -9; }
 
-nv() {
-    local arg
-    local set_nvim_appname=false
-
-    for arg in "$@"; do
-        if [[ "$arg" == *.md || "$arg" == *.tex ]]; then
-            set_nvim_appname=true
-            break
-        fi
-    done
-
-    if $set_nvim_appname; then
-        NVIM_APPNAME=neonote nvim "$@"
-    else
-        nvim "$@"
-    fi
-}
-
-# Arch Linux command-not-found support, you must have package pkgfile installed
-# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
 [[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
-# Advanced command-not-found hook
 [[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
 
 source $ZSH/oh-my-zsh.sh
@@ -101,6 +80,7 @@ alias ytm='yt-dlp -f 139'
 alias arch='wget -E -k -p'
 alias rsync='rsync -avzh --progress --stats'
 alias gudo='sudo /bin/env WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"  XDG_RUNTIME_DIR=/user/run/1000'
+alias nv="nvim"
 
 eval "$(zoxide init zsh)"
 z() { __zoxide_z "$@" && lsd; }

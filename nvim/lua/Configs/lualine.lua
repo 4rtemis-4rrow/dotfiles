@@ -2,16 +2,17 @@ local lualine = require('lualine')
 local colors = {
     bg       = "#011627",
     fg       = "#acb4c2",
-    yellow   = "#ecc48d",
-    cyan     = "#7fdbca",
-    darkblue = "#82aaff",
-    green    = "#21c7a8",
-    orange   = "#e3d18a",
-    violet   = "#a9a1e1",
-    magenta  = "#ae81ff",
-    blue     = "#82aaff ",
-    red      = "#ff5874",
+    yellow   = "#e0af68",
+    cyan     = "#73daca",
+    darkblue = "#2ac3de",
+    green    = "#9ece6a",
+    orange   = "#ff9e64",
+    violet   = "#bb9af7",
+    magenta  = "#7aa2f7",
+    blue     = "#7dcfff",
+    red      = "#f7768e",
 }
+
 local conditions = {
     buffer_not_empty = function()
         return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -189,4 +190,3 @@ ins_right {
 }
 
 lualine.setup(config)
-

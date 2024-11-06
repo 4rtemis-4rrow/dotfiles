@@ -289,7 +289,7 @@ config.mouse_bindings = {
 }
 
 -- Font
-config.font = wezterm.font("JetBrainsMonoNL Nerd Font")
+config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 9
 
 -- Hyperlink

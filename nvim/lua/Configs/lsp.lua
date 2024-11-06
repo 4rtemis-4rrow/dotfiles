@@ -1,6 +1,5 @@
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {},
   handlers = {
@@ -11,3 +10,10 @@ require('mason-lspconfig').setup({
     end,
   },
 })
+
+local signs = { Error = "", Warning = " ", Hint = " ", Information = " " }
+for type, icon in pairs(signs) do
+  local hl = "LspDiagnosticsSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
