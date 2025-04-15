@@ -35,6 +35,8 @@ projects = {
 
 config.bidi_enabled = true
 config.bidi_direction = 'AutoLeftToRight'
+config.enable_wayland=true
+config.enable_kitty_graphics=true
 
 -- Path
 config.set_environment_variables = {
@@ -262,7 +264,7 @@ config.initial_cols = 200
 config.initial_rows = 50
 config.text_background_opacity = 0.90
 config.window_background_opacity = 0.90
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 config.window_padding = {
   left   = 3,
   right  = 3,
@@ -271,8 +273,7 @@ config.window_padding = {
 }
 
 -- Graphics
-config.front_end = "OpenGL"
-config.webgpu_power_preference = "HighPerformance"
+config.front_end = "WebGpu"
 
 -- Cursor
 config.bypass_mouse_reporting_modifiers = "SHIFT"

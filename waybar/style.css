@@ -1,8 +1,10 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
     border-radius: 20px;
     font-family: JetBrainsMono NFP;
-    font-size: 13px;
+    padding-top: 1px;
+    font-size: 12px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 window#waybar {
@@ -40,12 +42,11 @@ button:hover {
 }
 
 #workspaces button {
-    margin: 0 2px;
-    padding: 0 5px;
+    padding: 0 1px;
+    margin: 0 0px;
     color: #24283b;
     border-radius: 20px;
-    background: rgb(247,118,142);
-    background: linear-gradient(135deg, rgba(247,118,142,1) 0%, rgba(187,154,247,1) 100%);
+    background: rgba(0,0,0,0);
 
 }
 
@@ -89,7 +90,11 @@ button:hover {
 #custom-icon,
 
 #workspaces {
-    margin: 0 2px;
+    padding: 0 0px;
+	margin-bottom: 0;
+	border-radius: 26px;
+    background: rgb(247,118,142);
+    background: linear-gradient(135deg, rgba(247,118,142,1) 0%, rgba(187,154,247,1) 100%);
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -101,7 +106,6 @@ button:hover {
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
 }
-
 
 #clock {
     /* background-color: #2ac3de; */
@@ -125,12 +129,6 @@ button:hover {
     background: linear-gradient(135deg, rgba(42,195,222,1) 35%, rgba(187,154,247,1) 70%);
 }
 
-#battery {
-    background-color: #f7768e;
-    color: #24283b;
-    padding: 0 5px;
-}
-
 #custom-weather {
     color: #24283b;
     background-color: #ff9e64;
@@ -139,6 +137,7 @@ button:hover {
     background: rgb(255,158,100);
     background: linear-gradient(135deg, rgba(255,158,100,1) 0%, rgba(247,118,142,1) 100%);
 }
+
 #custom-notifications {
     margin: 0 2px;
     padding: 0 0 0 1px;
@@ -147,55 +146,6 @@ button:hover {
     min-width: 20px;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 100%);
-}
-
-#battery.charging, #battery.plugged {
-    color: #24283b;
-    background-color: #bb9af7;
-    padding: 0 5px;
-}
-
-@keyframes blink {
-    to {
-        background-color: #24283b;
-        color: #24283b;
-    }
-}
-
-#battery.critical:not(.charging) {
-    background-color: #9ece6a;
-    color: #24283b;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-label:focus {
-    background-color: #24283b;
-}
-
-#cpu {
-    background-color: #e0af68;
-    color: #24283b;
-    padding: 0 5px;
-    background: rgb(42,195,222);
-    background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 100%); 
-}
-
-#memory {
-    background-color: #2ac3de;
-    color: #24283b;
-    padding: 0 5px;
-    background: rgb(158,206,106);
-    background: linear-gradient(135deg, rgba(158,206,106,1) 0%, rgba(42,195,222,1) 100%);
-}
-
-#backlight {
-    background-color: #f7768e;
-    color: #24283b;
-    padding: 0 5px;
 }
 
 #network {

@@ -9,6 +9,11 @@
         "spacing": 10
     },
 
+    "sway/workspaces": {
+        "format": "{name}",
+        "disable-scroll": true
+    },
+
     "mpris": {
         "format": "{status_icon} {artist} - {title}",
         "format-paused": "{status_icon} {artist} - {title}",
@@ -53,8 +58,8 @@
     },
 
     "network": {
-    "format": "{bandwidthDownBytes} {bandwidthUpBytes} ",
-    "interval": 1,
+        "format": "{bandwidthDownBytes} {bandwidthUpBytes} ",
+        "interval": 1,
     },
 
     "clock": {
@@ -106,7 +111,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol -t 3"
     },
 }
 

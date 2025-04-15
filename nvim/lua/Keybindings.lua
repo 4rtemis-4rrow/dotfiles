@@ -1,18 +1,6 @@
-vim.g.mapleader = ' '
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "q:", "<nop>")
 
---Plugins--
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = 'Find Files With Telescope' })
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = 'Find File Contents with Telescope' })
-vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = 'Search Previously Opened Files With Telescope' })
-vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = 'View Undo History With Telescope' })
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = 'Buffer Switcher' })
-vim.keymap.set("n", "<leader>a", "<cmd>SymbolsOutline<CR>", { desc = 'Toggle Symbol Outline Panel' })
-vim.keymap.set("n", "<leader>n", "<cmd>Arrow prev_buffer_bookmark", { desc = 'Next Buffer Bookmark' })
-vim.keymap.set("n", "<leader>p", "<cmd>Arrow next_buffer_bookmark", { desc = 'Previous Buffer Bookmark' })
-
---UI--
 vim.keymap.set("n", "<leader>Sv", vim.cmd.vsplit, { desc = 'Split The Editor Vertically' })
 vim.keymap.set("n", "<leader>Sh", vim.cmd.split, { desc = 'Split The Editor Horizontally' })
 vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<CR>", { desc = 'Resize The Editor Vertically' })
@@ -20,23 +8,6 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<CR>", { desc = 'Resize The Edito
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = 'Resize The Editor Horizontally' })
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = 'Resize The Editor Horizontally' })
 
---LSP--
-vim.keymap.set('n', "<leader>ld", function() require('telescope.builtin').lsp_definitions() end,
-    { desc = 'Go To The Definition' })
-vim.keymap.set('n', "<leader>lc", vim.cmd.CodeActionMenu, { desc = 'Suggest Code Fix' })
-vim.keymap.set('n', '<leader>lh', function() require("pretty_hover").hover() end, { desc = 'Show Info' })
-vim.keymap.set('n', '<leader>lr', function() vim.lsp.buf.rename() end, { desc = 'Rename' })
-vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format() end, { desc = 'Format' })
-vim.keymap.set('n', '<leader>lD', function() vim.lsp.buf.declaration() end, { desc = "Jump to declaration" })
-vim.keymap.set('n', "<leader>lR", function() require('telescope.builtin').lsp_references() end, { desc =
-"List References" })
-vim.keymap.set('n', "<leader>li", function() require('telescope.builtin').lsp_implementations() end,
-    { desc = "List Implementations" })
-vim.keymap.set('n', "<leader>lC", function() require("telescope.builtin").lsp_incoming_calls() end,
-    { desc = "List Incoming Calls" })
-vim.keymap.set('n', "<leader>lg", function() require("telescope.builtin").diagnostics() end, { desc = "List Diagnostics" })
-
---Navigation--
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = 'Navigate To The Split On The Left' })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = 'Navigate To The Split Underneath' })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = 'Navigate To the Split Above' })
@@ -57,39 +28,3 @@ vim.keymap.set('n', 'Z', "za")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 
--- Debugger --
-vim.keymap.set("n", "<leader>dR", function() require("dap").run_to_cursor() end, { desc = "Run to Cursor" })
-vim.keymap.set("n", "<leader>dE", function() require("dapui").eval(vim.fn.input("[Expression] > ")) end,
-    { desc = "Evaluate Input" })
-vim.keymap.set("n", "<leader>dC", function() require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) end,
-    { desc = "Conditional Breakpoint" })
-vim.keymap.set("n", "<leader>db", function() require("dap").step_back() end, { desc = "Step Back" })
-vim.keymap.set("n", "<leader>dc", function() require("dap").continue() end, { desc = "Continue" })
-vim.keymap.set("n", "<leader>dd", function() require("dap").disconnect() end, { desc = "Disconnect" })
-vim.keymap.set({ "n", "v" }, "<leader>de", function() require("dapui").eval() end, { desc = "Evaluate" })
-vim.keymap.set("n", "<leader>dg", function() require("dap").session() end, { desc = "Get Session" })
-vim.keymap.set("n", "<leader>dh", function() require("dap.ui.widgets").hover() end, { desc = "Hover Variables" })
-vim.keymap.set("n", "<leader>dS", function() require("dap.ui.widgets").scopes() end, { desc = "Scopes" })
-vim.keymap.set("n", "<leader>di", function() require("dap").step_into() end, { desc = "Step Into" })
-vim.keymap.set("n", "<leader>do", function() require("dap").step_over() end, { desc = "Step Over" })
-vim.keymap.set("n", "<leader>dp", function() require("dap").pause.toggle() end, { desc = "Pause" })
-vim.keymap.set("n", "<leader>dq", function() require("dap").close() end, { desc = "Quit" })
-vim.keymap.set("n", "<leader>dr", function() require("dap").repl.toggle() end, { desc = "Toggle REPL" })
-vim.keymap.set("n", "<leader>ds", function() require("dap").continue() end, { desc = "Start" })
-vim.keymap.set("n", "<leader>dt", function() require("dap").toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
-vim.keymap.set("n", "<leader>dx", function() require("dap").terminate() end, { desc = "Terminate" })
-vim.keymap.set("n", "<leader>du", function() require("dap").step_out() end, { desc = "Step Out" })
-
-
--- Git --
-vim.keymap.set('n', '<leader>gs', function() require("tinygit").interactiveStaging() end,
-    { desc = "Interactively Stage Files" })
-vim.keymap.set("n", "<leader>gc", function() require("tinygit").smartCommit() end, { desc = "Commit Changes" })
-vim.keymap.set("n", "<leader>gp", function() require("tinygit").push() end, { desc = "Push Changes" })
-vim.keymap.set("n", "<leader>ghs", function() require("tinygit").searchFileHistory() end, { desc = "Search File History" })
-vim.keymap.set("n", "<leader>ghf", function() require("tinygit").functionHistory() end, { desc = "Show Function History" })
-vim.keymap.set("n", "<leader>ghl", function() require("tinygit").lineHistory() end, { desc = "Show Line History" })
-vim.keymap.set("n", "<leader>gsh", function() require("tinygit").stashPush() end, { desc = "Stash Push" })
-vim.keymap.set("n", "<leader>gsp", function() require("tinygit").stashPop() end, { desc = "Stash Pop" })
-vim.api.nvim_set_keymap('n', '<leader>gd', ':lua require("Configs.gh-dash").gh_dash()<CR>',
-    { noremap = true, silent = true, desc = 'github dashboard' })

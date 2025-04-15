@@ -1,63 +1,60 @@
---UI--
-vim.cmd.colorscheme("tokyonight-night")
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-vim.cmd.colorscheme("tokyonight-night")
-vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'red', linehl = '', numhl = '' })
+-- UI Settings
+vim.cmd.colorscheme("tokyonight-night")  -- Set the colorscheme
 
---global options--
-vim.opt.clipboard = "unnamedplus"
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.number = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.wrap = true
-vim.opt.linebreak = true
-vim.opt.breakindent = true
-vim.opt.conceallevel = 3
-vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
-vim.g.ale_echo_cursor = 0
-vim.diagnostic.config({ virtual_text = false })
-vim.opt.list = true
+-- Debugger
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'red' })  -- Custom DAP breakpoint sign
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.breakindent = true
-vim.opt.smartindent = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevelstart = 20
+-- General UI/Appearance
+vim.opt.termguicolors = true  -- Enable true colors
+vim.opt.cursorline = true  -- Highlight the current line
+vim.opt.cursorcolumn = true  -- Highlight the current column
+vim.opt.scrolloff = 8  -- Keep 8 lines visible above/below the cursor
+vim.opt.wrap = true  -- Enable line wrapping
+vim.opt.linebreak = true  -- Wrap lines at word boundaries
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+-- Numbering
+vim.opt.nu = true  -- Show absolute line numbers
+vim.opt.relativenumber = true  -- Show relative line numbers
 
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
+-- Search Settings
+vim.opt.ignorecase = true  -- Case-insensitive search
+vim.opt.smartcase = true  -- Override case-insensitivity for uppercase letters
+vim.opt.hlsearch = true  -- Highlight search results
+vim.opt.incsearch = true  -- Incremental search
 
-vim.opt.termguicolors = true
+-- Indentation
+vim.opt.tabstop = 4  -- Number of spaces per tab
+vim.opt.softtabstop = 4  -- Number of spaces when pressing Tab in insert mode
+vim.opt.shiftwidth = 4  -- Number of spaces for auto-indentation
+vim.opt.expandtab = true  -- Convert tabs to spaces
+vim.opt.smartindent = true  -- Automatically indent based on syntax
+vim.opt.breakindent = true  -- Indent wrapped lines for better readability
 
-vim.opt.scrolloff = 8
+-- Folding
+vim.opt.foldmethod = "expr"  -- Enable folding using expressions
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- Use Treesitter for code folding
+vim.opt.foldlevelstart = 20  -- Open most folds by default
 
-vim.opt.updatetime = 50
-vim.opt.laststatus = 2
+-- Backup and Undo
+vim.opt.swapfile = false  -- Disable swap files
+vim.opt.backup = false  -- Disable backup files
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"  -- Custom undo directory
+vim.opt.undofile = true  -- Enable persistent undo
 
-vim.g.indent_blankline_filetype_exclude = { 'dashboard' }
-
-vim.g.mapleader = " "
-
+-- Diagnostic Signs
 vim.diagnostic.config({
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = '',
-            [vim.diagnostic.severity.WARN] = '',
-            [vim.diagnostic.severity.HINT] = '',
-            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.ERROR] = '',  -- Error sign
+            [vim.diagnostic.severity.WARN] = '',   -- Warning sign
+            [vim.diagnostic.severity.HINT] = '',   -- Hint sign
+            [vim.diagnostic.severity.INFO] = '',   -- Info sign
         },
     },
 })
+
+-- Miscellaneous
+vim.g.indent_blankline_filetype_exclude = { 'dashboard' }  -- Exclude 'dashboard' filetype from indent-blankline plugin
+vim.g.mapleader = " "  -- Set leader key to space
+vim.o.clipboard = "unnamedplus"
+

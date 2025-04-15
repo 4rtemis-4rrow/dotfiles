@@ -1,0 +1,118 @@
+/* find-host, not working write to the find-host section, so I put it outside */
+.R.HM.D>.LH {
+    background: #bb9af7;
+    border: none;
+    border-radius: 20px; /* Increased border-radius for roundness */
+    backdrop-filter: blur(1.5px);
+    color: #1a1b26;
+}
+
+.HUD,
+.TEE {
+    background: #2ac3de;
+    color: #1a1b26;
+    padding: 0;
+    bottom: 1px;
+    border-radius: 20px; /* Added border-radius */
+}
+
+@media screen and (min-width: 1260px) {
+    .Omnibar {
+       left: calc(20vw - 12px);
+       width: calc(60vw + 24px);
+       border-radius: 20px; /* Added border-radius */
+    }
+}
+@media screen and (min-width: 1760px) {
+    .Omnibar {
+       left: calc(30vw - 12px);
+       width: calc(40vw + 24px);
+       border-radius: 20px; /* Added border-radius */
+    }
+}
+
+/* #omni */
+#bar {
+    background: #1a1b26;
+    border-bottom: none;
+    margin-bottom: 20px;
+    border-radius: 20px; /* Added border-radius */
+}
+
+#list {
+    background: #1a1b26;
+    color: #a9b1d6;
+    border-radius: 20px; /* Added border-radius */
+}
+
+#input {
+    background: #414868;
+    box-shadow: none;
+    border-color: #bb9af7;
+    color: #a9b1d6;
+    border-radius: 20px; /* Added border-radius */
+}
+
+body::after {
+    border: none;
+    border-radius: 20px; /* Added border-radius */
+}
+
+.item {
+    border-bottom: none;
+    padding-top: 0px;
+    cursor: pointer;
+    color: #a9b1d6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px; /* Added border-radius */
+}
+
+.item.s,
+.item:hover {
+    background-color: #24283b;
+    border-radius: 20px; /* Added border-radius */
+}
+
+.top {
+    color: #a9b1d6;
+}
+
+.bottom {
+    width: 20rem;
+    overflow: hidden;
+    border-radius: 20px; /* Added border-radius */
+}
+
+.bottom>a {
+    font-size: .7rem;
+}
+
+#toolbar {
+    display: none;
+    border-radius: 20px; /* Added border-radius */
+}
+
+/* #find */
+.r.D {
+    background: #1a1b26;
+    color: #a9b1d6;
+    border-radius: 20px; /* Added border-radius */
+}
+
+.r {
+    box-shadow: inset 0 0 1px 0.5px #bb9af7;
+    border-radius: 20px; /* Added border-radius */
+}
+
+/* #find:host */
+
+
+/* #find:selection */
+::selection {
+    background: #2ac3de !important;
+    color: #1a1b26;
+    border-radius: 20px; /* Added border-radius */
+}
+

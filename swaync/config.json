@@ -44,7 +44,7 @@
     }
     "scripts": {
         "audio": {
-            "exec": "sh $HOME/.scripts/notif.sh",
+            "exec": "ffplay ~/.scripts/notif.mp3",
             "app-name": ".*",
         }
     }

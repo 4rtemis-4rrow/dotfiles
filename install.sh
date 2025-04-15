@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-packages=("swayfx" "swaync" "waybar" "wezterm" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "ranger-git" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs" "github-cli" "libqalculate")
+packages=("swayfx" "swaync" "waybar" "wezterm" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "yazi" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs" "github-cli" "libqalculate")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
@@ -54,7 +54,7 @@ ln -s "$dotfiles_dir/wezterm/" "$HOME/.config/wezterm"
 ln -s "$dotfiles_dir/neonote" "$HOME/.config/neonote"
 ln -s "$dotfiles_dir/nvim/" "$HOME/.config/nvim"
 ln -s "$dotfiles_dir/p10k.zsh" "$HOME/.p10k.zsh"
-ln -s "$dotfiles_dir/ranger" "$HOME/.config/ranger"
+ln -s "$dotfiles_dir/yazi" "$HOME/.config/yazi"
 ln -s "$dotfiles_dir/rofi/" "$HOME/.config/rofi"
 ln -s "$dotfiles_dir/scripts" "$HOME/.scripts"
 ln -s "$dotfiles_dir/sway/" "$HOME/.config/sway"

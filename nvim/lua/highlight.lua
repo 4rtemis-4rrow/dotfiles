@@ -17,3 +17,4 @@ vim.api.nvim_set_hl(0, "MarkviewHeading3Icon", { fg = "#73daca" }) -- Cyan for i
 vim.api.nvim_set_hl(0, "MarkviewHeading4Icon", { fg = "#2ac3de" }) -- Teal for icon of heading 4
 vim.api.nvim_set_hl(0, "MarkviewHeading5Icon", { fg = "#bb9af7" }) -- Purple for icon of heading 5
 vim.api.nvim_set_hl(0, "MarkviewHeading6Icon", { fg = "#ff9e64" }) -- Orange for icon of heading 6
+
