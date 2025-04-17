@@ -1,4 +1,6 @@
 --- @since 25.2.7
+--- NOTE: REMOVE :parent() :name() :is_hovered() :ext() tab.id after upgrade to v25.4.4
+--- https://github.com/sxyazi/yazi/pull/2572
 
 local shell = os.getenv("SHELL") or ""
 local home = os.getenv("HOME") or ""
@@ -518,7 +520,10 @@ end
 local save_tab_hovered = ya.sync(function()
 	local hovered_item_per_tab = {}
 	for _, tab in ipairs(cx.tabs) do
-		table.insert(hovered_item_per_tab, { id = tab.id, cwd = tostring(tab.current.cwd) })
+		table.insert(hovered_item_per_tab, {
+			id = (type(tab.id) == "number" or type(tab.id) == "string") and tab.id or tab.id.value,
+			cwd = tostring(tab.current.cwd),
+		})
 	end
 	return hovered_item_per_tab
 end)
@@ -538,12 +543,18 @@ local function remount_keep_cwd_unchanged_action()
 			and tab_device.name == current_tab_device.name
 		then
 			table.insert(saved_tabs, tab)
-			ya.manager_emit("cd", { home, tab = tonumber(tab.id) })
+			ya.manager_emit("cd", {
+				home,
+				tab = tonumber((type(tab.id) == "number" or type(tab.id) == "string") and tab.id or tab.id.value),
+			})
 		end
 	end
 	mount_action({ jump = false, selected_device = current_tab_device })
 	for _, tab in ipairs(saved_tabs) do
-		ya.manager_emit("cd", { tab.cwd, tab = tonumber(tab.id) })
+		ya.manager_emit("cd", {
+			tab.cwd,
+			tab = tonumber((type(tab.id) == "number" or type(tab.id) == "string") and tab.id or tab.id.value),
+		})
 	end
 	-- ya.manager_emit("refresh", {})
 end

@@ -1,32 +1,24 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "8945e54"
-hash = "ae9e1d0c6bfd68cdebc98cc684c22b45"
+rev = "b12a9ab"
+hash = "1f3dad061209081a6b04dd6ff2cb06c7"
 
 [[plugin.deps]]
 use = "AnirudhG07/plugins-yazi:copy-file-contents"
-rev = "9c309b5"
+rev = "524c52c"
 hash = "27c50e6bc15c09096505b805b238ade0"
 
 [[plugin.deps]]
 use = "boydaihungst/simple-mtpfs"
-rev = "17290c3"
-hash = "3f09611ae85afcdd4f9f35fdb1b08691"
-
-[[plugin.deps]]
-use = "dawsers/fuse-archive"
-rev = "a58327c"
-hash = "6a6d24880ce7666048fb81ad758c48d3"
-
-[[plugin.deps]]
-use = "SL-RU/mount"
-rev = "e494101"
-hash = "533c94434955e44fd8ebdb9c140f7c87"
+rev = "1e504be"
+hash = "f38c83bf58790013fcf6ffb8d4009421"
 
 [[plugin.deps]]
 use = "dedukun/relative-motions"
-rev = "0d9c8cf"
-hash = "561ad872c77b95360c2657c5e8d395ed"
+rev = "ce2e890"
+hash = "23915860e59348bf4166778bb0e606f7"
 
-[flavor]
-deps = []
+[[flavor.deps]]
+use = "BennyOe/tokyo-night"
+rev = "695dac6"
+hash = "a8f426ea0d9cb843b081d62ab01364c8"

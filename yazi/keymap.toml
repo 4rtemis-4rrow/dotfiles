@@ -152,8 +152,6 @@ keymap = [
     # Help
 { on = "~",    run = "help", desc = "Open help" },
 { on = "<F1>", run = "help", desc = "Open help" },
-{ on   = [ "<Right>" ], run = "plugin fuse-archive mount", desc = "Enter or Mount selected archive" },
-{ on   = [ "<Left>" ], run = "plugin fuse-archive unmount", desc = "Leave or Unmount selected archive" },
 { on = "M", run="plugin mount", desc = "Mount Manager"},
 { on = [ "<C-n>" ], run = '''
     shell 'ripdrag "$@" -x 2>/dev/null &' --confirm
@@ -197,8 +195,8 @@ keymap = [
 
 { on = "<Up>",    run = "arrow -1", desc = "Move cursor up" },
 { on = "<Down>",  run = "arrow 1",  desc = "Move cursor down" },
-{ on = "<Left>",  run = "swipe -1", desc = "Swipe to the next file" },
-{ on = "<Right>", run = "swipe 1",  desc = "Swipe to the previous file" },
+{ on = "<Left>",  run = "swipe prev", desc = "Swipe to the next file" },
+{ on = "<Right>", run = "swipe next",  desc = "Swipe to the previous file" },
 
     # Copy
 { on = [ "c", "c" ], run = "copy cell", desc = "Copy selected cell" },
@@ -353,6 +351,8 @@ keymap = [
 
 { on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
 { on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
+{ on = "<Left>",  run = "leave", desc = "Back to the parent directory" },
+{ on = "<Right>", run = "enter", desc = "Enter the child directory" },
 
     # Filtering
 { on = "f", run = "filter", desc = "Apply a filter for the help items" },

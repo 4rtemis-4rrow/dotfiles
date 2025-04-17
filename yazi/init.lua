@@ -1,4 +1,3 @@
-require("fuse-archive"):setup()
 require("simple-mtpfs"):setup({})
 require("copy-file-contents"):setup({
 	append_char = "\n",

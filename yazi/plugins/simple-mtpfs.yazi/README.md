@@ -29,7 +29,7 @@ than using other method such as Android adb.
 - After jumped to device's mounted location, jump back to the previous location
   with a single keybind.
   Make it easier to copy/paste files.
-- Auto jump after successfully mounted a device (use `--jump` in `--args`)
+- Auto jump after successfully mounted a device (use `--jump`)
 
 ## Requirements
 
@@ -79,7 +79,7 @@ prepend_keymap = [
     # simple-mtpfs plugin
     { on = [ "M", "m" ], run = "plugin simple-mtpfs -- select-then-mount", desc = "Select device then mount" },
     # or this if you want to jump to mountpoint after mounted
-    { on = [ "M", "m" ], run = "plugin simple-mtpfs -- 'select-then-mount --jump'", desc = "Select device to mount and jump to its mount point" },
+    { on = [ "M", "m" ], run = "plugin simple-mtpfs -- select-then-mount --jump", desc = "Select device to mount and jump to its mount point" },
     # This will remount device under cwd (e.g. cwd = $HOME/Media/1_ZTEV5/Downloads/, device mountpoint = $HOME/Media/1_ZTEV5/)
     { on = [ "M", "r" ], run = "plugin simple-mtpfs -- remount-current-cwd-device", desc = "Remount device under cwd" },
     { on = [ "M", "u" ], run = "plugin simple-mtpfs -- select-then-unmount", desc = "Select device then unmount" },
