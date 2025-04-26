@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-packages=("swayfx" "swaync" "waybar" "wezterm" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "yazi" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs" "github-cli" "libqalculate")
+packages=("swayfx" "swaync" "waybar" "wezterm" "zsh" "neovim" "zathura" "rofi" "grim" "slurp" "autotiling" "swaybg" "workstyle" "python-pyquery" "lsd" "bat" "satty-bin" "dragon-drop" "ripgrep" "xfce-polkit" "git" "curl" "yazi" "cliphist" "imv" "swayosd-git" "zen-browser-bin" "network-manager-widget" "udiskie" "ttf-jetbrains-mono-nerd" "fd" "mpv" "nwg-clipman" "hyprlock" "zoxide" "catppuccin-cursors-mocha" "aur/beautyline" "avfs" "github-cli" "libqalculate" "git-delta")
 
 if [ -f "/etc/os-release" ]; then
     # Source the os-release file
