@@ -6,4 +6,5 @@ return {
         'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
     config = true,
+    ft = { 'dart' },
 }
