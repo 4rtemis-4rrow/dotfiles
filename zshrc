@@ -1,5 +1,6 @@
 export PATH="$PATH:$HOME/.bin/"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.scripts:$PATH"
 export GOPATH=$HOME/.go
 export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 export BAT_THEME="Enki-Tokyo-Night"
@@ -80,6 +81,7 @@ alias sudo='run0 --background=0'
 alias wiki='zen-browser /usr/share/doc/arch-wiki/html/en/Table_of_contents.html'
 alias ytdlp='yt-dlp'
 alias ytm='yt-dlp -f 139'
+alias yayfind="yay -Slq | fzf --multi --preview 'yay -Si {}' | xargs -ro yay -S"
 alias z1="z .."  
 alias z2="z ../.."  
 alias z3="z ../../.."  

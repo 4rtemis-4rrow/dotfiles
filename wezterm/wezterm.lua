@@ -35,7 +35,7 @@ projects = {
 
 config.bidi_enabled = true
 config.bidi_direction = 'AutoLeftToRight'
-config.enable_wayland=true
+config.enable_wayland=false
 config.enable_kitty_graphics=true
 
 -- Path

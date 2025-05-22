@@ -1,15 +1,18 @@
 {
-    "modules-left": ["custom/icon", "sway/workspaces", "mpris", "sway/mode"],
+    "modules-left": ["custom/icon", "hyprland/workspaces", "mpris", "sway/mode"],
     "modules-center": [ "clock"],
-    "modules-right": ["network", "pulseaudio", "temperature", "sway/language", "custom/weather", "tray", "custom/notifications"],
+    "modules-right": ["network", "pulseaudio", "temperature", "hyprland/language", "custom/weather", "tray", "custom/notifications"],
     "disable-click": true,
 
     "tray": {
         // "icon-size": 21,
         "spacing": 10
     },
+    "hyprland/language": {
+        "format": "{short}",
+    },
 
-    "sway/workspaces": {
+    "hyprland/workspaces": {
         "format": "{name}",
         "disable-scroll": true
     },

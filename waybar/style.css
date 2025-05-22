@@ -55,7 +55,7 @@ button:hover {
     box-shadow: inset 0 0px rgba(0, 0, 0, 0.0)
 }
 
-#workspaces button.focused {
+#workspaces button.active {
     color: #24283b;
     background: rgb(42,195,222);
     background: linear-gradient(135deg, rgba(42,195,222,1) 0%, rgba(187,154,247,1) 75%);

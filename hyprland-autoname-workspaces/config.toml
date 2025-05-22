@@ -1,0 +1,49 @@
+version = "1.1.16"
+
+[format]
+dedup = true
+dedup_inactive_fullscreen = false
+delim = ""
+client = "{icon}"
+client_active = "{icon}"
+client_dup = "{icon}{counter_sup}"
+client_dup_fullscreen = "[{icon}]{icon}{counter_unfocused_sup}"
+client_fullscreen = "[{icon}]"
+workspace = "{clients}"
+workspace_empty = "{id}"
+
+[class]
+DEFAULT = ""  # No icon to trigger fallback
+"(?i)zen" = ""
+"(?i)kitty" = ""
+"(?i)alacritty" = ""
+"(?i)wezterm" = ""
+"(?i)steam" = ""
+"(?i)mpv" = "󰿎"
+"(?i)yazi" = ""
+"(?i)yay" = ""
+"(?i)transmission" = "󰨈"
+"(?i)element" = ""
+"(?i)whatsie" = ""
+"(?i)imv" = ""
+"(?i)vesktop" = ""
+"(?i)cutter" = ""
+"(?i)tor" = ""
+"(?i)wine" = ""
+"(?i)lutris" = "󰺷"
+"(?i)heroic" = "󱢾"
+"(?i)vmware|virt-manager|qemu" = ""
+"(?i)libreoffice-writer" = ""
+"(?i)discord" = ""
+"(?i)obsidian" = ""
+"(?i)telegramdesktop" = ""
+"(?i)spotify" = ""
+"(?i)zathura" = ""
+"(?i)code-oss|vscode" = ""
+"(?i)chromium|chrome|brave" = ""
+"(?i)zoom" = ""
+"(?i)vlc" = ""
+"(?i)nemo|thunar|nautilus" = ""
+
+[title_in_class."(?i)org.wezfurlong.wezterm"]
+".*nv.*" = ""

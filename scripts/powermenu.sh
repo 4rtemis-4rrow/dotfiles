@@ -39,6 +39,6 @@ case ${chosen} in
         suspend
         ;;
     $logout)
-		swaymsg exit
+		hyprctl dispatch exit
         ;;
 esac

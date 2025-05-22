@@ -32,13 +32,14 @@ edit = [
 	{ run = 'nvim "$@"', desc = "nvim", block = true, for = "unix" },
 ]
 open = [
-	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
+	{ run = 'opener.py "$1"',                desc = "Open", for = "linux" },
 ]
 reveal = [
 	{ run = 'xdg-open "$(dirname "$1")"',           desc = "Reveal", for = "linux" },
 	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
+    { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
 ]
 play = [
 	{ run = 'vlc "$@"', orphan = true, for = "unix" },
@@ -74,6 +75,21 @@ image_bound      = [ 0, 0 ]
 suppress_preload = false
 
 [plugin]
+prepend_preloaders = [
+    { mime = "{audio,video,image}/*", run = "mediainfo" },
+    { mime = "application/subrip", run = "mediainfo" },
+]
+prepend_previewers = [
+    { mime = "{audio,video,image}/*", run = "mediainfo"},
+    { mime = "application/subrip", run = "mediainfo" },
+	{ mime = "application/*zip",            run = "ouch" },
+	{ mime = "application/x-tar",           run = "ouch" },
+	{ mime = "application/x-bzip2",         run = "ouch" },
+	{ mime = "application/x-7z-compressed", run = "ouch" },
+	{ mime = "application/x-rar",           run = "ouch" },
+    { mime = "application/x-xz",            run = "ouch" },
+	{ mime = "application/xz",              run = "ouch" },
+]
 
 fetchers = [
 	# Mimetype

@@ -86,6 +86,7 @@ keymap = [
 { on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
 { on = "z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 { on = "Z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
+{ on = "C",         run = "plugin ouch",                 desc = "Compress with Ouch" },
 
     # Linemode
 { on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
@@ -334,8 +335,6 @@ keymap = [
 { on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
 { on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
 
-{ on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
-{ on = "<C-n>", run = "arrow 1",  desc = "Move cursor down" },
 
     # Help
 { on = "~",    run = "help", desc = "Open help" },

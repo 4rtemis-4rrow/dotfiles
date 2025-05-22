@@ -42,10 +42,10 @@
             "image-radius": 12
         }
     }
-    "scripts": {
-        "audio": {
-            "exec": "ffplay ~/.scripts/notif.mp3",
-            "app-name": ".*",
-        }
+"scripts": {
+    "sound-script": {
+        "exec": "sh ~/.scripts/sound.sh",
+        "app-name": ".*"
     }
+},
 }

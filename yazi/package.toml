@@ -18,6 +18,21 @@ use = "dedukun/relative-motions"
 rev = "ce2e890"
 hash = "23915860e59348bf4166778bb0e606f7"
 
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "2496cd9"
+hash = "5b9dea47776a30946cfbf83232d18fb1"
+
+[[plugin.deps]]
+use = "AnirudhG07/rich-preview"
+rev = "fdcf373"
+hash = "bd1737dd44b202f412122e6a3b378d4c"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "9629b1e"
+hash = "5204b4e2bd238c40fa66cf0a0191f084"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "695dac6"
