@@ -65,6 +65,7 @@ return {
 			menu = { border = "single" },
 			documentation = { window = { border = "single" } },
 			list = { selection = {preselect = false, auto_insert = false} },
+            keyword = { range = 'full' },
 		},
 		signature = { window = { border = "single" }, enabled = true },
 		sources = {

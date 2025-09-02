@@ -1,6 +1,6 @@
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
-[manager]
+[mgr]
 ratio          = [ 1, 3, 4 ]
 sort_by        = "natural"
 sort_sensitive = false
@@ -32,7 +32,7 @@ edit = [
 	{ run = 'nvim "$@"', desc = "nvim", block = true, for = "unix" },
 ]
 open = [
-	{ run = 'opener.py "$1"',                desc = "Open", for = "linux" },
+	{ run = '~/.scripts/opener.py "$1"',                desc = "Open", for = "linux" },
 ]
 reveal = [
 	{ run = 'xdg-open "$(dirname "$1")"',           desc = "Reveal", for = "linux" },
@@ -42,7 +42,7 @@ extract = [
     { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
 ]
 play = [
-	{ run = 'vlc "$@"', orphan = true, for = "unix" },
+	{ run = 'mpv "$@"', orphan = true, for = "unix" },
 ]
 
 [open]
@@ -80,6 +80,7 @@ prepend_preloaders = [
     { mime = "application/subrip", run = "mediainfo" },
 ]
 prepend_previewers = [
+    { mime = "application/epub+zip",        run = "epub-preview" },
     { mime = "{audio,video,image}/*", run = "mediainfo"},
     { mime = "application/subrip", run = "mediainfo" },
 	{ mime = "application/*zip",            run = "ouch" },

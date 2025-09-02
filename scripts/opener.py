@@ -8,26 +8,26 @@ import subprocess
 
 EXTENSION_COMMAND_MAP = {
     # Audio / Music
-    ".mp3": "vlc",
-    ".wav": "vlc",
-    ".flac": "vlc",
-    ".aac": "vlc",
-    ".ogg": "vlc",
-    ".m4a": "vlc",
-    ".wma": "vlc",
-    ".alac": "vlc",
-    ".opus": "vlc",
+    ".mp3": "ffplay",
+    ".wav": "ffplay",
+    ".flac": "ffplay",
+    ".aac": "ffplay",
+    ".ogg": "ffplay",
+    ".m4a": "ffplay",
+    ".wma": "ffplay",
+    ".alac": "ffplay",
+    ".opus": "ffplay",
 
     # Video
-    ".mp4": "vlc",
-    ".mkv": "vlc",
-    ".avi": "vlc",
-    ".mov": "vlc",
-    ".flv": "vlc",
-    ".wmv": "vlc",
-    ".webm": "vlc",
-    ".mpeg": "vlc",
-    ".mpg": "vlc",
+    ".mp4": "ffplay",
+    ".mkv": "ffplay",
+    ".avi": "ffplay",
+    ".mov": "ffplay",
+    ".flv": "ffplay",
+    ".wmv": "ffplay",
+    ".webm": "ffplay",
+    ".mpeg": "ffplay",
+    ".mpg": "ffplay",
 
     # Images
     ".jpg": "imv",
@@ -54,7 +54,7 @@ EXTENSION_COMMAND_MAP = {
     ".ods": "libreoffice",
     ".odp": "libreoffice",
     ".rtf": "libreoffice",
-    ".epub": "calibre",
+    ".epub": "zathura",
     ".djvu": "evince",
 
     # Archives / Compressed

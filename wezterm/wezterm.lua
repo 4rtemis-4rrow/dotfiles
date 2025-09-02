@@ -44,7 +44,7 @@ config.set_environment_variables = {
 }
 
 -- Lauching
-config.default_prog = { "zsh" }
+config.default_prog = { "fish" }
 config.automatically_reload_config = true
 
 -- Colorscheme

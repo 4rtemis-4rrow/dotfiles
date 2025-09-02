@@ -1,39 +1,57 @@
-export PATH="$PATH:$HOME/.bin/"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.scripts:$PATH"
-export GOPATH=$HOME/.go
+### Environment Variables ###
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export GOPATH="$HOME/.go"
+export HISTFILE=~/.zsh_history
 export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 export BAT_THEME="Enki-Tokyo-Night"
-export ANDROID_SDK_ROOT=/opt/android-sdk
-export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+typeset -U path
+path=(
+  "$HOME/.bin"
+  "$HOME/.cargo/bin"
+  "$HOME/.scripts"
+  "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+  "$ANDROID_SDK_ROOT/platform-tools"
+  "$HOME/.local/bin"
+  "$HOME/.lmstudio/bin"
+  "$PNPM_HOME"
+  $path
+)
+export PATH
 
+### Load zinit ###
+if [[ ! -f ~/.zinit/bin/zinit.zsh ]]; then
+  mkdir -p ~/.zinit && git clone https://github.com/zinit-zsh/zinit.git ~/.zinit/bin
+fi
+source ~/.zinit/bin/zinit.zsh
+
+### Instant Prompt ###
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+### Theme: Powerlevel10k ###
+zinit light romkatv/powerlevel10k
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-zstyle ':omz:update' mode auto                                                                                                                                                   
 
-plugins=(
-    auto-notify
-    autoupdate
-    colored-man-pages
-    command-not-found
-    copyfile
-    git
-    sudo
-	zsh-autocomplete
-	zsh-syntax-highlighting
-    zsh-calc
-    colorize
-    forgit
-)
+### Plugins ###
+# zinit light zsh-users/zsh-syntax-highlighting
+zinit light zdharma/fast-syntax-highlighting
+zinit light marlonrichert/zsh-autocomplete
+zinit light hlissner/zsh-autopair
+zinit light MichaelAquilina/zsh-you-should-use
+zinit light MenkeTechnologies/zsh-more-completions
+zinit light zpm-zsh/colorize
+zinit load wfxr/forgit
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::copyfile
+zinit snippet OMZP::sudo
+autoload -Uz compinit && compinit
+zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximate _ignored
 
+### Custom Functions ###
 ex () {
-    if [ -f "$1" ] ; then
+    if [ -f "$1" ]; then
         case $1 in
             *.7z)        7z x $1      ;;
             *.bz2)       bunzip2 $1   ;;
@@ -58,15 +76,18 @@ ex () {
 
 k() { ps aux | grep -i "$1" | awk '{print $2, $11, $12}' | column -t | fzf -m | awk '{print $1}' | xargs -r kill -9; }
 
-[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
-[[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
+### Zoxide Integration ###
+zinit light ajeetdsouza/zoxide
+eval "$(zoxide init --no-cmd zsh)"
+unalias zi 2>/dev/null
+z() { __zoxide_z "$@" && lsd; }
+zi() {__zoxide_zi "$@" && lsd; }
 
-source $ZSH/oh-my-zsh.sh
-
+### Aliases ###
 alias arch='wget -E -k -p'
 alias c="printf '\033[2J\033[3J\033[1;1H'"
 alias cat='bat'
-alias compose='sudo docker compose'
+alias compose='podman-compose'
 alias grep='rg'
 alias gudo='sudo /bin/env WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"  XDG_RUNTIME_DIR=/user/run/1000'
 alias img='kitten icat'
@@ -88,10 +109,7 @@ alias z3="z ../../.."
 alias z4="z ../../../.."  
 alias z5="z ../../../../.." 
 
-eval "$(zoxide init zsh)"
-z() { __zoxide_z "$@" && lsd; }
-zi() {__zoxide_zi "$@" && lsd; }
-
+### Yazi integration ###
 function y() {
     print -Pn "\e]0;yazi\a"
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -101,19 +119,3 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
-
-zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximate _ignored
-
-# Created by `pipx` on 2025-03-25 18:36:16
-export PATH="$PATH:/home/artemis-arrow/.local/bin"
-
-# pnpm
-export PNPM_HOME="/home/artemis-arrow/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/artemis-arrow/.lmstudio/bin"

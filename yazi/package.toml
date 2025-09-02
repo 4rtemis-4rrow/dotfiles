@@ -33,6 +33,11 @@ use = "boydaihungst/mediainfo"
 rev = "9629b1e"
 hash = "5204b4e2bd238c40fa66cf0a0191f084"
 
+[[plugin.deps]]
+use = "kirasok/epub-preview"
+rev = "521feb1"
+hash = "9aed469134b5c89fc4014ce278307ae3"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "695dac6"

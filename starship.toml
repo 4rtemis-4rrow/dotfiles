@@ -1,0 +1,52 @@
+# ----------------- Prompt layout -----------------
+format = """
+╭─ $os $directory $git_branch$git_status
+╰─$character
+"""
+# ----------------- Modules -----------------
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[os]
+format = ""
+disabled = false
+style = "fg:13"
+home_symbol = ""
+folder_icon = ""
+
+[directory]
+style = "fg:14"
+truncation_length = 1
+truncate_to_repo = false
+truncation_symbol = ""
+home_symbol = ""
+format = "[$path]($style)"
+
+[git_branch]
+symbol = " "
+style = "fg:76"
+format = " on $symbol$branch"
+
+[git_status]
+style = "fg:178"
+staged = "+$count"
+modified = "!$count"
+untracked = "?$count"
+stashed = "*$count"
+ahead = "⇡$count"
+behind = "⇣$count"
+diverged = "⇕$count"
+conflicted = "~$count"
+format = "[$all_status$ahead_behind]($style)"
+
+[character]
+success_symbol = "⮚(fg:10)"
+error_symbol   = "⮚(fg:1) '"
+vicmd_symbol   = "❮"
+vimcmd_replace_one_symbol = "▶"
+vimcmd_visual_symbol = "V"
+
+# ----------------- Continuation prompt -----------------
