@@ -122,6 +122,13 @@ if type -q zoxide
     end
 end
 
+# Remove zoxide’s default completions
+complete -c z -e
+
+# Add cd-like directory completions
+complete -c z -a "(__fish_complete_directories)"
+
+
 ### Prompt Config ###
 set -g fish_greeting ""
 set -g tide_left_prompt_frame_enabled true
