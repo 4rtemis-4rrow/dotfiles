@@ -114,12 +114,6 @@ abbr z5 "z ../../../../.."
 # Zoxide integration
 if type -q zoxide
     zoxide init fish | source
-
-    # Wrap z to run lsd after jumping
-    functions -e z    # remove any existing z
-    function z
-        __zoxide_z $argv; and lsd
-    end
 end
 
 # Remove zoxide’s default completions
@@ -128,6 +122,16 @@ complete -c z -e
 # Add cd-like directory completions
 complete -c z -a "(__fish_complete_directories)"
 
+function z
+    if test (count $argv) -eq 0
+        cd ~
+    else if test -d $argv[1]
+        cd $argv[1]
+    else
+        __zoxide_z $argv
+    end
+    and lsd
+end
 
 ### Prompt Config ###
 set -g fish_greeting ""
